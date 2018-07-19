@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Scrapy," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="GaryMarine" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="@概述  用scrapy框架爬取股票数据实例 将同花顺中融资融券中的几只个股的历史数据爬下来，并保存为csv文件（csv格式是数据分析最友好的格式） 使用到了pileline和中间件middleware  @创建工程 1scrapy startproject mystockspider @工程结构简介  mystocks/ 工程根目录 mystocks/mystocks/ 工程代码存放目录 scr">
+<meta name="keywords" content="Scrapy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scrapy爬取股票数据">
+<meta property="og:url" content="http://lidx.club/2017/07/05/Scrapy爬取股票数据/index.html">
+<meta property="og:site_name" content="GaryMarine">
+<meta property="og:description" content="@概述  用scrapy框架爬取股票数据实例 将同花顺中融资融券中的几只个股的历史数据爬下来，并保存为csv文件（csv格式是数据分析最友好的格式） 使用到了pileline和中间件middleware  @创建工程 1scrapy startproject mystockspider @工程结构简介  mystocks/ 工程根目录 mystocks/mystocks/ 工程代码存放目录 scr">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-19T11:27:41.245Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Scrapy爬取股票数据">
+<meta name="twitter:description" content="@概述  用scrapy框架爬取股票数据实例 将同花顺中融资融券中的几只个股的历史数据爬下来，并保存为csv文件（csv格式是数据分析最友好的格式） 使用到了pileline和中间件middleware  @创建工程 1scrapy startproject mystockspider @工程结构简介  mystocks/ 工程根目录 mystocks/mystocks/ 工程代码存放目录 scr">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lidx.club/2017/07/05/Scrapy爬取股票数据/"/>
+
+
+
+
+
+  <title>Scrapy爬取股票数据 | GaryMarine</title>
+  
+
+
+
+
+
+
+
+
+  <style>
+  .forkme{
+ display: none;
+ }
+  @media (min-width: 768px) {
+ .forkme{
+ display: inline;
+ }
+  }
+  </style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <!-- <a href="https://github.com/GaryMarine"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub"></a> 彩带样式-->
+
+    <a href="https://github.com/GaryMarine" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GaryMarine</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Thus things flow away day and night.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lidx.club/2017/07/05/Scrapy爬取股票数据/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="爷傲丶奈我何☄">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaryMarine">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Scrapy爬取股票数据</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-05T22:18:15+08:00">
+                2017-07-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/05/Scrapy爬取股票数据/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/07/05/Scrapy爬取股票数据/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,043
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>@概述</p>
+<ul>
+<li>用scrapy框架爬取股票数据实例</li>
+<li>将同花顺中融资融券中的几只个股的历史数据爬下来，并保存为csv文件（csv格式是数据分析最友好的格式）</li>
+<li>使用到了pileline和中间件middleware</li>
+</ul>
+<p>@创建工程</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">scrapy</span> <span class="selector-tag">startproject</span> <span class="selector-tag">mystockspider</span></span><br></pre></td></tr></table></figure>
+<p>@工程结构简介</p>
+<ul>
+<li>mystocks/ 工程根目录</li>
+<li>mystocks/mystocks/ 工程代码存放目录</li>
+<li>scrapy.cfg 部署文件</li>
+<li>mystocks/mystocks/spiders/ 爬虫源文件存放目录</li>
+<li>mystocks/mystocks/items.py 数据模型模块</li>
+<li>mystocks/mystocks/pipelines.py 数据模型处理模块</li>
+<li>mystocks/mystocks/middlewares.py 下载中间件模块</li>
+<li>mystocks/mystocks/settings.py 设置模块</li>
+</ul>
+<p>@在items.py中创建数据模型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 个股数据模型</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StockItem</span><span class="params">(scrapy.Item)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 股票名称</span></span><br><span class="line">    name = scrapy.Field()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 股票详细信息</span></span><br><span class="line">    data = scrapy.Field()</span><br></pre></td></tr></table></figure>
+<p>@在spiders/目录下创建爬虫源代码my_stock_spider.py</p>
+<ul>
+<li>源文件名称和类名称都是任意的</li>
+<li>name属性所定义的爬虫名称，将来启动爬虫的命令会使用到</li>
+<li>start_urls是爬虫开始工作的起始页</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义爬虫类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyStockSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义爬虫名称（命令行启动爬虫要用）</span></span><br><span class="line">    name = <span class="string">'mystockspider'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义起始 url</span></span><br><span class="line">    start_urls = [<span class="string">'http://stock.10jqka.com.cn/'</span>]</span><br></pre></td></tr></table></figure>
+<p>@定义起始页响应的处理函数parse</p>
+<ul>
+<li>这里的parse函数的名称和参数都是固定的写法，不可改变，可以在IDE中直接通过插入覆写方法实现</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 响应处理函数</span></span><br><span class="line"><span class="comment"># response为start_url所返回的响应对象</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br></pre></td></tr></table></figure>
+<p>@首页响应函数的具体实现</p>
+<ul>
+<li>这里要做的事情就是从页面超链接中提取出【个股名称】和【详情页超链接】</li>
+<li>xpath规则请参见：<a href="http://blog.csdn.net/u010986776/article/details/79250788" target="_blank" rel="noopener">http://blog.csdn.net/u010986776/article/details/79250788</a></li>
+<li>向每支个股详情页分别发起请求</li>
+<li>详情页的响应将由一个自定义的handle_detail方法来处理</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 响应处理函数</span></span><br><span class="line"><span class="comment"># response为start_url所返回的响应对象</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 提取页面个股超链接</span></span><br><span class="line">    a_list = response.xpath(<span class="string">"//div[@id='rzrq']/table[@class='m-table']/tbody/tr/td[2]/a"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 遍历所有超链接</span></span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> a_list :</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 提取股票名称、下载数据的url</span></span><br><span class="line">        gp_name = a.xpath(<span class="string">"./text()"</span>).extract()[<span class="number">0</span>]</span><br><span class="line">        link = a.xpath(<span class="string">"./@href"</span>).extract()[<span class="number">0</span>]</span><br><span class="line">        gp_id = link.split(<span class="string">'/'</span>)[<span class="number">-2</span>]</span><br><span class="line">        print(<span class="string">"gp_id : "</span>, gp_id)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 以个股名称作为文件名称，建立或清空一下文件</span></span><br><span class="line">        file_name = <span class="string">"./files/"</span> + gp_name + <span class="string">".csv"</span></span><br><span class="line">        <span class="keyword">with</span> open(file_name,<span class="string">"w"</span>):</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 针对每只个股发起爬取子链接的请求</span></span><br><span class="line">        <span class="comment"># 对子链接的处理交由download_data函数进行处理</span></span><br><span class="line">        <span class="comment"># meta = 转交子链接处理函数所处理的数据</span></span><br><span class="line">        <span class="keyword">yield</span> scrapy.Request(</span><br><span class="line">            url=link,</span><br><span class="line">            callback=self.handle_detail,</span><br><span class="line">            meta=&#123;<span class="string">'page'</span>: <span class="number">1</span>, <span class="string">'url_base'</span>: link, <span class="string">'name'</span>: gp_name,<span class="string">'id'</span>:gp_id&#125;</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+<p>@实现详情页的处理函数handle_detail</p>
+<ul>
+<li>详情页是一个分页数据，每一页的处理逻辑是相同的</li>
+<li>即提取表格数据，逐行添加到数据模型中</li>
+<li>提交数据模型给pipeline做后续处理</li>
+<li>最后向下一页继续发起请求，请求的回调处理函数依然为当前函数</li>
+<li>注意：这里由于递归调用了自身，一定要有终止条件，本例的终止条件是爬满三页即止</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 处理个股子链接返回的响应</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">handle_detail</span><span class="params">(self, response)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 构造数据模型</span></span><br><span class="line">    item = StockItem()</span><br><span class="line">    item[<span class="string">'name'</span>] = response.meta[<span class="string">'name'</span>]</span><br><span class="line">    item[<span class="string">'data'</span>] = <span class="string">""</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 提取出所有行，然后逐行提取所有单元格中的数据</span></span><br><span class="line">    <span class="comment"># 将数据保存到数据模型</span></span><br><span class="line">    tr_list = response.xpath(<span class="string">"//table[@class='m-table']/tbody/tr"</span>)</span><br><span class="line">    <span class="keyword">for</span> tr <span class="keyword">in</span> tr_list:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 提取所有单元格中的数据，以英文逗号连接</span></span><br><span class="line">        text_list = tr.xpath(<span class="string">"./td/text()"</span>).extract()</span><br><span class="line">        onerow = <span class="string">','</span>.join( [text.strip() <span class="keyword">for</span> text <span class="keyword">in</span> text_list] )</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 存储数据到item</span></span><br><span class="line">        item[<span class="string">'data'</span>] += onerow+<span class="string">"\n"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 提交数据模型给pipeline处理</span></span><br><span class="line">    <span class="keyword">yield</span> item</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 爬取个股分页数据，最多爬取3页</span></span><br><span class="line">    response.meta[<span class="string">'page'</span>] += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> response.meta[<span class="string">'page'</span>] &gt; <span class="number">3</span> :</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 不再提交新的请求,爬虫结束</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 组装个股分页数据url</span></span><br><span class="line">    url_str = <span class="string">'http://data.10jqka.com.cn/market/rzrqgg/code/'</span>+response.meta[<span class="string">'id'</span>]+<span class="string">'/order/desc/page/'</span> + str(response.meta[<span class="string">'page'</span>]) + <span class="string">'/ajax/1/'</span></span><br><span class="line">    print(<span class="string">"url_str = "</span>, url_str)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 稍事休息后，爬取下一页数据，仍交由当前函数处理</span></span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">yield</span> scrapy.Request(</span><br><span class="line">        url=url_str,</span><br><span class="line">        callback=self.handle_detail,</span><br><span class="line">        meta=&#123;<span class="string">'page'</span>: response.meta[<span class="string">'page'</span>], <span class="string">'url_base'</span>: url_str, <span class="string">'name'</span>: response.meta[<span class="string">'name'</span>],<span class="string">'id'</span>:response.meta[<span class="string">'id'</span>]&#125;</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+<p>@在pipelines.py中定义数据模型处理类</p>
+<ul>
+<li>这里的主要处理逻辑在process_item覆写方法中，</li>
+<li>这里的处理逻辑很简单，就是把数据模型中的数据写入对应的文件</li>
+<li>结尾处return了数据模型item，return给谁呢，答案是下一个pipeliine，如果有的话</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 处理spider返回的item对象</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StockSavingPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 初始化方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">"\n"</span>*<span class="number">5</span>,<span class="string">"StockSavingPipeline __init__"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 处理spider返回的item对象</span></span><br><span class="line">    <span class="comment"># item = 爬虫提交过来的数据模型</span></span><br><span class="line">    <span class="comment"># spider = 提交item的爬虫实例</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        print(<span class="string">"\n"</span> * <span class="number">5</span>, <span class="string">"StockSavingPipeline process_item"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 提取数据</span></span><br><span class="line">        data = item[<span class="string">'data'</span>]</span><br><span class="line">        file_name = <span class="string">"./files/"</span>+item[<span class="string">'name'</span>]+<span class="string">".csv"</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 向文件中写入数据</span></span><br><span class="line">        <span class="keyword">with</span> open(file_name,<span class="string">"a"</span>) <span class="keyword">as</span> file:</span><br><span class="line">            file.write(data)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 如果有多个pipeline，继续向下一个pipeline传递</span></span><br><span class="line">        <span class="comment"># 不返回则传递终止</span></span><br><span class="line">        <span class="comment"># 这里主要体现一个分工、分批处理的思想</span></span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对象被销毁时调用</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__del__</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">"\n"</span> * <span class="number">5</span>, <span class="string">"StockSavingPipeline __del__"</span>)</span><br></pre></td></tr></table></figure>
+<p>@告诉框架爬虫提交的数据对象由谁处理，这里有两种设置方式</p>
+<ul>
+<li>方式1：设置在settings.py中</li>
+<li>这里设置了多个pipeline处理类，所有爬虫类提交的所有item都会经过所有这些pipeline类</li>
+<li>这些pipeline的处理顺序是从小到大的，即100的会先处理，200的后处理，其取值范围是0-1000</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">    <span class="string">'myspider.pipelines.WbtcPipeline'</span>: <span class="number">200</span>,</span><br><span class="line">    <span class="string">'myspider.pipelines.WbtcPipeline_2'</span>: <span class="number">100</span>,</span><br><span class="line">    <span class="string">'myspider.pipelines.StockSavingPipeline'</span>: <span class="number">100</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>方式2：设置在爬虫类中，本例即MyStockSpider类中</li>
+<li>直接设置在爬虫类中，其优先级要高于设置在settings.py中</li>
+<li>这个规则对于后面对于下载中间件的配置也同样适用</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 声明使用哪些pipelines和下载中间件</span></span><br><span class="line"><span class="comment"># 这里设置的优先级要高于settings.py文件</span></span><br><span class="line">custom_settings = &#123;</span><br><span class="line">    <span class="string">'ITEM_PIPELINES'</span>:&#123;<span class="string">'myspider.pipelines.StockSavingPipeline'</span>:<span class="number">100</span>&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@配置下载中间件</p>
+<ul>
+<li>下载中间件的作用是对请求和响应进行预处理</li>
+<li>比如对所有请求添加随机的User-Agent</li>
+<li>比如对所有请求随机配置代理IP</li>
+<li>其配置同样有两种方式：配置在settings.py中或配置在爬虫类中，后者的优先级要高于前者</li>
+<li>settings.py中的配置如下：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置下载中间件</span></span><br><span class="line">DOWNLOADER_MIDDLEWARES = &#123;</span><br><span class="line">    <span class="comment"># 'myspider.middlewares.MyCustomDownloaderMiddleware': 543,</span></span><br><span class="line">    <span class="string">'myspider.middlewares.ProxyMiddleware'</span>: <span class="number">543</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>爬虫类中的配置如下：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 声明使用哪些pipelines和下载中间件</span></span><br><span class="line"><span class="comment"># 这里设置的优先级要高于settings.py文件</span></span><br><span class="line">custom_settings = &#123;</span><br><span class="line">    <span class="string">'ITEM_PIPELINES'</span>:&#123;<span class="string">'myspider.pipelines.StockSavingPipeline'</span>:<span class="number">100</span>&#125;,</span><br><span class="line">    <span class="string">'DOWNLOADER_MIDDLEWARES'</span>:&#123;<span class="string">'myspider.middlewares.ProxyMiddleware'</span>: <span class="number">543</span>&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@实现下载中间件</p>
+<ul>
+<li>这里实现对所有请求添加随机请求头和IP代理</li>
+<li>由于中间件同样也是可以配置多个，串联成链式结构的，所以return的标的下一个中间件</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProxyMiddleware</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对请求进行预处理</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request</span><span class="params">(self, request, spider)</span>:</span></span><br><span class="line">        print(<span class="string">"\n"</span> * <span class="number">5</span>, <span class="string">"ProxyMiddleware process_request"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 随机选择USER_AGENTS</span></span><br><span class="line">        <span class="comment"># 设置 request 对象的头部信息</span></span><br><span class="line">        user_agent = random.choice(USER_AGENTS)</span><br><span class="line">        <span class="comment"># request.headers.setdefault("User-Agent", user_agent)</span></span><br><span class="line">        request.headers[<span class="string">"User-Agent"</span>] = user_agent</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 随机选择 代理ip</span></span><br><span class="line">        <span class="comment"># 设置 request 代理 ip</span></span><br><span class="line">        ip = <span class="string">'http://'</span> + random.choice(PROXY_IP)</span><br><span class="line">        <span class="comment"># print('user_agent ========== ' + user_agent)</span></span><br><span class="line">        print(<span class="string">'Proxy ip ===== '</span> + ip)</span><br><span class="line">        request.meta[<span class="string">'proxy'</span>] = ip</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 这里如果return这个request会陷入死循环</span></span><br><span class="line">        <span class="comment"># return request</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对响应进行预处理</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_response</span><span class="params">(self, request, response, spider)</span>:</span></span><br><span class="line">        print(<span class="string">"\n"</span> * <span class="number">5</span>, <span class="string">"ProxyMiddleware process_response"</span>)</span><br><span class="line"></span><br><span class="line">        print(request.headers)</span><br><span class="line">        print(request.meta)</span><br><span class="line">        <span class="comment"># print(request.url)</span></span><br><span class="line">        <span class="comment"># print(response.status)</span></span><br><span class="line">        <span class="comment"># print(response.text)</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> response</span><br></pre></td></tr></table></figure>
+<p>@命令行中跑起来，爬虫就会源源不断地开始爬了</p>
+<ul>
+<li>这里要提前cd到爬虫工程的根目录</li>
+<li>如果在linux环境下，可以在前面加sudo，可以避免一些没必要的稀奇古怪的错误</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">scrapy</span> <span class="selector-tag">crawl</span> <span class="selector-tag">mystockspider</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Scrapy/" rel="tag"><i class="fa fa-tag"></i>Scrapy</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/30/selenium + chromedriver/" rel="next" title="selenium + chromedriver">
+                <i class="fa fa-chevron-left"></i> selenium + chromedriver
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/19/Windows 隐藏文件夹/" rel="prev" title="Windows 隐藏文件夹">
+                Windows 隐藏文件夹 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/icon.jpg"
+                alt="爷傲丶奈我何☄" />
+            
+              <p class="site-author-name" itemprop="name">爷傲丶奈我何☄</p>
+              <p class="site-description motion-element" itemprop="description">晚来天欲雪，能饮一杯无？</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+
+  
+  
+  <div class="site-state-item site-state-categories">
+    
+	  <a href="/categories/index.html">
+	
+      <span class="site-state-item-count">10</span>
+      <span class="site-state-item-name">分类</span>
+    </a>
+  </div>
+
+
+
+  
+  
+  <div class="site-state-item site-state-tags">
+    
+	  <a href="/tags/index.html">
+	
+      <span class="site-state-item-count">30</span>
+      <span class="site-state-item-name">标签</span>
+    </a>
+  </div>
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/GaryMarine" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/5092313013/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=196127&auto=0&height=66"></iframe>
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">爷傲丶奈我何☄</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问用户：
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问次数：
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'nqU1EATCeFgrTO2vTGKvQSt4-gzGzoHsz',
+        appKey: 'fJ1sGcJKLUEpHE1vytOJY1Tn',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 动态粒子-->
+  
+    <script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="108" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+   
+
+  <!-- 页面点击小心心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 动态浏览器标题栏 -->
+  <script type="text/javascript">var OriginTitile=document.title,st;document.addEventListener("visibilitychange",function(){document.hidden?(document.title="大爷常来玩呀",clearTimeout(st)):(document.title="Got ya~~"+OriginTitile,st=setTimeout(function(){document.title=OriginTitile},3e3))})</script>
+</body>
+</html>
