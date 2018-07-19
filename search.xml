@@ -3,6 +3,69 @@
   
     
     <entry>
+      <title>4</title>
+      <link href="/2018/07/19/4-4/"/>
+      <url>/2018/07/19/4-4/</url>
+      <content type="html"><![CDATA[]]></content>
+      
+      
+    </entry>
+    
+    <entry>
+      <title>4</title>
+      <link href="/2018/07/19/4-3/"/>
+      <url>/2018/07/19/4-3/</url>
+      <content type="html"><![CDATA[]]></content>
+      
+      
+    </entry>
+    
+    <entry>
+      <title>4</title>
+      <link href="/2018/07/19/4-2/"/>
+      <url>/2018/07/19/4-2/</url>
+      <content type="html"><![CDATA[]]></content>
+      
+      
+    </entry>
+    
+    <entry>
+      <title>4</title>
+      <link href="/2018/07/19/4-1/"/>
+      <url>/2018/07/19/4-1/</url>
+      <content type="html"><![CDATA[]]></content>
+      
+      
+    </entry>
+    
+    <entry>
+      <title>4</title>
+      <link href="/2018/07/19/4/"/>
+      <url>/2018/07/19/4/</url>
+      <content type="html"><![CDATA[]]></content>
+      
+      
+    </entry>
+    
+    <entry>
+      <title>3</title>
+      <link href="/2018/07/19/3/"/>
+      <url>/2018/07/19/3/</url>
+      <content type="html"><![CDATA[]]></content>
+      
+      
+    </entry>
+    
+    <entry>
+      <title>2</title>
+      <link href="/2018/07/19/2/"/>
+      <url>/2018/07/19/2/</url>
+      <content type="html"><![CDATA[]]></content>
+      
+      
+    </entry>
+    
+    <entry>
       <title>selenium</title>
       <link href="/2017/06/29/selenium/"/>
       <url>/2017/06/29/selenium/</url>
@@ -109,9 +172,9 @@
       
         <tags>
             
-            <tag> requests </tag>
-            
             <tag> 爬虫 </tag>
+            
+            <tag> requests </tag>
             
         </tags>
       
@@ -132,9 +195,9 @@
       
         <tags>
             
-            <tag> 爬虫 </tag>
-            
             <tag> handler </tag>
+            
+            <tag> 爬虫 </tag>
             
         </tags>
       
@@ -271,6 +334,48 @@
         <tags>
             
             <tag> TCP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Hexo Next 圆形头像并旋转</title>
+      <link href="/2016/12/19/Hexo%20Next%20%E5%9C%86%E5%BD%A2%E5%A4%B4%E5%83%8F%E5%B9%B6%E6%97%8B%E8%BD%AC/"/>
+      <url>/2016/12/19/Hexo%20Next%20%E5%9C%86%E5%BD%A2%E5%A4%B4%E5%83%8F%E5%B9%B6%E6%97%8B%E8%BD%AC/</url>
+      <content type="html"><![CDATA[<p>将头像显示成圆形，鼠标放上去有旋转效果，就像我的一样。<br>找到<em>/themes/next/source/css/_common/components/sidebar/sidebar-author.styl</em><br>做以下修改：</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.site-author-image</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">  <span class="attribute">padding</span>: $site-author-image-padding;</span><br><span class="line">  <span class="attribute">max-width</span>: $site-author-image-width;</span><br><span class="line">  <span class="attribute">height</span>: $site-author-image-height;</span><br><span class="line">  <span class="attribute">border</span>: $site-author-image-border-width solid $site-author-image-border-color;</span><br><span class="line">  # 头像圆形样式</span><br><span class="line">  <span class="comment">/* start */</span></span><br><span class="line">  <span class="selector-tag">border-radius</span>: 50%</span><br><span class="line">  <span class="selector-tag">webkit-transition</span>: 1<span class="selector-class">.4s</span> <span class="selector-tag">all</span>;</span><br><span class="line">  <span class="selector-tag">moz-transition</span>: 1<span class="selector-class">.4s</span> <span class="selector-tag">all</span>;</span><br><span class="line">  <span class="selector-tag">ms-transition</span>: 1<span class="selector-class">.4s</span> <span class="selector-tag">all</span>;</span><br><span class="line">  <span class="selector-tag">transition</span>: 1<span class="selector-class">.4s</span> <span class="selector-tag">all</span>;</span><br><span class="line">  <span class="comment">/* end */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.site-author-name</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: $site-author-name-margin;</span><br><span class="line">  <span class="attribute">text-align</span>: $site-author-name-align;</span><br><span class="line">  <span class="attribute">color</span>: $site-author-name-color;</span><br><span class="line">  <span class="attribute">font-weight</span>: $site-author-name-weight;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.site-description</span> &#123;</span><br><span class="line">  <span class="attribute">margin-top</span>: $site-description-margin-top;</span><br><span class="line">  <span class="attribute">text-align</span>: $site-description-align;</span><br><span class="line">  <span class="attribute">font-size</span>: $site-description-font-size;</span><br><span class="line">  <span class="attribute">color</span>: $site-description-color;</span><br><span class="line">&#125;</span><br><span class="line"># 头像旋转事件</span><br><span class="line"><span class="comment">/* start */</span></span><br><span class="line"><span class="selector-class">.site-author-image</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#55DAE1</span>;</span><br><span class="line">  <span class="attribute">webkit-transform</span>: <span class="built_in">rotate</span>(360deg) <span class="built_in">scale</span>(1.1);</span><br><span class="line">  <span class="attribute">moz-transform</span>: <span class="built_in">rotate</span>(360deg) <span class="built_in">scale</span>(1.1);</span><br><span class="line">  <span class="attribute">ms-transform</span>: <span class="built_in">rotate</span>(360deg) <span class="built_in">scale</span>(1.1);</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">rotate</span>(360deg) <span class="built_in">scale</span>(1.1);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* end */</span></span><br></pre></td></tr></table></figure><p><strong>原文地址：</strong><a href="http://www.iooeo.com/2017/07/20/Hexo-Next-%E5%A4%B4%E5%83%8F%E5%9C%86%E5%BD%A2%E5%B9%B6%E6%97%8B%E8%BD%AC/" target="_blank" rel="noopener">http://www.iooeo.com/2017/07/20/Hexo-Next-头像圆形并旋转/</a> </p>]]></content>
+      
+      <categories>
+          
+          <category> Hexo </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Next </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Hexo Next主题优化访问速度</title>
+      <link href="/2016/12/19/Hexo%20Next%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96%E8%AE%BF%E9%97%AE%E9%80%9F%E5%BA%A6/"/>
+      <url>/2016/12/19/Hexo%20Next%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96%E8%AE%BF%E9%97%AE%E9%80%9F%E5%BA%A6/</url>
+      <content type="html"><![CDATA[<p>最近一段时间博客打开速度很慢，浏览器检查网络信息后发现是因为fonts.googleapis.com加载极慢。Google了一下，发现了解决方案。</p><p>在next主题的_config.yml里面:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Uri of fonts host. E.g. //fonts.googleapis.com (Default)</span><br><span class="line">host:</span><br></pre></td></tr></table></figure><p>host 后面添加 ‘//fonts.lug.ustc.edu.cn’ 。这个是中科大的源,经实测比较快。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">host: //fonts.lug.ustc.edu.cn</span><br></pre></td></tr></table></figure><p>参考网站: <a href="http://www.zerokeeper.com/2016/08/02/hexo-google%E5%AD%97%E5%BA%93/" target="_blank" rel="noopener">zerokeeper博客</a> &amp; <a href="https://blog.injike.com/2016/08/15/f9f4b8e84be9ad965ae19a190d25109f/" target="_blank" rel="noopener">回忆时光博客</a> </p>]]></content>
+      
+      <categories>
+          
+          <category> Hexo </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Next </tag>
             
         </tags>
       
