@@ -4,6 +4,46 @@
 
     
   <url>
+    <loc>https://lidx.club/2017/05/06/Linux%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%9A%84%E5%AE%89%E8%A3%85/</loc>
+    <lastmod>2018-07-22T08:44:36.906Z</lastmod>
+    <data>
+        <display>
+        <title>Linux常用工具的安装</title>
+        <pubTime>2017-05-06T09:46:18.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="https://lidx.club/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://lidx.club/2017/03/10/Windows%20%E9%9A%90%E8%97%8F%E6%96%87%E4%BB%B6%E5%A4%B9/</loc>
+    <lastmod>2018-07-22T08:43:16.191Z</lastmod>
+    <data>
+        <display>
+        <title>Windows 隐藏文件夹</title>
+        <pubTime>2017-03-10T03:24:12.000Z</pubTime>
+        
+        <tag>皮</tag>
+         
+         
+           
+             
+              <breadCrumb title="Windows" url="https://lidx.club/categories/Windows/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://lidx.club/2017/05/13/Redis/</loc>
     <lastmod>2018-07-22T08:38:10.460Z</lastmod>
     <data>
@@ -77,46 +117,6 @@
            
              
               <breadCrumb title="Linux" url="https://lidx.club/categories/Linux/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://lidx.club/2017/05/06/Linux%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%9A%84%E5%AE%89%E8%A3%85/</loc>
-    <lastmod>2018-07-22T08:35:08.112Z</lastmod>
-    <data>
-        <display>
-        <title>Linux常用工具的安装</title>
-        <pubTime>2017-05-06T09:46:18.000Z</pubTime>
-        
-        <tag>install</tag>
-         
-         
-           
-             
-              <breadCrumb title="Linux" url="https://lidx.club/categories/Linux/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://lidx.club/2017/03/10/Windows%20%E9%9A%90%E8%97%8F%E6%96%87%E4%BB%B6%E5%A4%B9/</loc>
-    <lastmod>2018-07-22T08:32:24.510Z</lastmod>
-    <data>
-        <display>
-        <title>Windows 隐藏文件夹</title>
-        <pubTime>2017-03-10T03:24:12.000Z</pubTime>
-        
-        <tag>技巧</tag>
-         
-         
-           
-             
-              <breadCrumb title="Windows" url="https://lidx.club/categories/Windows/"/>
           
         </display>
     </data>
