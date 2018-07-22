@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="禅," />
+  <meta name="keywords" content="scrapy-redis," />
 
 
 
@@ -81,18 +81,17 @@
 
 
 
-<meta name="description" content="12345678910111213141516171819202122232425262728293031323334 1 Beautiful is better than ugly. 2 # 优美胜于丑陋（Python以编写优美的代码为目标） 3 Explicit is better than implicit. 4 # 明了胜于晦涩（优美的代码应当是明了的，命名规范，风格相似）  5 Simp">
-<meta name="keywords" content="禅">
+<meta name="keywords" content="scrapy-redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python之禅">
-<meta property="og:url" content="https://lidx.club/2017/05/19/Python之禅/index.html">
+<meta property="og:title" content="Python爬虫scrapy-redis分布式">
+<meta property="og:url" content="https://lidx.club/2017/07/06/Python爬虫scrapy-redis分布式/index.html">
 <meta property="og:site_name" content="GaryMarine">
-<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334 1 Beautiful is better than ugly. 2 # 优美胜于丑陋（Python以编写优美的代码为目标） 3 Explicit is better than implicit. 4 # 明了胜于晦涩（优美的代码应当是明了的，命名规范，风格相似）  5 Simp">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-19T08:09:07.949Z">
+<meta property="og:image" content="https://img.zcool.cn/community/015e9f5540feeb000001e71b0a08ca.jpg@1280w_1l_2o_100sh.jpg">
+<meta property="og:updated_time" content="2018-07-22T08:03:35.762Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python之禅">
-<meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031323334 1 Beautiful is better than ugly. 2 # 优美胜于丑陋（Python以编写优美的代码为目标） 3 Explicit is better than implicit. 4 # 明了胜于晦涩（优美的代码应当是明了的，命名规范，风格相似）  5 Simp">
+<meta name="twitter:title" content="Python爬虫scrapy-redis分布式">
+<meta name="twitter:image" content="https://img.zcool.cn/community/015e9f5540feeb000001e71b0a08ca.jpg@1280w_1l_2o_100sh.jpg">
 
 
 
@@ -122,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="https://lidx.club/2017/05/19/Python之禅/"/>
+  <link rel="canonical" href="https://lidx.club/2017/07/06/Python爬虫scrapy-redis分布式/"/>
 
 
 
 
 
-  <title>Python之禅 | GaryMarine</title>
+  <title>Python爬虫scrapy-redis分布式 | GaryMarine</title>
   
 
 
@@ -313,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lidx.club/2017/05/19/Python之禅/">
+    <link itemprop="mainEntityOfPage" href="https://lidx.club/2017/07/06/Python爬虫scrapy-redis分布式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="爷傲丶奈我何☄">
@@ -330,7 +329,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Python之禅</h1>
+          <h1 class="post-title" itemprop="name headline">Python爬虫scrapy-redis分布式</h1>
         
 
         <div class="post-meta">
@@ -342,8 +341,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-19T10:24:21+08:00">
-                2017-05-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-06T16:38:29+08:00">
+                2017-07-06
               </time>
             
 
@@ -383,8 +382,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/05/19/Python之禅/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2017/05/19/Python之禅/" itemprop="commentCount"></span>
+                <a href="/2017/07/06/Python爬虫scrapy-redis分布式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/07/06/Python爬虫scrapy-redis分布式/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -406,7 +405,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  596
+                  1,199
                 </span>
               
 
@@ -422,7 +421,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  6
                 </span>
               
             </div>
@@ -443,7 +442,22 @@
       
 
       
-        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span> Beautiful <span class="keyword">is</span> better than ugly.</span><br><span class="line"> <span class="number">2</span> <span class="comment"># 优美胜于丑陋（Python以编写优美的代码为目标）</span></span><br><span class="line"> <span class="number">3</span> Explicit <span class="keyword">is</span> better than implicit.</span><br><span class="line"> <span class="number">4</span> <span class="comment"># 明了胜于晦涩（优美的代码应当是明了的，命名规范，风格相似） </span></span><br><span class="line"> <span class="number">5</span> Simple <span class="keyword">is</span> better than complex.</span><br><span class="line"> <span class="number">6</span> <span class="comment"># 简洁胜于复杂（优美的代码应当是简洁的，不要有复杂的内部实现） </span></span><br><span class="line"> <span class="number">7</span> Complex <span class="keyword">is</span> better than complicated.</span><br><span class="line"> <span class="number">8</span> <span class="comment"># 复杂胜于凌乱（如果复杂不可避免，那代码间也不能有难懂的关系，要保持接口简洁）</span></span><br><span class="line"> <span class="number">9</span> Flat <span class="keyword">is</span> better than nested.</span><br><span class="line"><span class="number">10</span> <span class="comment"># 扁平胜于嵌套（优美的代码应当是扁平的，不能有太多的嵌套） </span></span><br><span class="line"><span class="number">11</span> Sparse <span class="keyword">is</span> better than dense.</span><br><span class="line"><span class="number">12</span> <span class="comment"># 间隔胜于紧凑（优美的代码有适当的间隔，不要奢望一行代码解决问题） </span></span><br><span class="line"><span class="number">13</span> Readability counts.</span><br><span class="line"><span class="number">14</span> <span class="comment"># 可读性很重要（优美的代码是可读的） </span></span><br><span class="line"><span class="number">15</span> Special cases aren<span class="string">'t special enough to break the rules.</span></span><br><span class="line"><span class="string">16 Although practicality beats purity.</span></span><br><span class="line"><span class="string">17 # 即便假借特例的实用性之名，也不可违背这些规则（这些规则至高无上） </span></span><br><span class="line"><span class="string">18 Errors should never pass silently.</span></span><br><span class="line"><span class="string">19 Unless explicitly silenced.</span></span><br><span class="line"><span class="string">20 # 不要包容所有错误，除非你确定需要这样做（精准地捕获异常，不写except:pass风格的代码） </span></span><br><span class="line"><span class="string">21 In the face of ambiguity, refuse the temptation to guess.</span></span><br><span class="line"><span class="string">22 # 当存在多种可能，不要尝试去猜测 </span></span><br><span class="line"><span class="string">23 There should be one-- and preferably only one --obvious way to do it.</span></span><br><span class="line"><span class="string">24 # 而是尽量找一种，最好是唯一一种明显的解决方案（如果不确定，就用穷举法） </span></span><br><span class="line"><span class="string">25 Although that way may not be obvious at first unless you'</span>re Dutch.</span><br><span class="line"><span class="number">26</span> <span class="comment"># 虽然这并不容易，因为你不是 Python 之父（这里的Dutch是指Guido）</span></span><br><span class="line"><span class="number">27</span> Now <span class="keyword">is</span> better than never.</span><br><span class="line"><span class="number">28</span> Although never <span class="keyword">is</span> often better than *right* now.</span><br><span class="line"><span class="number">29</span> <span class="comment"># 做也许好过不做，但不假思索就动手还不如不做（动手之前要细思量）</span></span><br><span class="line"><span class="number">30</span> If the implementation <span class="keyword">is</span> hard to explain, it<span class="string">'s a bad idea.</span></span><br><span class="line"><span class="string">31 If the implementation is easy to explain, it may be a good idea.</span></span><br><span class="line"><span class="string">32 # 如果你无法向人描述你的方案，那肯定不是一个好方案；反之亦然（方案测评标准） </span></span><br><span class="line"><span class="string">33 Namespaces are one honking great idea -- let'</span>s do more of those!</span><br><span class="line"><span class="number">34</span> <span class="comment"># 命名空间是一种绝妙的理念，我们应当多加利用（倡导与号召）</span></span><br></pre></td></tr></table></figure>
+        <p><img src="https://img.zcool.cn/community/015e9f5540feeb000001e71b0a08ca.jpg@1280w_1l_2o_100sh.jpg" width="688" height="400" alt="git" align="center"></p>
+<a id="more"></a>
+<h1 id="Python爬虫scrapy-redis分布式"><a href="#Python爬虫scrapy-redis分布式" class="headerlink" title="Python爬虫scrapy-redis分布式"></a>Python爬虫scrapy-redis分布式</h1><p><strong>目标任务：将之前新浪网的Scrapy爬虫项目，修改为基于RedisSpider类的scrapy-redis分布式爬虫项目，将数据存入redis数据库。</strong></p>
+<p><strong>一、item文件，和之前项目一样不需要改变</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">reload(sys)</span><br><span class="line">sys.setdefaultencoding(<span class="string">"utf-8"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SinanewsItem</span><span class="params">(scrapy.Item)</span>:</span></span><br><span class="line">    <span class="comment"># 大类的标题和url</span></span><br><span class="line">    parentTitle = scrapy.Field()</span><br><span class="line">    parentUrls = scrapy.Field()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 小类的标题和子url</span></span><br><span class="line">    subTitle = scrapy.Field()</span><br><span class="line">    subUrls = scrapy.Field()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 小类目录存储路径</span></span><br><span class="line">    subFilename = scrapy.Field()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 小类下的子链接</span></span><br><span class="line">    sonUrls = scrapy.Field()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 文章标题和内容</span></span><br><span class="line">    head = scrapy.Field()</span><br><span class="line">    content = scrapy.Field()</span><br></pre></td></tr></table></figure>
+<p><strong>二、spiders爬虫文件，使用RedisSpider类替换之前的Spider类，其余地方做些许改动即可，具体代码如下：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> sinaNews.items <span class="keyword">import</span> SinanewsItem</span><br><span class="line"><span class="keyword">from</span> scrapy_redis.spiders <span class="keyword">import</span> RedisSpider</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">reload(sys)</span><br><span class="line">sys.setdefaultencoding(<span class="string">"utf-8"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SinaSpider</span><span class="params">(RedisSpider)</span>:</span></span><br><span class="line">    name = <span class="string">"sina"</span></span><br><span class="line">    <span class="comment"># 启动爬虫的命令</span></span><br><span class="line">    redis_key = <span class="string">"sinaspider:strat_urls"</span></span><br><span class="line">　　<span class="comment"># 动态定义爬虫爬取域范围</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, *args, **kwargs)</span>:</span></span><br><span class="line">        domain = kwargs.pop(<span class="string">'domain'</span>, <span class="string">''</span>)</span><br><span class="line">        self.allowed_domains = filter(<span class="keyword">None</span>, domain.split(<span class="string">','</span>))</span><br><span class="line">        super(SinaSpider, self).__init__(*args, **kwargs)</span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        items= []</span><br><span class="line">        <span class="comment"># 所有大类的url 和 标题</span></span><br><span class="line">        parentUrls = response.xpath(<span class="string">'//div[@id="tab01"]/div/h3/a/@href'</span>).extract()</span><br><span class="line">        parentTitle = response.xpath(<span class="string">'//div[@id="tab01"]/div/h3/a/text()'</span>).extract()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 所有小类的ur 和 标题</span></span><br><span class="line">        subUrls  = response.xpath(<span class="string">'//div[@id="tab01"]/div/ul/li/a/@href'</span>).extract()</span><br><span class="line">        subTitle = response.xpath(<span class="string">'//div[@id="tab01"]/div/ul/li/a/text()'</span>).extract()</span><br><span class="line"></span><br><span class="line">        <span class="comment">#爬取所有大类</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(parentTitle)):</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 爬取所有小类</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">0</span>, len(subUrls)):</span><br><span class="line">                item = SinanewsItem()</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 保存大类的title和urls</span></span><br><span class="line">                item[<span class="string">'parentTitle'</span>] = parentTitle[i]</span><br><span class="line">                item[<span class="string">'parentUrls'</span>] = parentUrls[i]</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 检查小类的url是否以同类别大类url开头，如果是返回True (sports.sina.com.cn 和 sports.sina.com.cn/nba)</span></span><br><span class="line">                if_belong = subUrls[j].startswith(item[<span class="string">'parentUrls'</span>])</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 如果属于本大类，将存储目录放在本大类目录下</span></span><br><span class="line">                <span class="keyword">if</span>(if_belong):</span><br><span class="line">                    </span><br><span class="line">                    <span class="comment"># 存储 小类url、title和filename字段数据</span></span><br><span class="line">                    item[<span class="string">'subUrls'</span>] = subUrls[j]</span><br><span class="line">                    item[<span class="string">'subTitle'</span>] =subTitle[j]</span><br><span class="line">                    items.append(item)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#发送每个小类url的Request请求，得到Response连同包含meta数据 一同交给回调函数 second_parse 方法处理</span></span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> items:</span><br><span class="line">            <span class="keyword">yield</span> scrapy.Request( url = item[<span class="string">'subUrls'</span>], meta=&#123;<span class="string">'meta_1'</span>: item&#125;, callback=self.second_parse)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#对于返回的小类的url，再进行递归请求</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">second_parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="comment"># 提取每次Response的meta数据</span></span><br><span class="line">        meta_1= response.meta[<span class="string">'meta_1'</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 取出小类里所有子链接</span></span><br><span class="line">        sonUrls = response.xpath(<span class="string">'//a/@href'</span>).extract()</span><br><span class="line"></span><br><span class="line">        items= []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(sonUrls)):</span><br><span class="line">            <span class="comment"># 检查每个链接是否以大类url开头、以.shtml结尾，如果是返回True</span></span><br><span class="line">            if_belong = sonUrls[i].endswith(<span class="string">'.shtml'</span>) <span class="keyword">and</span> sonUrls[i].startswith(meta_1[<span class="string">'parentUrls'</span>])</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 如果属于本大类，获取字段值放在同一个item下便于传输</span></span><br><span class="line">            <span class="keyword">if</span>(if_belong):</span><br><span class="line">                item = SinanewsItem()</span><br><span class="line">                item[<span class="string">'parentTitle'</span>] =meta_1[<span class="string">'parentTitle'</span>]</span><br><span class="line">                item[<span class="string">'parentUrls'</span>] =meta_1[<span class="string">'parentUrls'</span>]</span><br><span class="line">                item[<span class="string">'subUrls'</span>] = meta_1[<span class="string">'subUrls'</span>]</span><br><span class="line">                item[<span class="string">'subTitle'</span>] = meta_1[<span class="string">'subTitle'</span>]</span><br><span class="line">                item[<span class="string">'sonUrls'</span>] = sonUrls[i]</span><br><span class="line">                items.append(item)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#发送每个小类下子链接url的Request请求，得到Response后连同包含meta数据 一同交给回调函数 detail_parse 方法处理</span></span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> items:</span><br><span class="line">                <span class="keyword">yield</span> scrapy.Request(url=item[<span class="string">'sonUrls'</span>], meta=&#123;<span class="string">'meta_2'</span>:item&#125;, callback = self.detail_parse)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 数据解析方法，获取文章标题和内容</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">detail_parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        item = response.meta[<span class="string">'meta_2'</span>]</span><br><span class="line">        content = <span class="string">""</span></span><br><span class="line">        head = response.xpath(<span class="string">'//h1[@id="main_title"]/text()'</span>)</span><br><span class="line">        content_list = response.xpath(<span class="string">'//div[@id="artibody"]/p/text()'</span>).extract()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 将p标签里的文本内容合并到一起</span></span><br><span class="line">        <span class="keyword">for</span> content_one <span class="keyword">in</span> content_list:</span><br><span class="line">            content += content_one</span><br><span class="line"></span><br><span class="line">        item[<span class="string">'head'</span>]= head[<span class="number">0</span>] <span class="keyword">if</span> len(head) &gt; <span class="number">0</span> <span class="keyword">else</span> <span class="string">"NULL"</span></span><br><span class="line">        item[<span class="string">'content'</span>]= content</span><br><span class="line"></span><br><span class="line">        <span class="keyword">yield</span> item</span><br></pre></td></tr></table></figure>
+<p><strong>三、settings文件设置</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">SPIDER_MODULES = [<span class="string">'sinaNews.spiders'</span>]</span><br><span class="line">NEWSPIDER_MODULE = <span class="string">'sinaNews.spiders'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用scrapy-redis里的去重组件，不使用scrapy默认的去重方式</span></span><br><span class="line">DUPEFILTER_CLASS = <span class="string">"scrapy_redis.dupefilter.RFPDupeFilter"</span></span><br><span class="line"><span class="comment"># 使用scrapy-redis里的调度器组件，不使用默认的调度器</span></span><br><span class="line">SCHEDULER = <span class="string">"scrapy_redis.scheduler.Scheduler"</span></span><br><span class="line"><span class="comment"># 允许暂停，redis请求记录不丢失</span></span><br><span class="line">SCHEDULER_PERSIST = <span class="keyword">True</span></span><br><span class="line"><span class="comment"># 默认的scrapy-redis请求队列形式（按优先级）</span></span><br><span class="line">SCHEDULER_QUEUE_CLASS = <span class="string">"scrapy_redis.queue.SpiderPriorityQueue"</span></span><br><span class="line"><span class="comment"># 队列形式，请求先进先出</span></span><br><span class="line"><span class="comment">#SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.SpiderQueue"</span></span><br><span class="line"><span class="comment"># 栈形式，请求先进后出</span></span><br><span class="line"><span class="comment">#SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.SpiderStack"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 只是将数据放到redis数据库，不需要写pipelines文件</span></span><br><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line"><span class="comment">#    'Sina.pipelines.SinaPipeline': 300,</span></span><br><span class="line">    <span class="string">'scrapy_redis.pipelines.RedisPipeline'</span>: <span class="number">400</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># LOG_LEVEL = 'DEBUG'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Introduce an artifical delay to make use of parallelism. to speed up the</span></span><br><span class="line"><span class="comment"># crawl.</span></span><br><span class="line">DOWNLOAD_DELAY = <span class="number">1</span></span><br><span class="line"><span class="comment"># 指定数据库的主机IP</span></span><br><span class="line">REDIS_HOST = <span class="string">"192.168.13.26"</span></span><br><span class="line"><span class="comment"># 指定数据库的端口号</span></span><br><span class="line">REDIS_PORT = <span class="number">6379</span></span><br></pre></td></tr></table></figure>
+<p><strong>执行命令：</strong></p>
+<p><strong>本次直接使用本地的redis数据库，将settings文件中的REDIS_HOST和REDIS_PORT注释掉。</strong></p>
+<p><strong>启动爬虫程序</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">scrapy</span> <span class="selector-tag">runspider</span> <span class="selector-tag">sina</span><span class="selector-class">.py</span></span><br></pre></td></tr></table></figure>
+<p><strong>表示程序处于等待状态，此时在redis数据库端执行如下命令：</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli&gt; lpush sinaspider:start_urls http://news.sina.com.cn/guide/</span><br></pre></td></tr></table></figure>
+<p><strong><a href="http://news.sina.com.cn/guide/为起始url，此时程序开始执行。" target="_blank" rel="noopener">http://news.sina.com.cn/guide/为起始url，此时程序开始执行。</a></strong></p>
 
       
     </div>
@@ -461,7 +475,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/禅/" rel="tag"><i class="fa fa-tag"></i>禅</a>
+            <a href="/tags/scrapy-redis/" rel="tag"><i class="fa fa-tag"></i>scrapy-redis</a>
           
         </div>
       
@@ -474,8 +488,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/18/Django 博客项目（1）/" rel="next" title="Django 博客项目（1）">
-                <i class="fa fa-chevron-left"></i> Django 博客项目（1）
+              <a href="/2017/07/04/Scrapy爬取股票数据/" rel="next" title="Scrapy爬取股票数据">
+                <i class="fa fa-chevron-left"></i> Scrapy爬取股票数据
               </a>
             
           </div>
@@ -484,8 +498,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/05/20/Django 博客项目（2）/" rel="prev" title="Django 博客项目（2）">
-                Django 博客项目（2） <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/21/Linux常用命令100条/" rel="prev" title="Linux常用命令100条">
+                Linux常用命令100条 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -541,8 +555,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -632,6 +655,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python爬虫scrapy-redis分布式"><span class="nav-number">1.</span> <span class="nav-text">Python爬虫scrapy-redis分布式</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
