@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Redis,Python," />
+  <meta name="keywords" content="排序," />
 
 
 
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="@ 概述  Python与Redis的交互可以通过第三方类库redis来进行 交互的一般流程：创建Redis客户端-&amp;gt;通过客户端的API完成数据交互 交互结束也无需断开连接，这一点与磁盘型数据库不同，毕竟访问内存是无所谓“释放IO资源”一说的 redis的PythonAPI和redis的shell操作命令是极为相似的； 安装第三方库redis  1pip install redis @red">
-<meta name="keywords" content="Redis,Python">
+<meta name="description" content="1 冒泡排序—-稳定 最大的数像冒泡一样依次浮出 紧挨着的两个数，两两相比，通过交换，大的永远排在后，依次循环，替换，最大的数就排在了最后面 两个for循环嵌套，内部循环负责从左到右依次比对，外部循环负责比对循环的次数 立旗优化，若循环一遍，没有更替，则已为正序排序，直接退出循环 时间复杂度 最优：O(n)，最坏O(n**2) 最优 遍历一次发现没有任何需要交换的元素  1234567891011">
+<meta name="keywords" content="排序">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python与Redis的交互+Redis事务">
-<meta property="og:url" content="https://lidx.club/2017/06/06/Python与Redis的交互+Redis事务/index.html">
+<meta property="og:title" content="Python 排序">
+<meta property="og:url" content="https://lidx.club/2017/02/15/Python 排序/index.html">
 <meta property="og:site_name" content="GaryMarine">
-<meta property="og:description" content="@ 概述  Python与Redis的交互可以通过第三方类库redis来进行 交互的一般流程：创建Redis客户端-&amp;gt;通过客户端的API完成数据交互 交互结束也无需断开连接，这一点与磁盘型数据库不同，毕竟访问内存是无所谓“释放IO资源”一说的 redis的PythonAPI和redis的shell操作命令是极为相似的； 安装第三方库redis  1pip install redis @red">
+<meta property="og:description" content="1 冒泡排序—-稳定 最大的数像冒泡一样依次浮出 紧挨着的两个数，两两相比，通过交换，大的永远排在后，依次循环，替换，最大的数就排在了最后面 两个for循环嵌套，内部循环负责从左到右依次比对，外部循环负责比对循环的次数 立旗优化，若循环一遍，没有更替，则已为正序排序，直接退出循环 时间复杂度 最优：O(n)，最坏O(n**2) 最优 遍历一次发现没有任何需要交换的元素  1234567891011">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-19T08:42:16.726Z">
+<meta property="og:updated_time" content="2018-07-22T07:09:40.753Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python与Redis的交互+Redis事务">
-<meta name="twitter:description" content="@ 概述  Python与Redis的交互可以通过第三方类库redis来进行 交互的一般流程：创建Redis客户端-&amp;gt;通过客户端的API完成数据交互 交互结束也无需断开连接，这一点与磁盘型数据库不同，毕竟访问内存是无所谓“释放IO资源”一说的 redis的PythonAPI和redis的shell操作命令是极为相似的； 安装第三方库redis  1pip install redis @red">
+<meta name="twitter:title" content="Python 排序">
+<meta name="twitter:description" content="1 冒泡排序—-稳定 最大的数像冒泡一样依次浮出 紧挨着的两个数，两两相比，通过交换，大的永远排在后，依次循环，替换，最大的数就排在了最后面 两个for循环嵌套，内部循环负责从左到右依次比对，外部循环负责比对循环的次数 立旗优化，若循环一遍，没有更替，则已为正序排序，直接退出循环 时间复杂度 最优：O(n)，最坏O(n**2) 最优 遍历一次发现没有任何需要交换的元素  1234567891011">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://lidx.club/2017/06/06/Python与Redis的交互+Redis事务/"/>
+  <link rel="canonical" href="https://lidx.club/2017/02/15/Python 排序/"/>
 
 
 
 
 
-  <title>Python与Redis的交互+Redis事务 | GaryMarine</title>
+  <title>Python 排序 | GaryMarine</title>
   
 
 
@@ -313,7 +313,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lidx.club/2017/06/06/Python与Redis的交互+Redis事务/">
+    <link itemprop="mainEntityOfPage" href="https://lidx.club/2017/02/15/Python 排序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="爷傲丶奈我何☄">
@@ -330,7 +330,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Python与Redis的交互+Redis事务</h1>
+          <h1 class="post-title" itemprop="name headline">Python 排序</h1>
         
 
         <div class="post-meta">
@@ -342,8 +342,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-06T10:14:12+08:00">
-                2017-06-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-15T10:54:46+08:00">
+                2017-02-15
               </time>
             
 
@@ -383,8 +383,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/06/06/Python与Redis的交互+Redis事务/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2017/06/06/Python与Redis的交互+Redis事务/" itemprop="commentCount"></span>
+                <a href="/2017/02/15/Python 排序/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/02/15/Python 排序/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -406,7 +406,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  859
+                  1,946
                 </span>
               
 
@@ -422,7 +422,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  8
                 </span>
               
             </div>
@@ -443,41 +443,66 @@
       
 
       
-        <p><strong>@ 概述</strong></p>
-<ul>
-<li>Python与Redis的交互可以通过第三方类库redis来进行</li>
-<li>交互的一般流程：创建Redis客户端-&gt;通过客户端的API完成数据交互</li>
-<li>交互结束也无需断开连接，这一点与磁盘型数据库不同，毕竟访问内存是无所谓“释放IO资源”一说的</li>
-<li>redis的PythonAPI和redis的shell操作命令是极为相似的；</li>
-<li>安装第三方库redis</li>
+        <h2 id="1-冒泡排序—-稳定"><a href="#1-冒泡排序—-稳定" class="headerlink" title="1 冒泡排序—-稳定"></a>1 冒泡排序—-稳定</h2><ul>
+<li>最大的数像冒泡一样依次浮出</li>
+<li>紧挨着的两个数，两两相比，通过交换，大的永远排在后，依次循环，替换，最大的数就排在了最后面</li>
+<li>两个for循环嵌套，内部循环负责从左到右依次比对，外部循环负责比对循环的次数</li>
+<li>立旗优化，若循环一遍，没有更替，则已为正序排序，直接退出循环</li>
+<li>时间复杂度 最优：O(n)，最坏O(n**2)</li>
+<li>最优 遍历一次发现没有任何需要交换的元素</li>
 </ul>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">pip</span> <span class="selector-tag">install</span> <span class="selector-tag">redis</span></span><br></pre></td></tr></table></figure>
-<p><strong>@redis支持事务的方式</strong></p>
-<ul>
-<li>将批量数据操作逐个加入待执行队列；</li>
-<li>如果批量操作过程中发生异常，不提交事务即可；</li>
-<li>提交事务=执行队列中的所有操作，并保证其原子性；</li>
-<li>文档参考：<a href="http://www.redis.cn/topics/transactions.html" target="_blank" rel="noopener">http://www.redis.cn/topics/transactions.html</a></li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span><span class="params">(alist)</span>:</span></span><br><span class="line">    <span class="string">"""冒泡排序"""</span></span><br><span class="line">    n = len(alist)</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,n<span class="number">-1</span>):</span><br><span class="line">        <span class="comment"># exchange_flag = False</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n-j):</span><br><span class="line">            <span class="keyword">if</span> alist[i] &gt; alist[i+<span class="number">1</span>]:</span><br><span class="line">                alist[i],alist[i+<span class="number">1</span>] = alist[i+<span class="number">1</span>],alist[i]</span><br><span class="line">                exchange_flag = <span class="keyword">True</span></span><br><span class="line">        <span class="comment"># if not exchange_flag:</span></span><br><span class="line">        <span class="comment">#     break1234567891011</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-选择排序—-不稳定"><a href="#2-选择排序—-不稳定" class="headerlink" title="2 选择排序—-不稳定"></a>2 选择排序—-不稳定</h2><ul>
+<li>立旗，给元素做标记，记为最小值，依次拿其他元素做对比，遇到把比它小的元素，更改标记，直至找到最小的元素</li>
+<li>按着列表排列顺序，依次更换</li>
+<li>外循环负责每次内循环开启时，最小值旗帜的开始位置</li>
+<li>内循环负责找出最小时，并排序</li>
+<li>时间复杂度：最优最坏均为O(n**2)</li>
 </ul>
-<p><strong>@注意事项</strong></p>
-<ul>
-<li>数据操作在加入队列时不会进行语法检查；</li>
-<li>如果数据操作存在语法错误，会造成只有部分数据提交的BUG；</li>
-<li>此时redis也并不支持事务回滚（处处拍摄快照会导致效率的下降）；</li>
-<li>所以语法错误必须在上线前自行完成检查和修正（这是Redis的官方态度）；</li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selection_sort</span><span class="params">(alist)</span>:</span></span><br><span class="line">    <span class="string">"""选择排序"""</span></span><br><span class="line">    n = len(alist) </span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</span><br><span class="line">        min_flag = j</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(j+<span class="number">1</span>,n):</span><br><span class="line">            <span class="keyword">if</span> alist[i] &lt; alist[min_flag]:</span><br><span class="line">                min_flag = i</span><br><span class="line">        alist[j],alist[min_flag] = alist[min_flag],alist[j]<span class="number">123456789</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-插入排序—-稳定"><a href="#3-插入排序—-稳定" class="headerlink" title="3 插入排序—-稳定"></a>3 插入排序—-稳定</h2><ul>
+<li>将序列分为两部分，一部分是有序的，一部分是无序的</li>
+<li>起始：将角标为0的元素认定为有序的，后面的认为是无序的</li>
+<li>将无序的元素与有序的元素，逐个对比，若无序元素大，则不变,</li>
+<li>若无序元素小，则与比对元素替换，并继续与角标小的有序元素逐个继续比对， 直至比对到无序元素为大</li>
+<li>两个for循环,内部循环负责依次往前比对，遇到比自己大的元素则替换</li>
+<li>外部循环负责每次内部循环开始的位置,从角标1到最后</li>
+<li>时间复杂度：最优O(n) 最坏O(n**2)</li>
+<li>最优：升序排列，序列已经处于升序状态</li>
 </ul>
-<p><strong>@事务操作流程</strong></p>
-<ul>
-<li>监控要保障【并发安全】的数据；</li>
-<li>开启事务；</li>
-<li>具体CRUD操作；</li>
-<li>提交事务（如果被监控的数据发生了并发修改，则提交不成功）；</li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insert_sort</span><span class="params">(alist)</span>:</span></span><br><span class="line">    <span class="string">"""插入排序"""</span></span><br><span class="line">    n = len(alist)</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(j,<span class="number">0</span>,<span class="number">-1</span>):</span><br><span class="line">            <span class="keyword">if</span> alist[i] &lt; alist[i<span class="number">-1</span>]:</span><br><span class="line">                alist[i],alist[i<span class="number">-1</span>] = alist[i<span class="number">-1</span>],alist[i]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                break123456789</span><br></pre></td></tr></table></figure>
+<h2 id="4-希尔排序—-不稳定"><a href="#4-希尔排序—-不稳定" class="headerlink" title="4 希尔排序—-不稳定"></a>4 希尔排序—-不稳定</h2><ul>
+<li>插入排序的优化版本，将无序的序列变得相对有序</li>
+<li>内部循环每次根据步长分组，每次循环的步长为上次的一半，直至最后一次按照插入排序进行</li>
+<li>原理是相对有序的序列在进行插入排序的时候break的机会增多，时间复杂度为nlogn~ n**2</li>
+<li>内部循环因为步长不同的时候均有循环，不确定循环次数，用while，用i&lt;=gap控制循环结束</li>
+<li>时间复杂度：最优：以步长序列不同而不同 最坏：O(n**2)</li>
+<li>最坏：步长为1，即插入排序</li>
 </ul>
-<p><strong>@在Redis命令行执行事务</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 观察本次事务要修改的key，如果该key在事务执行过程中被其它事务修改，则当前事务提交不能成功</span><br><span class="line">//目的：保证并发安全</span><br><span class="line">WATCH key1 key2 key3</span><br><span class="line"></span><br><span class="line">//开启事务 </span><br><span class="line">multi</span><br><span class="line"></span><br><span class="line">//执行具体事务操作（增删改查）</span><br><span class="line">//这些操作会被加入队列</span><br><span class="line">incr key1</span><br><span class="line">incr key2</span><br><span class="line">incr key3</span><br><span class="line"></span><br><span class="line">//提交事务，如果观察的key被其它事务并发修改，则本次事务提交无效</span><br><span class="line"><span class="keyword">exec</span></span><br></pre></td></tr></table></figure>
-<p><strong>@在Python代码中执行事务</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建客户端</span></span><br><span class="line">txClient = redis.Redis(</span><br><span class="line">    host=<span class="string">'localhost'</span>,</span><br><span class="line">    port=<span class="number">6379</span>,</span><br><span class="line">    db=<span class="number">7</span>,</span><br><span class="line">    password=<span class="string">'123456'</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建事务管道</span></span><br><span class="line">pipe = txClient.pipeline(transaction=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 监视要保证并发安全的数据</span></span><br><span class="line">    pipe.watch(<span class="string">'who'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 开启事务</span></span><br><span class="line">    pipe.multi()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 执行CRUD操作</span></span><br><span class="line">    pipe.writeDict(<span class="string">'who'</span>, <span class="string">'雷军'</span>, ex=<span class="number">60</span> * <span class="number">5</span>)</span><br><span class="line">    print(pipe.get(<span class="string">'who'</span>))</span><br><span class="line">    pipe.hmset(<span class="string">'p1'</span>, &#123;<span class="string">'who'</span>: <span class="string">'雷军'</span>, <span class="string">'age'</span>: <span class="number">50</span>, <span class="string">'word'</span>: <span class="string">'are you ok'</span>&#125;)</span><br><span class="line">    print(pipe.hgetall(<span class="string">'p1'</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># print(5 / 0)  # 普通业务异常，被try所捕获，事务不会提交</span></span><br><span class="line">    <span class="comment"># pipe.incr("p1")  # redis语法错误，只有提交时才会发生异常且无法回滚，必须在上线前予以修正</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 执行CRUD操作</span></span><br><span class="line">    pipe.incr(<span class="string">'a'</span>)</span><br><span class="line">    pipe.incr(<span class="string">'b'</span>)</span><br><span class="line">    pipe.incr(<span class="string">'c'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果被监视的数据被其它并发事务所修改</span></span><br><span class="line"><span class="keyword">except</span> WatchError <span class="keyword">as</span> we:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 清空事务管道，不提交，结束事务</span></span><br><span class="line">    pipe.reset()</span><br><span class="line">    print(<span class="string">'监控数据被外界污染，事务已取消！we='</span>,we)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果发生普通异常（非Redis语法错误）</span></span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    print(<span class="string">"bad luck:e="</span>, e)</span><br><span class="line">    print(<span class="string">'事务未提交'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 没有发生异常时提交事务</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        pipe.execute()</span><br><span class="line">        print(<span class="string">'事务已提交'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果队列中的数据操作有语法错误，则事务的提交会【完成一半且无法回滚】，必须杜绝语法错误</span></span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="string">'事务提交异常，请检查代码语法！e='</span>,e)</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">shell_sort</span><span class="params">(alist)</span>:</span></span><br><span class="line">    <span class="string">"""希尔排序"""</span></span><br><span class="line">    n = len(alist)</span><br><span class="line">    gap = n//<span class="number">2</span></span><br><span class="line">    <span class="keyword">while</span> gap &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(gap, n):</span><br><span class="line">            <span class="keyword">while</span> i &gt;= gap <span class="keyword">and</span> alist[i] &lt; alist[i - gap]:</span><br><span class="line">                alist[i], alist[i - gap] = alist[i - gap], alist[i]</span><br><span class="line">                i -= gap</span><br><span class="line">        gap //= <span class="number">212345678910</span></span><br></pre></td></tr></table></figure>
+<h2 id="5-快速排序—-不稳定"><a href="#5-快速排序—-不稳定" class="headerlink" title="5 快速排序—-不稳定"></a>5 快速排序—-不稳定</h2><ul>
+<li>设立一个基准值，起始值为下标为0的数</li>
+<li>序列左边和序列最右边各有一个游标</li>
+<li>从右游标开始，和基准值做对比，如果比基准值大，则右游标向左移动，否则，将该值替换到左标记的位置</li>
+<li>替换之后，换左标记的位置开始右移比对，如果小于基准值，继续右移，否则，将该值替换到右标记的位置</li>
+<li>左右游标依次活动，直至相遇，相遇时，把把基准值赋给左游标的元素</li>
+<li>在相遇处的左右两边继续进行此项活动</li>
+<li>和归并排序相比因为不需要开辟额外空间，所以应用更多，置于稳定，看应用场景，如果需要稳定排序，则考虑归并排序</li>
+<li>时间复杂度 最优：O(nlogn)，最坏O(n**2)</li>
+<li>每次排序时间复杂度O(n)，一共执行了logn次</li>
+<li>最坏考虑的情况是，例如：每次设立基准值之后，右边只有大于它的数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort</span><span class="params">(alist,start,end)</span>:</span></span><br><span class="line">    <span class="string">"""快速排序"""</span></span><br><span class="line">    <span class="keyword">if</span> start &gt;= end:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    left = start</span><br><span class="line">    right = end</span><br><span class="line">    base_value = alist[left]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> left &lt; right:</span><br><span class="line">        <span class="keyword">while</span> left &lt; right <span class="keyword">and</span> base_value &lt;= alist[right]:</span><br><span class="line">            right -= <span class="number">1</span></span><br><span class="line">        alist[left] = alist[right]</span><br><span class="line">        <span class="keyword">while</span> left &lt; right <span class="keyword">and</span> base_value &gt; alist[left]:</span><br><span class="line">            left += <span class="number">1</span></span><br><span class="line">        alist[right] = alist[left]</span><br><span class="line"></span><br><span class="line">    alist[left] = base_value</span><br><span class="line"></span><br><span class="line">    quick_sort(alist,start,left<span class="number">-1</span>)</span><br><span class="line">    quick_sort(alist,left+<span class="number">1</span>,end)<span class="number">1234567891011121314151617181920</span></span><br></pre></td></tr></table></figure>
+<h2 id="6-归并排序—-稳定"><a href="#6-归并排序—-稳定" class="headerlink" title="6 归并排序—-稳定"></a>6 归并排序—-稳定</h2><ul>
+<li>递归思想，自己调用自己进行拆分</li>
+<li>第一步：二步拆分，直至把所有的元素拆开为单个存在的列表</li>
+<li>第二步：循环，合并数组，逐步分组排序，两组直接进行比较列表</li>
+<li>新建列表，把元素按大小加入到新的列表中</li>
+<li>时间复杂度：最优最坏均为：O(nlogn)</li>
+<li>拆分为O(1),两两合并为O(n)，两两合并共执行了logn次</li>
+<li>归并排序因为重新定义了一个列表，所以在空间上额外需要消耗一块内存</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_sort</span><span class="params">(alist)</span>:</span></span><br><span class="line">    <span class="string">"""归并排序"""</span></span><br><span class="line">    n = len(alist)</span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">        print(alist)</span><br><span class="line">        <span class="keyword">return</span> alist</span><br><span class="line">    left,right = <span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    mid_flag = n // <span class="number">2</span></span><br><span class="line">    left_list = merge_sort(alist[:mid_flag])</span><br><span class="line">    right_list = merge_sort(alist[mid_flag:])</span><br><span class="line"></span><br><span class="line">    merge_sort_list = []</span><br><span class="line">    lcount = len(left_list)</span><br><span class="line">    rcount = len(right_list)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> left &lt; lcount <span class="keyword">and</span> right &lt; rcount:</span><br><span class="line">        <span class="comment"># 加上等号，是稳定的</span></span><br><span class="line">        <span class="keyword">if</span> left_list[left] &lt;= right_list[right]:</span><br><span class="line">            merge_sort_list.append(left_list[left])</span><br><span class="line">            left += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            merge_sort_list.append(right_list[right])</span><br><span class="line">            right += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    merge_sort_list += left_list[left:]</span><br><span class="line">    merge_sort_list += right_list[right:]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> merge_sort_list</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    alist = [<span class="number">54</span>,<span class="number">26</span>,<span class="number">93</span>,<span class="number">17</span>,<span class="number">77</span>,<span class="number">31</span>,<span class="number">44</span>,<span class="number">55</span>,<span class="number">20</span>]</span><br><span class="line">    <span class="comment"># bubble_sort(alist)</span></span><br><span class="line">    <span class="comment"># selection_sort(alist)</span></span><br><span class="line">    <span class="comment"># insert_sort(alist)</span></span><br><span class="line">    <span class="comment"># quick_sort(alist,0,len(alist)-1)</span></span><br><span class="line">    <span class="comment"># shell_sort(alist)</span></span><br><span class="line">    <span class="comment"># print(alist)</span></span><br><span class="line">    print(merge_sort(alist))<span class="number">12345678910111213141516171819202122232425262728293031323334353637383940</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">归并排序执行步骤</span></span><br><span class="line"><span class="string">alist = [54,26,93,17,77,31,44,55,20]</span></span><br><span class="line"><span class="string">n = 9</span></span><br><span class="line"><span class="string">mid_flag = 4 取left[:4]</span></span><br><span class="line"><span class="string">left_list = merge_sort([54,26,93,17])  # -1-这个函数体停在这句话，重新调用函数</span></span><br><span class="line"><span class="string">    alist 变为 [54,26,93,17]</span></span><br><span class="line"><span class="string">    n = 4</span></span><br><span class="line"><span class="string">    mid_flag = 2</span></span><br><span class="line"><span class="string">    left_list = merge_sort([54,26])  # -2-函数体停在这里，重新调用函数</span></span><br><span class="line"><span class="string">        n = 2</span></span><br><span class="line"><span class="string">        mid_flag = 1</span></span><br><span class="line"><span class="string">        left_list = merge_sort([54])  # -3-函数体停在这里，重新调用函数</span></span><br><span class="line"><span class="string">            n = 1</span></span><br><span class="line"><span class="string">            return [54]  # -4- 函数体执行结束，-3-函数体获得返回值</span></span><br><span class="line"><span class="string">            left_sort = [54]  # -3-函数体获得返回值，-3-可以继续往下执行</span></span><br><span class="line"><span class="string">            right_list = merge_sort([26])</span></span><br><span class="line"><span class="string">            return [26]</span></span><br><span class="line"><span class="string">            right_list = [26]</span></span><br><span class="line"><span class="string">            进入while循环 ，[54]和[26]进行拼接 return [26,54]  # -3-函数体执行结束，-2-函数体获得返回值</span></span><br><span class="line"><span class="string">        left_list = [26,54] # -2-函数体获得返回值,-2-函数体继续执行</span></span><br><span class="line"><span class="string">        right_list = merge_sort([93,17])  # -2-函数体停在这里，重新调用函数</span></span><br><span class="line"><span class="string">            n = 2</span></span><br><span class="line"><span class="string">            mid_flag = 1</span></span><br><span class="line"><span class="string">            left_list = merge_sort([93])  # -2-1-函数体停在这里，重新调用函数</span></span><br><span class="line"><span class="string">                n = 1</span></span><br><span class="line"><span class="string">                return [93]  # -2-2-函数体结束 -2-1-获得返回值</span></span><br><span class="line"><span class="string">                left_list = [93]  # -2-1-获得返回值, -2-1-继续执行</span></span><br><span class="line"><span class="string">                right_list = merge_sort([17])  # -2-1-函数体停在这里，重新调用函数</span></span><br><span class="line"><span class="string">                    n = 1</span></span><br><span class="line"><span class="string">                    return [17]  # --函数体结束，-2-1- 函数获得返回值</span></span><br><span class="line"><span class="string">                right_list = [17]  # -2-1- 函数获得返回值，继续执行合并，函数结束，-2-函数获得返回值</span></span><br><span class="line"><span class="string">        right_list = [17,93]  # -2- 获得返回值，可以继续执行合并,-1-获得返回值</span></span><br><span class="line"><span class="string">    left_list = [17,26,54,93]  # -1-获得返回值，可以继续执行函数体</span></span><br><span class="line"><span class="string">    right_list = [77,31,44,55,20]</span></span><br><span class="line"><span class="string">    ........</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -494,9 +519,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Redis/" rel="tag"><i class="fa fa-tag"></i>Redis</a>
-          
-            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i>Python</a>
+            <a href="/tags/排序/" rel="tag"><i class="fa fa-tag"></i>排序</a>
           
         </div>
       
@@ -509,8 +532,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/05/Redis/" rel="next" title="Redis">
-                <i class="fa fa-chevron-left"></i> Redis
+              <a href="/2016/12/19/Hexo Next 圆形头像并旋转/" rel="next" title="Hexo Next 圆形头像并旋转">
+                <i class="fa fa-chevron-left"></i> Hexo Next 圆形头像并旋转
               </a>
             
           </div>
@@ -519,8 +542,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/06/10/Scrapy 框架/" rel="prev" title="Scrapy 框架">
-                Scrapy 框架 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/02/16/Python 通讯录/" rel="prev" title="Python通讯录">
+                Python通讯录 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -576,8 +599,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -667,6 +699,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-冒泡排序—-稳定"><span class="nav-number">1.</span> <span class="nav-text">1 冒泡排序—-稳定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-选择排序—-不稳定"><span class="nav-number">2.</span> <span class="nav-text">2 选择排序—-不稳定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-插入排序—-稳定"><span class="nav-number">3.</span> <span class="nav-text">3 插入排序—-稳定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-希尔排序—-不稳定"><span class="nav-number">4.</span> <span class="nav-text">4 希尔排序—-不稳定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-快速排序—-不稳定"><span class="nav-number">5.</span> <span class="nav-text">5 快速排序—-不稳定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-归并排序—-稳定"><span class="nav-number">6.</span> <span class="nav-text">6 归并排序—-稳定</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
