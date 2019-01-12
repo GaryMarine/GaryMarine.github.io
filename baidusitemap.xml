@@ -4,6 +4,48 @@
 
     
   <url>
+    <loc>https://lidx.club/2017/06/06/Python%E4%B8%8ERedis%E7%9A%84%E4%BA%A4%E4%BA%92+Redis%E4%BA%8B%E5%8A%A1/</loc>
+    <lastmod>2019-01-12T14:51:22.069Z</lastmod>
+    <data>
+        <display>
+        <title>Python与Redis的交互+Redis事务</title>
+        <pubTime>2017-06-06T02:14:12.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>Redis</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="https://lidx.club/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://lidx.club/2017/06/10/Scrapy%20%E6%A1%86%E6%9E%B6/</loc>
+    <lastmod>2019-01-12T14:38:27.435Z</lastmod>
+    <data>
+        <display>
+        <title>Scrapy 框架</title>
+        <pubTime>2017-06-10T12:30:09.000Z</pubTime>
+        
+        <tag>Scrapy</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="https://lidx.club/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://lidx.club/2017/06/27/xpath/</loc>
     <lastmod>2019-01-12T14:12:46.392Z</lastmod>
     <data>
@@ -410,28 +452,6 @@
 
     
   <url>
-    <loc>https://lidx.club/2017/06/06/Python%E4%B8%8ERedis%E7%9A%84%E4%BA%A4%E4%BA%92+Redis%E4%BA%8B%E5%8A%A1/</loc>
-    <lastmod>2018-07-19T08:42:16.726Z</lastmod>
-    <data>
-        <display>
-        <title>Python与Redis的交互+Redis事务</title>
-        <pubTime>2017-06-06T02:14:12.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-        <tag>Redis</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="https://lidx.club/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://lidx.club/2016/12/19/Hexo%20Next%20%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96%E8%AE%BF%E9%97%AE%E9%80%9F%E5%BA%A6/</loc>
     <lastmod>2018-07-19T07:29:53.732Z</lastmod>
     <data>
@@ -587,26 +607,6 @@
            
              
               <breadCrumb title="Hexo" url="https://lidx.club/categories/Hexo/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://lidx.club/2017/06/10/Scrapy%20%E6%A1%86%E6%9E%B6/</loc>
-    <lastmod>2018-07-18T15:44:11.233Z</lastmod>
-    <data>
-        <display>
-        <title>Scrapy 框架</title>
-        <pubTime>2017-06-10T12:30:09.000Z</pubTime>
-        
-        <tag>Scrapy</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="https://lidx.club/categories/Python/"/>
           
         </display>
     </data>

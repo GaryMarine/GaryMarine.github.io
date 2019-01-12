@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://lidx.club/2017/06/06/Python%E4%B8%8ERedis%E7%9A%84%E4%BA%A4%E4%BA%92+Redis%E4%BA%8B%E5%8A%A1/</loc>
+    
+    <lastmod>2019-01-12T14:51:22.069Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://lidx.club/2017/06/10/Scrapy%20%E6%A1%86%E6%9E%B6/</loc>
+    
+    <lastmod>2019-01-12T14:38:27.435Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://lidx.club/2017/06/27/xpath/</loc>
     
     <lastmod>2019-01-12T14:12:46.392Z</lastmod>
@@ -142,13 +156,6 @@
   </url>
   
   <url>
-    <loc>https://lidx.club/2017/06/06/Python%E4%B8%8ERedis%E7%9A%84%E4%BA%A4%E4%BA%92+Redis%E4%BA%8B%E5%8A%A1/</loc>
-    
-    <lastmod>2018-07-19T08:42:16.726Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://lidx.club/2016/12/19/Hexo%20Next%20%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96%E8%AE%BF%E9%97%AE%E9%80%9F%E5%BA%A6/</loc>
     
     <lastmod>2018-07-19T07:29:53.732Z</lastmod>
@@ -201,13 +208,6 @@
     <loc>https://lidx.club/2016/12/19/Hexo%20Next%20%E5%9C%86%E5%BD%A2%E5%A4%B4%E5%83%8F%E5%B9%B6%E6%97%8B%E8%BD%AC/</loc>
     
     <lastmod>2018-07-19T03:42:07.839Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://lidx.club/2017/06/10/Scrapy%20%E6%A1%86%E6%9E%B6/</loc>
-    
-    <lastmod>2018-07-18T15:44:11.233Z</lastmod>
     
   </url>
   
