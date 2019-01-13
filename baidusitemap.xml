@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>https://lidx.club/2017/06/06/Python%E4%B8%8ERedis%E7%9A%84%E4%BA%A4%E4%BA%92+Redis%E4%BA%8B%E5%8A%A1/</loc>
+    <lastmod>2019-01-13T10:05:14.769Z</lastmod>
+    <data>
+        <display>
+        <title>Python与Redis的交互+Redis事务</title>
+        <pubTime>2017-06-06T02:14:12.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>Redis</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="https://lidx.club/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://lidx.club/2017/07/04/Scrapy%E7%88%AC%E5%8F%96%E8%82%A1%E7%A5%A8%E6%95%B0%E6%8D%AE/</loc>
     <lastmod>2019-01-13T09:57:59.093Z</lastmod>
     <data>
@@ -509,28 +531,6 @@
            
              
               <breadCrumb title="Django" url="https://lidx.club/categories/Django/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://lidx.club/2017/06/06/Python%E4%B8%8ERedis%E7%9A%84%E4%BA%A4%E4%BA%92+Redis%E4%BA%8B%E5%8A%A1/</loc>
-    <lastmod>2019-01-12T14:51:22.069Z</lastmod>
-    <data>
-        <display>
-        <title>Python与Redis的交互+Redis事务</title>
-        <pubTime>2017-06-06T02:14:12.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-        <tag>Redis</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="https://lidx.club/categories/Python/"/>
           
         </display>
     </data>
