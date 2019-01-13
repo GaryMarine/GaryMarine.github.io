@@ -96,18 +96,17 @@
 
 
 
-<meta name="description" content="RESTful 和 flask-restful前后端分离简单理解flask中返回json格式数据 123456789from flask import jsonify# 返回json数据@app.route(&apos;/&apos;)def hello_world():    data = &amp;#123;        &apos;msg&apos;: &apos;ok&apos;,        &apos;status&apos;: &apos;200&apos;,    &amp;#125;">
 <meta name="keywords" content="RESTful,flask-restful">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RESTful 和 flask-restful">
 <meta property="og:url" content="https://lidx.club/2017/06/05/RESTful/index.html">
 <meta property="og:site_name" content="GaryMarine">
-<meta property="og:description" content="RESTful 和 flask-restful前后端分离简单理解flask中返回json格式数据 123456789from flask import jsonify# 返回json数据@app.route(&apos;/&apos;)def hello_world():    data = &amp;#123;        &apos;msg&apos;: &apos;ok&apos;,        &apos;status&apos;: &apos;200&apos;,    &amp;#125;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-22T07:37:40.936Z">
+<meta property="og:image" content="http://c.hiphotos.baidu.com/image/%70%69%63/item/7aec54e736d12f2ed3b4909442c2d56284356894.jpg">
+<meta property="og:updated_time" content="2019-01-13T09:46:44.824Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RESTful 和 flask-restful">
-<meta name="twitter:description" content="RESTful 和 flask-restful前后端分离简单理解flask中返回json格式数据 123456789from flask import jsonify# 返回json数据@app.route(&apos;/&apos;)def hello_world():    data = &amp;#123;        &apos;msg&apos;: &apos;ok&apos;,        &apos;status&apos;: &apos;200&apos;,    &amp;#125;">
+<meta name="twitter:image" content="http://c.hiphotos.baidu.com/image/%70%69%63/item/7aec54e736d12f2ed3b4909442c2d56284356894.jpg">
 
 
 
@@ -436,7 +435,9 @@
       
 
       
-        <h1 id="RESTful-和-flask-restful"><a href="#RESTful-和-flask-restful" class="headerlink" title="RESTful 和 flask-restful"></a>RESTful 和 flask-restful</h1><h3 id="前后端分离简单理解"><a href="#前后端分离简单理解" class="headerlink" title="前后端分离简单理解"></a>前后端分离简单理解</h3><p>flask中返回json格式数据</p>
+        <p><img src="http://c.hiphotos.baidu.com/image/%70%69%63/item/7aec54e736d12f2ed3b4909442c2d56284356894.jpg" width="688" height="400" alt="git" align="center"></p>
+<a id="more"></a>
+<h1 id="RESTful-和-flask-restful"><a href="#RESTful-和-flask-restful" class="headerlink" title="RESTful 和 flask-restful"></a>RESTful 和 flask-restful</h1><h3 id="前后端分离简单理解"><a href="#前后端分离简单理解" class="headerlink" title="前后端分离简单理解"></a>前后端分离简单理解</h3><p>flask中返回json格式数据</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> jsonify</span><br><span class="line"><span class="comment"># 返回json数据</span></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello_world</span><span class="params">()</span>:</span></span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">'msg'</span>: <span class="string">'ok'</span>,</span><br><span class="line">        <span class="string">'status'</span>: <span class="string">'200'</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> jsonify(data)</span><br></pre></td></tr></table></figure>
 <p>简单前后端分离：</p>
 <p>前端页面变成一个静态文件。存放在项目的static/html目录下：</p>
