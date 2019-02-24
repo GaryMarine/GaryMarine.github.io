@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="GaryMarine" />
+  
+  
+  <title>Flask 文件上传及邮件发送 | GaryMarine</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Flask,Flask," />
+  
+
+  
+  <meta name="description" content="GaryMarine Website">
+
+  
+
+  <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":true,"interval":"wfw"},
+    start_time: "2018-02-10",
+    passwords: ["9fd4703ff67642ec7fc0f8616d7513e620263fa6f3758b5836f496dfe334ae34", ],
+    is_post: true,
+    lock: false,
+    author: "GaryMarine",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+
+  
+
+
+
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">GaryMarine</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 晚来天欲雪，能饮一杯无？</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/GaryMarine/" target="_blank">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2017-06-03
+    </span>
+    
+      <span>
+        | <a href="/categories/Flask/"><i class="fa fa-bookmark"></i>Flask</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    Flask 文件上传及邮件发送
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="文件上传及邮件发送"><a href="#文件上传及邮件发送" class="headerlink" title="文件上传及邮件发送"></a>文件上传及邮件发送</h1><h3 id="原生文件上传"><a href="#原生文件上传" class="headerlink" title="原生文件上传"></a>原生文件上传</h3><p>基本思路：</p>
+<ol>
+<li><p>一个 <code>&lt;form&gt;</code> 标签被标记有 <code>enctype=multipart/form-data</code> ，并且在里面包含一个 <code>&lt;input type=file&gt;</code> 标签，提交方法必须为post方法。</p>
+</li>
+<li><p>服务端应用通过请求对象上的 <code>files</code> 字典访问文件。</p>
+</li>
+<li><p>使用文件的 <a href="http://werkzeug.pocoo.org/docs/datastructures/#werkzeug.datastructures.FileStorage.save" target="_blank" rel="noopener"><code>save()</code></a> 方法将文件永久地保存在文件系统上的某处。</p>
+</li>
+<li><p>创建模板文件，upload.html，内容如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>原生文件上传<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>原生文件上传<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">enctype</span>=<span class="string">"multipart/form-data"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"photo"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"上传"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">    &#123;% if img_url %&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"&#123;&#123; img_url &#125;&#125;"</span> /&gt;</span></span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最基础版本视图函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> werkzeug.utils <span class="keyword">import</span> secure_filename</span><br><span class="line"><span class="comment"># 判断文件是否允许上传</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">allowed_file</span><span class="params">(filename)</span>:</span></span><br><span class="line">    <span class="comment"># 是否存在点，并且，以点分割的后缀名是否在指定列表中。</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'.'</span> <span class="keyword">in</span> filename <span class="keyword">and</span> filename.rsplit(<span class="string">'.'</span>, <span class="number">1</span>)[<span class="number">1</span>] <span class="keyword">in</span> ALLOWED_EXTENSIONS</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/upload/', methods=['GET', 'POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">upload</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 判断是否是post方法，</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'POST'</span>:</span><br><span class="line">        <span class="comment"># 获取文件对象</span></span><br><span class="line">        file = request.files.get(<span class="string">'photo'</span>)</span><br><span class="line">        <span class="comment"># 判断文件对象是否存在及后缀是否满足要求</span></span><br><span class="line">        <span class="keyword">if</span> file <span class="keyword">and</span> allowed_file(file.filename):</span><br><span class="line">            <span class="comment"># 检查文件名是否安全 </span></span><br><span class="line">            filename = secure_filename(file.filename)</span><br><span class="line">            <span class="comment"># 保存上传后的文件，save方法接收保存文件的绝对路径。</span></span><br><span class="line">            file.save(os.path.join(app.config[<span class="string">'UPLOAD_FOLDER'</span>], filename))</span><br><span class="line">            <span class="comment">#提示用户图片上传成功，注意使用flash必须设置SECRET_KEY</span></span><br><span class="line">            flash(<span class="string">'图片上传成功'</span>)</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'upload.html'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>加入生成随机文件名功能及显示图片功能</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成随机的字符串</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">random_string</span><span class="params">(length=<span class="number">32</span>)</span>:</span></span><br><span class="line">    <span class="keyword">import</span> random</span><br><span class="line">    base_str = <span class="string">'abcdefghijklmnopqrstuvwxyz1234567890'</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">''</span>.join(random.choice(base_str) <span class="keyword">for</span> i <span class="keyword">in</span> range(length))</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/upload/', methods=['GET', 'POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">upload</span><span class="params">()</span>:</span></span><br><span class="line">    img_url = <span class="keyword">None</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'POST'</span>:</span><br><span class="line">        <span class="comment"># 获取上传信息</span></span><br><span class="line">        file = request.files.get(<span class="string">'photo'</span>)</span><br><span class="line">        <span class="keyword">if</span> file <span class="keyword">and</span> allowed_file(file.filename):</span><br><span class="line">            <span class="comment"># 生成随机的文件名</span></span><br><span class="line">            suffix = os.path.splitext(file.filename)[<span class="number">1</span>]</span><br><span class="line">            filename = random_string() + suffix</span><br><span class="line">            <span class="comment"># 保存上传后的文件</span></span><br><span class="line">            file.save(os.path.join(app.config[<span class="string">'UPLOAD_FOLDER'</span>], </span><br><span class="line">                                   filename))</span><br><span class="line">            <span class="comment"># 获取上传文的URL</span></span><br><span class="line">            img_url = url_for(<span class="string">'uploaded_file'</span>, filename=filename)</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'upload.html'</span>, img_url=img_url)</span><br><span class="line"><span class="comment"># 安全的获取上传文件</span></span><br><span class="line"><span class="meta">@app.route('/uploads/&lt;filename&gt;')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">uploaded_file</span><span class="params">(filename)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> send_from_directory(app.config[<span class="string">'UPLOAD_FOLDER'</span>], filename)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>相关配置</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 允许上传的文件后缀</span></span><br><span class="line">ALLOWED_EXTENSIONS = set([<span class="string">'png'</span>, <span class="string">'jpg'</span>, <span class="string">'jpeg'</span>, <span class="string">'gif'</span>])</span><br><span class="line"><span class="comment"># 上传文件的保存地址</span></span><br><span class="line">app.config[<span class="string">'UPLOAD_FOLDER'</span>] = os.getcwd()</span><br><span class="line"><span class="comment"># 设置上传文件的大小</span></span><br><span class="line">app.config[<span class="string">'MAX_CONTENT_LENGTH'</span>] = <span class="number">1024</span> * <span class="number">1024</span> * <span class="number">2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意事项，当上传文件不成功时，可以从以下几个方面着手</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.表单的提交方法必须是post</span><br><span class="line">2.表单的enctype必须是multipart/form-data</span><br><span class="line">3.上传文件字段类型为file，必须要有name属性</span><br><span class="line">4.是否超过了最大的允许大小</span><br><span class="line">5.文件保存位置是否有空间，是否有权限</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="flask-uploads"><a href="#flask-uploads" class="headerlink" title="flask-uploads"></a>flask-uploads</h3><p>官网  <a href="http://pythonhosted.org/Flask-Uploads/" target="_blank" rel="noopener">http://pythonhosted.org/Flask-Uploads/</a></p>
+<ol>
+<li><p>说明：flask-uploads扩展库可以很好帮助你解决上传文件时的问题，使用非常方便</p>
+</li>
+<li><p>安装：<code>pip install flask-uploads</code></p>
+</li>
+<li><p>配置：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask_uploads <span class="keyword">import</span> UploadSet, IMAGES</span><br><span class="line"><span class="keyword">from</span> flask_uploads <span class="keyword">import</span> configure_uploads, patch_request_class</span><br><span class="line"></span><br><span class="line"><span class="comment"># 文件上传</span></span><br><span class="line">photos = UploadSet(<span class="string">'photos'</span>, IMAGES)</span><br><span class="line"><span class="comment"># 设置上传文件的地址</span></span><br><span class="line">app.config[<span class="string">'UPLOADED_PHOTOS_DEST'</span>] = os.getcwd()</span><br><span class="line"><span class="comment"># 上传的初始化</span></span><br><span class="line">configure_uploads(app, photos)</span><br><span class="line"><span class="comment"># 配置上传文件大小，默认64M，设置None则会采用MAX_CONTENT_LENGTH配置选项</span></span><br><span class="line">app.config[<span class="string">'MAX_CONTENT_LENGTH'</span>] = <span class="number">2</span> * <span class="number">1024</span> * <span class="number">1024</span></span><br><span class="line">patch_request_class(app, size=<span class="keyword">None</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加视图函数，如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route('/upload/', methods=['GET', 'POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">upload</span><span class="params">()</span>:</span></span><br><span class="line">    img_url = <span class="keyword">None</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'POST'</span> <span class="keyword">and</span> <span class="string">'photo'</span> <span class="keyword">in</span> request.files:</span><br><span class="line">        <span class="comment"># 生成随机的文件名</span></span><br><span class="line">        suffix = os.path.splitext(request.files[<span class="string">'photo'</span>].filename)[<span class="number">1</span>]</span><br><span class="line">        filename = random_string() + suffix</span><br><span class="line">        <span class="comment"># 保存上传文件</span></span><br><span class="line">        photos.save(request.files[<span class="string">'photo'</span>], name=filename)</span><br><span class="line">        <span class="comment"># 获取上传图片的URL</span></span><br><span class="line">        img_url = photos.url(filename)</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'upload.html'</span>, img_url=img_url)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>模板文件与原生文件上传相同</p>
+</li>
+</ol>
+<h3 id="完整的文件上传"><a href="#完整的文件上传" class="headerlink" title="完整的文件上传"></a>完整的文件上传</h3><ol>
+<li><p>配置flask-uploads，同上</p>
+</li>
+<li><p>配置flask-wtf</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask_wtf <span class="keyword">import</span> FlaskForm</span><br><span class="line"><span class="keyword">from</span> flask_wtf.file <span class="keyword">import</span> FileField, FileRequired, FileAllowed</span><br><span class="line"><span class="keyword">from</span> wtforms <span class="keyword">import</span> SubmitField</span><br><span class="line"></span><br><span class="line"><span class="comment"># 文件上传表单</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UploadForm</span><span class="params">(FlaskForm)</span>:</span></span><br><span class="line">    photo = FileField(validators=[FileRequired(message=<span class="string">'未选择文件'</span>), </span><br><span class="line">                      FileAllowed(photos, message=<span class="string">'只能上传图片'</span>)])</span><br><span class="line">    submit = SubmitField(<span class="string">'上传'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加视图函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入图片处理类库</span></span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/upload/', methods=['GET', 'POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">upload</span><span class="params">()</span>:</span></span><br><span class="line">    img_url = <span class="keyword">None</span></span><br><span class="line">    form = UploadForm()</span><br><span class="line">    <span class="keyword">if</span> form.validate_on_submit():</span><br><span class="line">        <span class="comment"># 生成随机的文件名</span></span><br><span class="line">        suffix = os.path.splitext(form.photo.data.filename)[<span class="number">1</span>]</span><br><span class="line">        filename = random_string() + suffix</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 保存上传文件</span></span><br><span class="line">        photos.save(form.photo.data, name=filename)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 生成缩略图</span></span><br><span class="line">        pathname = os.path.join(app.config[<span class="string">'UPLOADED_PHOTOS_DEST'</span>], </span><br><span class="line">                                filename)</span><br><span class="line">        <span class="comment"># 1.打开文件</span></span><br><span class="line">        img = Image.open(pathname)</span><br><span class="line">        <span class="comment"># 2.设置尺寸</span></span><br><span class="line">        img.thumbnail((<span class="number">128</span>, <span class="number">128</span>))</span><br><span class="line">        <span class="comment"># 3.保存修改后的文件</span></span><br><span class="line">        img.save(pathname)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 获取上传文件的URL</span></span><br><span class="line">        img_url = photos.url(filename)</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'upload.html'</span>, form=form, img_url=img_url)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加模板文件</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>完整的文件上传<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>图片上传，结合flask-wtf,flask-uploads,生成缩略图<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">enctype</span>=<span class="string">"multipart/form-data"</span>&gt;</span></span><br><span class="line">        &#123;&#123; form.hidden_tag() &#125;&#125;</span><br><span class="line">        &#123;&#123; form.photo() &#125;&#125;</span><br><span class="line">        &#123;% for error in form.photo.errors %&#125;</span><br><span class="line">            <span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">"color: red;"</span>&gt;</span>&#123;&#123; error &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">        &#123;% endfor %&#125;</span><br><span class="line">        &#123;&#123; form.submit() &#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">    &#123;% if img_url %&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"&#123;&#123; img_url &#125;&#125;"</span> /&gt;</span></span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>PIL只支持python2.x版本，社区开发人员对其进行了维护，以支持python3.x，</p>
+<p>使用时需要安装，方法如下：pip install pillow</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="邮件发送"><a href="#邮件发送" class="headerlink" title="邮件发送"></a>邮件发送</h3><p>说明：邮件发送本身可以使用任意的方式完成，flask框架中有flask-mail库完成此功能</p>
+<p>安装：<code>pip install flask-mail</code></p>
+<p>配置：一定要放在创建Mail对象之前</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 邮箱服务器</span></span><br><span class="line">app.config[<span class="string">'MAIL_SERVER'</span>] = os.environ.get(<span class="string">'MAIL_SERVER'</span>) <span class="keyword">or</span> <span class="string">'smtp.1000phone.com'</span></span><br><span class="line"><span class="comment"># 邮箱用户名</span></span><br><span class="line">app.config[<span class="string">'MAIL_USERNAME'</span>] = os.environ.get(<span class="string">'MAIL_USERNAME'</span>) <span class="keyword">or</span> <span class="string">'xuke@1000phone.com'</span></span><br><span class="line"><span class="comment"># 邮箱密码</span></span><br><span class="line">app.config[<span class="string">'MAIL_PASSWORD'</span>] = os.environ.get(<span class="string">'MAIL_PASSWORD'</span>) <span class="keyword">or</span> <span class="string">'123456'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入类库</span></span><br><span class="line"><span class="keyword">from</span> flask_mail <span class="keyword">import</span> Mail, Message</span><br><span class="line"><span class="comment"># 创建对象</span></span><br><span class="line">mail = Mail(app)</span><br></pre></td></tr></table></figure>
+<p>添加视图函数，如下：同步发送邮件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route('/send/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 准备发送邮件消息</span></span><br><span class="line">    msg = Message(subject=<span class="string">'账户激活'</span>,</span><br><span class="line">                  recipients=[<span class="string">'15600037563@163.com'</span>],</span><br><span class="line">                  sender=app.config[<span class="string">'MAIL_USERNAME'</span>])</span><br><span class="line">    <span class="comment"># 浏览器显示内容</span></span><br><span class="line">    msg.html = <span class="string">'&lt;h1&gt;Hello 德莱文&lt;/h1&gt;'</span></span><br><span class="line">    <span class="comment"># 终端接受显示内容</span></span><br><span class="line">    msg.body = <span class="string">'Hello 德莱文'</span></span><br><span class="line">    <span class="comment"># 发送邮件</span></span><br><span class="line">    mail.send(msg)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'邮件已发送'</span></span><br></pre></td></tr></table></figure>
+<p>将邮件的发送封装成一个函数，如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 封装函数发送邮件</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_mail</span><span class="params">(to, subject, template, **kwargs)</span>:</span></span><br><span class="line">    msg = Message(subject=subject, recipients=[to],</span><br><span class="line">                  sender=app.config[<span class="string">'MAIL_USERNAME'</span>])</span><br><span class="line">    msg.html = render_template(template + <span class="string">'.html'</span>, **kwargs)</span><br><span class="line">    msg.body = render_template(template + <span class="string">'.txt'</span>, **kwargs)</span><br><span class="line">    mail.send(msg)</span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line"><span class="comment"># 调用专门的函数完成邮件的发送</span></span><br><span class="line">   send_mail(<span class="string">'15600037563@163.com'</span>, <span class="string">'找回密码'</span>, </span><br><span class="line">             <span class="string">'password'</span>, name=<span class="string">'德莱文'</span>)</span><br><span class="line">   <span class="keyword">return</span> <span class="string">'邮件发送'</span></span><br></pre></td></tr></table></figure>
+<p>异步发送邮件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">async_send_mail</span><span class="params">(app, msg)</span>:</span></span><br><span class="line">    <span class="comment"># 发送邮件必须在程序上下文中，新的线程中需要手动创建</span></span><br><span class="line">    <span class="keyword">with</span> app.app_context():</span><br><span class="line">      mail.send(msg)</span><br><span class="line"></span><br><span class="line">   <span class="comment"># 封装函数发送邮件</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_mail</span><span class="params">(to, subject, template, **kwargs)</span>:</span></span><br><span class="line">    <span class="comment"># 根据代理对象current_app，找到实例化的app对象</span></span><br><span class="line">    app = current_app._get_current_object()</span><br><span class="line">    msg = Message(subject=subject, recipients=[to],</span><br><span class="line">                  sender=app.config[<span class="string">'MAIL_USERNAME'</span>])</span><br><span class="line">    msg.html = render_template(template + <span class="string">'.html'</span>, **kwargs)</span><br><span class="line">    msg.body = render_template(template + <span class="string">'.txt'</span>, **kwargs)</span><br><span class="line">    <span class="comment"># 创建线程</span></span><br><span class="line">    thr = Thread(target=async_send_mail, args=[app, msg])</span><br><span class="line">    <span class="comment"># 启动线程</span></span><br><span class="line">    thr.start()</span><br><span class="line">    <span class="keyword">return</span> thr</span><br></pre></td></tr></table></figure>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#文件上传及邮件发送"><span class="toc-text">文件上传及邮件发送</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原生文件上传"><span class="toc-text">原生文件上传</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flask-uploads"><span class="toc-text">flask-uploads</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#完整的文件上传"><span class="toc-text">完整的文件上传</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#邮件发送"><span class="toc-text">邮件发送</span></a></li></ol></li></ol></li></ol>
+  </div>
+</aside>
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/Flask/"><i class="fa fa-tags"></i>Flask</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      <div class="site-comment-contanier">
+  <p id="site-comment-info">
+    <i class="fa fa-spinner fa-spin"></i> 评论加载中
+  </p>
+  <div id="site-comment">
+  </div>
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">站点推荐</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://lidx.club/" target="_blank">GaryMarine</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.liaoxuefeng.com/" target="_blank">廖雪峰的官方网站</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://36kr.com/" target="_blank">36氪_让一部分人先看到未来</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">抓到我</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://music.163.com/#/my/m/music/playlist?id=385505488" target="_blank">音乐</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.zhihu.com/people/gu-hu-31-87/activities" target="_blank">知乎</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://weibo.com/5092313013/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1 " target="_blank">微博</a>
+          </span>
+        
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-at"></i> Email: yuanxin.me@gmail.com. QQ群: 534018786(主题交流)
+    </div>
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https:/godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+        
+          <div>
+            <img src="/images/wechat.png" alt="WeChat">
+            
+              <p>WeChat</p>
+            
+          </div>
+        
+          <div>
+            <img src="/images/alipay.png" alt="AliPay">
+            
+              <p>AliPay</p>
+            
+          </div>
+        
+      </div>
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/2017/06/05/RESTful/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/2017/06/01/Python之禅/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    <a href="javascript:void(0);" id="site-reward">
+      <i class="fa fa-thumbs-up"></i>
+    </a>
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

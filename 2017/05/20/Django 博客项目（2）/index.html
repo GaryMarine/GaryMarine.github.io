@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="GaryMarine" />
+  
+  
+  <title>Django 博客项目（2） | GaryMarine</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Django,博客," />
+  
+
+  
+  <meta name="description" content="GaryMarine Website">
+
+  
+
+  <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":true,"interval":"wfw"},
+    start_time: "2018-02-10",
+    passwords: ["9fd4703ff67642ec7fc0f8616d7513e620263fa6f3758b5836f496dfe334ae34", ],
+    is_post: true,
+    lock: false,
+    author: "GaryMarine",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+
+  
+
+
+
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">GaryMarine</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 晚来天欲雪，能饮一杯无？</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/GaryMarine/" target="_blank">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2017-05-20
+    </span>
+    
+      <span>
+        | <a href="/categories/Django/"><i class="fa fa-bookmark"></i>Django</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    Django 博客项目（2）
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="Django-博客项目（2）"><a href="#Django-博客项目（2）" class="headerlink" title="Django 博客项目（2）"></a>Django 博客项目（2）</h1><h3 id="1-支持-Markdown-语法和代码高亮"><a href="#1-支持-Markdown-语法和代码高亮" class="headerlink" title="1. 支持 Markdown 语法和代码高亮"></a>1. 支持 Markdown 语法和代码高亮</h3><h4 id="1-1-安装-Python-Markdown"><a href="#1-1-安装-Python-Markdown" class="headerlink" title="1.1 安装 Python Markdown"></a>1.1 安装 Python Markdown</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install markdown</span><br><span class="line">或者在pycharm中安装markdown</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-在-detail-视图中渲染-Markdown"><a href="#1-2-在-detail-视图中渲染-Markdown" class="headerlink" title="1.2 在 detail 视图中渲染 Markdown"></a>1.2 在 detail 视图中渲染 Markdown</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">将 Markdown 格式的文本渲染成 HTML 文本非常简单，只需调用这个库的 markdown 方法即可。</span><br><span class="line">【blog/views.py】 </span><br><span class="line"><span class="keyword">import</span> markdown </span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render, get_object_or_404 </span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Post </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">detail</span><span class="params">(request, pk)</span>:</span> </span><br><span class="line">    post = get_object_or_404(Post, pk=pk) </span><br><span class="line">    <span class="comment"># 相当于对post.content多了一个中间步骤，先将 Markdown 格式的文本渲染成 HTML 文本再传递给模板 </span></span><br><span class="line">    post.content = markdown.markdown(post.content, </span><br><span class="line">    extensions=[ </span><br><span class="line">    <span class="string">'markdown.extensions.extra'</span>,</span><br><span class="line">    <span class="string">'markdown.extensions.codehilite'</span>,</span><br><span class="line">    <span class="string">'markdown.extensions.toc'</span>, ]) </span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">'blog/detail.html'</span>, context=&#123;<span class="string">'post'</span>: post&#125;)</span><br><span class="line">在admin中发布一篇markdown语法书写的测试博客。</span><br><span class="line">	<span class="comment"># 一级标题</span></span><br><span class="line">	<span class="comment">## 二级标题</span></span><br><span class="line">	<span class="comment">### 三级标题</span></span><br><span class="line">	</span><br><span class="line">	&gt;引用</span><br><span class="line">	</span><br><span class="line">	- 无序列表</span><br><span class="line">	- 无序列表</span><br><span class="line">	- 无序列表</span><br><span class="line">	</span><br><span class="line">	[百度的链接](http://baidu.com)</span><br><span class="line">	</span><br><span class="line">	![图片](http://box.bdimg.com/static/fisp_static/common/img/searchbox/logo_news_276_88_1f9876a.png)</span><br><span class="line">	</span><br><span class="line">	```python</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">detail</span><span class="params">(request, pk)</span>:</span></span><br><span class="line">	    post = get_object_or_404(Post, pk=pk)</span><br><span class="line">	    post.body = markdown.markdown(post.body,</span><br><span class="line">	                                  extensions=[</span><br><span class="line">	                                      <span class="string">'mardown.extensions.extra'</span>,</span><br><span class="line">	                                      <span class="string">'markdown.extensions.codehilite'</span>,</span><br><span class="line">	                                      <span class="string">'markdown.extensions.toc'</span>,</span><br><span class="line">	                                  ])</span><br><span class="line">	    <span class="keyword">return</span> render(request, <span class="string">'blog/detail.html'</span>, locals())</span><br></pre></td></tr></table></figure>
+<p>博客发布之后，发现markdown语法并不起作用，给post.body加上safe标签。<br></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">####1.3 代码高亮</span><br><span class="line">	1) 安装 Pygments</span><br><span class="line">		激活虚拟环境，pip install pygments，或者在pycharm中安装。</span><br><span class="line">	2）引入样式文件</span><br><span class="line">		base.html中加入<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"&#123;% static 'blog/css/highlights/github.css' %&#125;"</span>&gt;</span></span><br><span class="line">		重启服务器看看效果。</span><br><span class="line">###2. 页面侧边栏：使用自定义模板标签</span><br><span class="line">####2.1 使用自定义模板标签</span><br><span class="line">	1）在应用目录下新建templatetags目录。</span><br><span class="line">	2）在templatetags目录中新建__init__.py文件</span><br><span class="line">	3）新建自定义tag代码所在的py文件。比如blog_tags.py</span><br><span class="line">	4) 在blog_tags.py中开头写上这两句：</span><br><span class="line">		from django import template</span><br><span class="line">		register = template.Library()</span><br><span class="line">	5）在想要变成自定义tag的函数前加上@register.simple_tag，比如：</span><br><span class="line">		@register.simple_tag </span><br><span class="line">		def get_recent_posts(num=5): </span><br><span class="line">			return Post.objects.all().order_by('-created_time')[:num]</span><br><span class="line">	6）在模板中使用自定义tag：</span><br><span class="line">		在模板中导入自定义tag文件：&#123;% load blog_tags %&#125;</span><br><span class="line">		使用的写法：&#123;% get_recent_posts as recent_post_list %&#125;</span><br><span class="line">####2.2 使用自定义模板标签实现页面侧边栏</span><br><span class="line">```python</span><br><span class="line">from django import template</span><br><span class="line">from ..models import Post, Category</span><br><span class="line"></span><br><span class="line">register = template.Library()</span><br><span class="line"></span><br><span class="line">#最新文章模板标签</span><br><span class="line">@register.simple_tag</span><br><span class="line">def get_recent_posts(num=5):</span><br><span class="line">    return Post.objects.all().order_by('-created_time')[:num]</span><br><span class="line"></span><br><span class="line">#归档模板标签</span><br><span class="line">@register.simple_tag</span><br><span class="line">def archives():</span><br><span class="line">    return Post.objects.dates('created_time','month',order='DESC')</span><br><span class="line">#分类模板标签</span><br><span class="line">@register.simple_tag</span><br><span class="line">def get_categories():</span><br><span class="line">    return Category.objects.all()</span><br><span class="line">修改base.html</span><br><span class="line">	最新文章：</span><br><span class="line">		<span class="tag">&lt;<span class="name">h3</span> <span class="attr">class</span>=<span class="string">"widget-title"</span>&gt;</span>最新文章<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">            &#123;% get_recent_posts as recent_post_list %&#125;</span><br><span class="line">            <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">                &#123;% for post in recent_post_list %&#125;</span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;&#123; post.get_absolute_url &#125;&#125;"</span>&gt;</span>&#123;&#123; post.title &#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                &#123;% empty %&#125;</span><br><span class="line">                    暂无文章</span><br><span class="line">                &#123;% endfor %&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">	归档：</span><br><span class="line">		<span class="tag">&lt;<span class="name">h3</span> <span class="attr">class</span>=<span class="string">"widget-title"</span>&gt;</span>归档<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">            &#123;% archives as date_list %&#125;</span><br><span class="line">            <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">               &#123;% for date in date_list %&#125;</span><br><span class="line">                   <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>&#123;&#123; date.year &#125;&#125;年&#123;&#123; date.month &#125;&#125;月<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                &#123;% empty %&#125;</span><br><span class="line">                   暂无归档</span><br><span class="line">                &#123;% endfor %&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">	分类：</span><br><span class="line">		<span class="tag">&lt;<span class="name">h3</span> <span class="attr">class</span>=<span class="string">"widget-title"</span>&gt;</span>分类<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">            &#123;% get_categories as category_list %&#125;</span><br><span class="line">            <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">                &#123;% for category in category_list %&#125;</span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>&#123;&#123; category.name &#125;&#125;<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-count"</span>&gt;</span>(13)<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                &#123;% empty %&#125;</span><br><span class="line">                    暂无分类</span><br><span class="line">                &#123;% endfor %&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-分类与归档"><a href="#3-分类与归档" class="headerlink" title="3. 分类与归档"></a>3. 分类与归档</h3><h4 id="3-1-归档"><a href="#3-1-归档" class="headerlink" title="3.1 归档"></a>3.1 归档</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">使用filter获取归档数据。blog视图文件中增加如下视图函数：</span><br><span class="line">def archives(request, year, month):</span><br><span class="line">    post_list = Post.objects.filter(created_time__year=year,</span><br><span class="line">                                    created_time__month=month,</span><br><span class="line">                                    ).order_by('-created_time')</span><br><span class="line">    return render(request,'blog/index.html', locals())</span><br><span class="line">blog urls.py中增加下面一行：</span><br><span class="line">	url(r'^archives/(?P<span class="tag">&lt;<span class="name">year</span>&gt;</span>[0-9]&#123;4&#125;)/(?P<span class="tag">&lt;<span class="name">month</span>&gt;</span>[0-9]&#123;1,2&#125;)/$', views.archives, name='archives'),</span><br><span class="line">修改base模板中归档部分的超链接</span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">       	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'blog:archives' date.year date.month %&#125;"</span>&gt;</span>&#123;&#123; date.year &#125;&#125;年&#123;&#123; date.month &#125;&#125;月<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      </span><br><span class="line">      解决mysql无法使用月份过滤问题：</span><br><span class="line">      下载mysql时区文件：https://dev.mysql.com/downloads/timezones.html</span><br><span class="line">      拷贝到C:\ProgramData\MySQL\MySQL Server 5.7\Data\mysql目录下</span><br><span class="line">      重启mysql</span><br><span class="line">      登录mysql，执行：</span><br><span class="line">      	SET GLOBAL time_zone = 'Asia/Shanghai';</span><br><span class="line">      	SET SESSION time_zone = 'Asia/Shanghai';</span><br><span class="line">      	SELECT @ @global.time_zone , @ @session.time_zone ;</span><br></pre></td></tr></table></figure>
+<h4 id="3-2-分类"><a href="#3-2-分类" class="headerlink" title="3.2 分类"></a>3.2 分类</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">blog视图文件中添加如下视图函数：</span><br><span class="line">	def category(request,pk):</span><br><span class="line">	    cate = get_object_or_404(Category,pk=pk)</span><br><span class="line">	    post_list = Post.objects.filter(category=cate).order_by('-created_time')</span><br><span class="line">	    return render(request,'blog/index.html', &#123;'post_list':post_list&#125;)</span><br><span class="line">url中添加如下：</span><br><span class="line">	url(r'^category/(?P<span class="tag">&lt;<span class="name">pk</span>&gt;</span>[0-9]+)/$', views.category, name='category'),</span><br><span class="line">base中分类部分的超链接修改如下：</span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'blog:category' category.pk %&#125;"</span>&gt;</span>&#123;&#123; category.name &#125;&#125;<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"post-count"</span>&gt;</span>(13)<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-评论"><a href="#4-评论" class="headerlink" title="4. 评论"></a>4. 评论</h3><h4 id="4-1-创建评论应用"><a href="#4-1-创建评论应用" class="headerlink" title="4.1 创建评论应用"></a>4.1 创建评论应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">相对来说，评论其实是另外一个比较独立的功能。Django 提倡，如果功能相对比较独立的话，最好是创建一个应用，把相应的功能代码写到这个应用里。</span><br><span class="line">python manage.py startapp comments</span><br></pre></td></tr></table></figure>
+<h4 id="4-2-设计评论的数据库模型"><a href="#4-2-设计评论的数据库模型" class="headerlink" title="4.2 设计评论的数据库模型"></a>4.2 设计评论的数据库模型</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Comment</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    name = models.CharField(max_length=<span class="number">100</span>)</span><br><span class="line">    email = models.EmailField(max_length=<span class="number">255</span>)</span><br><span class="line">    url = models.URLField(blank=<span class="keyword">True</span>)</span><br><span class="line">    text = models.TextField()</span><br><span class="line">    created_time = models.DateTimeField(auto_now_add=<span class="keyword">True</span>)</span><br><span class="line">    post = models.ForeignKey(<span class="string">'blog.Post'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.text[:<span class="number">20</span>]</span><br><span class="line">生成完model后记得执行数据迁移。</span><br></pre></td></tr></table></figure>
+<h4 id="4-3-评论表单设计"><a href="#4-3-评论表单设计" class="headerlink" title="4.3 评论表单设计"></a>4.3 评论表单设计</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">在comments app目录下新建forms.py文件，该文件中写入以下代码：</span><br><span class="line">使用modelform</span><br><span class="line">	<span class="keyword">from</span> django <span class="keyword">import</span> forms</span><br><span class="line">	<span class="keyword">from</span> .models <span class="keyword">import</span> Comment</span><br><span class="line">			</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">CommentForm</span><span class="params">(forms.ModelForm)</span>:</span></span><br><span class="line">	    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">	        model = Comment</span><br><span class="line">	        fields = [<span class="string">'name'</span>, <span class="string">'email'</span>, <span class="string">'url'</span>,<span class="string">'text'</span>]</span><br></pre></td></tr></table></figure>
+<h4 id="4-4-评论视图函数"><a href="#4-4-评论视图函数" class="headerlink" title="4.4 评论视图函数"></a>4.4 评论视图函数</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render, get_object_or_404, redirect</span><br><span class="line"><span class="keyword">from</span> blog.models <span class="keyword">import</span> Post</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Comment</span><br><span class="line"><span class="keyword">from</span> .forms <span class="keyword">import</span> CommentForm</span><br><span class="line"><span class="comment"># Create your views here.</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">post_comment</span><span class="params">(request, post_pk)</span>:</span></span><br><span class="line">    post = get_object_or_404(Post, pk=post_pk)</span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'POST'</span>:</span><br><span class="line">        form = CommentForm(request.POST)</span><br><span class="line">        <span class="keyword">if</span> form.is_valid():</span><br><span class="line">            comment = form.save(commit=<span class="keyword">False</span>)</span><br><span class="line">            comment.post = post</span><br><span class="line">            comment.save()</span><br><span class="line">            <span class="keyword">return</span> redirect(post)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            comment_list = post.comment_set.all()</span><br><span class="line">            context = &#123;</span><br><span class="line">                <span class="string">'post'</span>:post,</span><br><span class="line">                <span class="string">'form'</span>:form,</span><br><span class="line">                <span class="string">'comment_list'</span>:comment_list</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> render(request, <span class="string">'blog/detail.html'</span>, context=context)</span><br><span class="line">    <span class="keyword">return</span> redirect(post)</span><br></pre></td></tr></table></figure>
+<h4 id="4-5-绑定-URL"><a href="#4-5-绑定-URL" class="headerlink" title="4.5 绑定 URL"></a>4.5 绑定 URL</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">app_name = &apos;comments&apos; </span><br><span class="line">urlpatterns = [ url(r&apos;^comment/post/(?P&lt;post_pk&gt;[0-9]+)/$&apos;, views.post_comment, name=&apos;post_comment&apos;), ]</span><br><span class="line">最后别忘了在项目的urls中包含comments的url</span><br><span class="line">	url(r&apos;&apos;, include(&apos;comments.urls&apos;)),</span><br></pre></td></tr></table></figure>
+<h4 id="4-6-更新文章详情页面的视图函数"><a href="#4-6-更新文章详情页面的视图函数" class="headerlink" title="4.6 更新文章详情页面的视图函数"></a>4.6 更新文章详情页面的视图函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在detail视图函数中加上这两句，让detail视图函数获取post所属的评论列表。：</span><br><span class="line">	form = CommentForm()</span><br><span class="line">	comment_list = post.comment_set.all()</span><br></pre></td></tr></table></figure>
+<h4 id="4-7-在前端渲染表单"><a href="#4-7-在前端渲染表单" class="headerlink" title="4.7 在前端渲染表单"></a>4.7 在前端渲染表单</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">修改前端评论的form表单部分代码：</span><br><span class="line">	<span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"&#123;% url 'comments:post_comment' post.pk %&#125;"</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">class</span>=<span class="string">"comment-form"</span>&gt;</span></span><br><span class="line">    &#123;% csrf_token %&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"row"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-md-4"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"&#123;&#123; form.name.id_for_label &#125;&#125;"</span>&gt;</span>名字：<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">            &#123;&#123; form.name &#125;&#125;</span><br><span class="line">            &#123;&#123; form.name.errors &#125;&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-md-4"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"&#123;&#123; form.email.id_for_label &#125;&#125;"</span>&gt;</span>邮箱：<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">            &#123;&#123; form.email &#125;&#125;</span><br><span class="line">            &#123;&#123; form.email.errors &#125;&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-md-4"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"&#123;&#123; form.url.id_for_label &#125;&#125;"</span>&gt;</span>网址：<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">            &#123;&#123; form.url &#125;&#125;</span><br><span class="line">            &#123;&#123; form.url.errors &#125;&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-md-12"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"&#123;&#123; form.text.id_for_label &#125;&#125;"</span>&gt;</span>评论：<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">            &#123;&#123; form.text &#125;&#125;</span><br><span class="line">            &#123;&#123; form.text.errors &#125;&#125;</span><br><span class="line">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">class</span>=<span class="string">"comment-btn"</span>&gt;</span>发表<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>    <span class="comment">&lt;!-- row --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="4-8-显示评论内容"><a href="#4-8-显示评论内容" class="headerlink" title="4.8 显示评论内容"></a>4.8 显示评论内容</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">在detail.html中删掉占位用的评论内容的 HTML 代码，使用如下代码替换：</span><br><span class="line">	<span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"comment-list list-unstyled"</span>&gt;</span></span><br><span class="line">        &#123;% for comment in comment_list %&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"comment-item"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"nickname"</span>&gt;</span>&#123;&#123; comment.name &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">time</span> <span class="attr">class</span>=<span class="string">"submit-date"</span> &gt;</span>&#123;&#123; comment.created_time &#125;&#125;<span class="tag">&lt;/<span class="name">time</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"text"</span>&gt;</span></span><br><span class="line">                &#123;&#123; comment.text &#125;&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        &#123;% empty %&#125;</span><br><span class="line">            暂无评论</span><br><span class="line">        &#123;% endfor %&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-统计文章阅读量"><a href="#5-统计文章阅读量" class="headerlink" title="5. 统计文章阅读量"></a>5. 统计文章阅读量</h3><h4 id="5-1-修改模型"><a href="#5-1-修改模型" class="headerlink" title="5.1 修改模型"></a>5.1 修改模型</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1) 增加新字段</span><br><span class="line">	Post中增加：</span><br><span class="line">	views = models.PositiveIntegerField(default=0)</span><br><span class="line">2）增加模型方法</span><br><span class="line">	def increase_views(self): </span><br><span class="line">		self.views += 1 </span><br><span class="line">		self.save(update_fields=[&apos;views&apos;])</span><br><span class="line">3）迁移数据库</span><br></pre></td></tr></table></figure>
+<h4 id="5-2-修改视图函数"><a href="#5-2-修改视图函数" class="headerlink" title="5.2 修改视图函数"></a>5.2 修改视图函数</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在detail视图函数中，在post = get_object_or_404(Post, pk=pk)后增加一行：</span><br><span class="line">	post.increase_views()</span><br></pre></td></tr></table></figure>
+<h4 id="5-3-在模板中显示阅读量"><a href="#5-3-在模板中显示阅读量" class="headerlink" title="5.3 在模板中显示阅读量"></a>5.3 在模板中显示阅读量</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">index.html</span><br><span class="line">	<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"views-count"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;&#123; post.get_absolute_url &#125;&#125;"</span>&gt;</span>&#123;&#123; post.views &#125;&#125; 阅读<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">detail.html</span><br><span class="line">	<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"views-count"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>&#123;&#123; post.views &#125;&#125; 阅读<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-自动生成文章摘要"><a href="#6-自动生成文章摘要" class="headerlink" title="6 自动生成文章摘要"></a>6 自动生成文章摘要</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">两种方法可以实现自动生成文章摘要。</span><br><span class="line"><span class="number">1</span>）复写 save 方法</span><br><span class="line">	通过复写模型的 save 方法，在数据被保存到数据库前，先从 body 字段摘取 N 个字符保存到 excerpt 字段中，从而实现自动摘要的目的。具体代码如下：</span><br><span class="line">		    <span class="function"><span class="keyword">def</span> <span class="title">save</span><span class="params">(self, *args, **kwargs)</span>:</span></span><br><span class="line">	        <span class="comment"># 如果没有填写摘要</span></span><br><span class="line">	        <span class="keyword">if</span> <span class="keyword">not</span> self.excerpt:</span><br><span class="line">				<span class="comment"># 首先实例化一个 Markdown 类，用于渲染 body 的文本</span></span><br><span class="line">	            md = markdown.Markdown(extensions=[</span><br><span class="line">	                <span class="string">'markdown.extensions.extra'</span>,</span><br><span class="line">	                <span class="string">'markdown.extensions.codehilite'</span>,</span><br><span class="line">	            ])</span><br><span class="line">				<span class="comment"># 先将 Markdown 文本渲染成 HTML 文本 </span></span><br><span class="line">				<span class="comment"># strip_tags 去掉 HTML 文本的全部 HTML 标签</span></span><br><span class="line">				<span class="comment"># 从文本摘取前 54 个字符赋给 excerpt</span></span><br><span class="line">	            self.excerpt = strip_tags(md.convert(self.content))[:<span class="number">54</span>]</span><br><span class="line">			<span class="comment"># 调用父类的 save 方法将数据保存到数据库中</span></span><br><span class="line">	        super(Post,self).save(*args, **kwargs)</span><br><span class="line"><span class="number">2</span>）使用 truncatechars 模板过滤器</span><br><span class="line">	&lt;p&gt;&#123;&#123; post.content|truncatechars:54 &#125;&#125;...&lt;/p&gt;</span><br><span class="line">	不过这种方法的一个缺点就是如果前 <span class="number">54</span> 个字符含有块级 HTML 元素标签的话（比如一段代码块），</span><br><span class="line">	会使摘要比较难看。所以推荐使用第一种方法。</span><br></pre></td></tr></table></figure>
+<h3 id="7-将post-detail转换成使用通用类视图"><a href="#7-将post-detail转换成使用通用类视图" class="headerlink" title="7 将post_detail转换成使用通用类视图"></a>7 将post_detail转换成使用通用类视图</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">除了从数据库中获取模型列表的数据外，从数据库获取模型的一条记录也是常见的需求。</span><br><span class="line">	比如查看某篇文章的详情，就是从数据库中获取这篇文章的记录然后渲染模板。</span><br><span class="line">	对于这种类型的需求，Django 提供了一个 DetailView 类视图。	</span><br><span class="line">	下面将 detail 视图函数转换为等价的类视图 PostDetailView。</span><br><span class="line">		<span class="class"><span class="keyword">class</span> <span class="title">PostDetailView</span><span class="params">(DetailView)</span>:</span></span><br><span class="line">		    model = Post</span><br><span class="line">		    template_name = <span class="string">'blog/detail.html'</span></span><br><span class="line">		    context_object_name = <span class="string">'post'</span></span><br><span class="line">		</span><br><span class="line">		    <span class="comment"># 复写get方法</span></span><br><span class="line">		    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, request, *args, **kwargs)</span>:</span></span><br><span class="line">		        <span class="comment"># get方法返回的是一个HttpResponse实例</span></span><br><span class="line">		        <span class="comment"># 先调用父类的get方法，self.object属性中才会有Post模型的实例。</span></span><br><span class="line">		        response = super(PostDetailView,self).get(request, *args, **kwargs)</span><br><span class="line">		        <span class="comment"># 文章阅读量+1</span></span><br><span class="line">		        <span class="comment"># self.object的值就是被访问的文章对象post</span></span><br><span class="line">		        self.object.increase_views()</span><br><span class="line">		        <span class="comment"># 视图函数必须返回一个HttpResponse对象</span></span><br><span class="line">		        <span class="keyword">return</span> response</span><br><span class="line">		</span><br><span class="line">		    <span class="function"><span class="keyword">def</span> <span class="title">get_object</span><span class="params">(self, queryset=None)</span>:</span></span><br><span class="line">		        <span class="comment"># 复写get_object方法的目的是因为需要对post的body值进行渲染</span></span><br><span class="line">		        post = super(PostDetailView, self).get_object(queryset=<span class="keyword">None</span>)</span><br><span class="line">		        post.content = markdown.markdown(post.body,extensions=[</span><br><span class="line">		            <span class="string">'markdown.extensions.extra'</span>,</span><br><span class="line">		            <span class="string">'markdown.extensions.codehilite'</span>,</span><br><span class="line">		            <span class="string">'markdown.extensions.toc'</span></span><br><span class="line">		        ])</span><br><span class="line">		        <span class="keyword">return</span> post</span><br><span class="line">		    </span><br><span class="line">		    <span class="function"><span class="keyword">def</span> <span class="title">get_context_data</span><span class="params">(self, **kwargs)</span>:</span></span><br><span class="line">		        <span class="comment"># 复写get_context_data的目的是因为除了将post传递给模板之外（DetailView已经帮我们做了）</span></span><br><span class="line">		        <span class="comment"># 还要把评论表单，post下的评论列表传递给模板。也就是往context中填充内容。</span></span><br><span class="line">		        <span class="comment"># 调用父类的get_context_data,先在context中生成self.object即Post的实例对象</span></span><br><span class="line">		        context = super(PostDetailView, self).get_context_data(**kwargs)</span><br><span class="line">		        form = CommentForm()</span><br><span class="line">		        comment_list = self.object.comment_set.all()</span><br><span class="line">		        context.update(&#123;</span><br><span class="line">		            <span class="string">'form'</span>: form,</span><br><span class="line">		            <span class="string">'comment_list'</span>: comment_list</span><br><span class="line">		        &#125;)</span><br><span class="line">		        <span class="keyword">return</span> context</span><br><span class="line">		PostDetailView略复杂，因为原本的detail函数也不简单。下面来详细讲解一下PostDetailView。</span><br><span class="line">		复写get方法，对应着 detail 视图函数中将 post 的阅读量 +<span class="number">1</span> 的那部分代码。每次调用视图函数都会执行get方法的代码。</span><br><span class="line">		复写get_object方法，对应着 detail 视图函数中根据文章的 id（也就是 pk）获取文章，</span><br><span class="line">		然后对文章的 post.body 进行 Markdown 渲染的代码部分。</span><br><span class="line">		get_object是默认的查找单个对象的方法，我们修改了默认的行为。</span><br><span class="line">		最后我们复写了get_context_data方法。这部分对应着 detail 视图函数中</span><br><span class="line">		生成评论表单、获取 post 下的评论列表的代码部分。</span><br><span class="line">		这个方法返回的值是一个字典，这个字典就是模板变量字典，最终会被传递给模板。</span><br><span class="line">		简单来说，如果我们想要每次调用detail函数的时候做一些事情，就复写get方法。</span><br><span class="line">				如果想要修改默认的查询行为，复写get_object方法。</span><br><span class="line">				如果想要添加额外的context变量，复写get_context_data方法。</span><br></pre></td></tr></table></figure>
+<h3 id="8-统计各个分类下的文章数"><a href="#8-统计各个分类下的文章数" class="headerlink" title="8 统计各个分类下的文章数"></a>8 统计各个分类下的文章数</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">最优雅的方式就是使用 Django 模型管理器的 annotate 方法。</span><br><span class="line">在blog_tags.py中</span><br><span class="line"><span class="meta">	@register.simple_tag</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">get_categories</span><span class="params">()</span>:</span></span><br><span class="line">	    <span class="keyword">return</span> Category.objects.annotate(num_posts=Count(<span class="string">'post'</span>)).filter(num_posts_gt=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">在模板中引用新增的属性</span><br><span class="line">	&lt;span class="post-count"&gt;(&#123;&#123; category.num__posts &#125;&#125;)&lt;/span&gt;</span><br></pre></td></tr></table></figure>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Django-博客项目（2）"><span class="toc-text">Django 博客项目（2）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-支持-Markdown-语法和代码高亮"><span class="toc-text">1. 支持 Markdown 语法和代码高亮</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-安装-Python-Markdown"><span class="toc-text">1.1 安装 Python Markdown</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-在-detail-视图中渲染-Markdown"><span class="toc-text">1.2 在 detail 视图中渲染 Markdown</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-分类与归档"><span class="toc-text">3. 分类与归档</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-归档"><span class="toc-text">3.1 归档</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-分类"><span class="toc-text">3.2 分类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-评论"><span class="toc-text">4. 评论</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-创建评论应用"><span class="toc-text">4.1 创建评论应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-设计评论的数据库模型"><span class="toc-text">4.2 设计评论的数据库模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-评论表单设计"><span class="toc-text">4.3 评论表单设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-评论视图函数"><span class="toc-text">4.4 评论视图函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5-绑定-URL"><span class="toc-text">4.5 绑定 URL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-6-更新文章详情页面的视图函数"><span class="toc-text">4.6 更新文章详情页面的视图函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-7-在前端渲染表单"><span class="toc-text">4.7 在前端渲染表单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-8-显示评论内容"><span class="toc-text">4.8 显示评论内容</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-统计文章阅读量"><span class="toc-text">5. 统计文章阅读量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-修改模型"><span class="toc-text">5.1 修改模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-修改视图函数"><span class="toc-text">5.2 修改视图函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-在模板中显示阅读量"><span class="toc-text">5.3 在模板中显示阅读量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-自动生成文章摘要"><span class="toc-text">6 自动生成文章摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-将post-detail转换成使用通用类视图"><span class="toc-text">7 将post_detail转换成使用通用类视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-统计各个分类下的文章数"><span class="toc-text">8 统计各个分类下的文章数</span></a></li></ol></li></ol></li></ol>
+  </div>
+</aside>
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/博客/"><i class="fa fa-tags"></i>博客</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      <div class="site-comment-contanier">
+  <p id="site-comment-info">
+    <i class="fa fa-spinner fa-spin"></i> 评论加载中
+  </p>
+  <div id="site-comment">
+  </div>
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">站点推荐</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://lidx.club/" target="_blank">GaryMarine</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.liaoxuefeng.com/" target="_blank">廖雪峰的官方网站</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://36kr.com/" target="_blank">36氪_让一部分人先看到未来</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">抓到我</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://music.163.com/#/my/m/music/playlist?id=385505488" target="_blank">音乐</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.zhihu.com/people/gu-hu-31-87/activities" target="_blank">知乎</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://weibo.com/5092313013/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1 " target="_blank">微博</a>
+          </span>
+        
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-at"></i> Email: yuanxin.me@gmail.com. QQ群: 534018786(主题交流)
+    </div>
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https:/godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+        
+          <div>
+            <img src="/images/wechat.png" alt="WeChat">
+            
+              <p>WeChat</p>
+            
+          </div>
+        
+          <div>
+            <img src="/images/alipay.png" alt="AliPay">
+            
+              <p>AliPay</p>
+            
+          </div>
+        
+      </div>
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/2017/05/24/Django 博客项目（3）/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/2017/05/18/Django 博客项目（1）/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    <a href="javascript:void(0);" id="site-reward">
+      <i class="fa fa-thumbs-up"></i>
+    </a>
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
