@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="GaryMarine" />
+  
+  
+  <title>Python网络编程 | GaryMarine</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="网络编程,TCP,UDP,进程,线程,协程," />
+  
+
+  
+  <meta name="description" content="GaryMarine Website">
+
+  
+
+  <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":true,"interval":"wfw"},
+    start_time: "2018-02-10",
+    passwords: ["9fd4703ff67642ec7fc0f8616d7513e620263fa6f3758b5836f496dfe334ae34", ],
+    is_post: true,
+    lock: false,
+    author: "GaryMarine",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+
+  
+
+
+
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">GaryMarine</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 晚来天欲雪，能饮一杯无？</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/GaryMarine/" target="_blank">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2018-03-20
+    </span>
+    
+      <span>
+        | <a href="/categories/网络编程/"><i class="fa fa-bookmark"></i>网络编程</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    Python网络编程
+  </h1>
+  
+  <article class="passage-article">
+    <h2 id="tcp客户端"><a href="#tcp客户端" class="headerlink" title="tcp客户端"></a>tcp客户端</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="comment"># 创建tcp套接字</span></span><br><span class="line">tcp_client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line"><span class="comment"># 绑定端口号</span></span><br><span class="line">tcp_client_socket.bind(<span class="string">""</span>, 端口号)</span><br><span class="line"><span class="comment"># 链接服务器</span></span><br><span class="line">tcp_client_socket.connect((目的地址，以元祖方式))</span><br><span class="line"><span class="comment"># 接收消息</span></span><br><span class="line">tcp_client_socket.recv(<span class="number">1024</span>)</span><br><span class="line"><span class="comment"># 发送消息</span></span><br><span class="line">tcp_client_socket.send(<span class="string">"消息内容"</span>)</span><br><span class="line"><span class="comment"># 关闭套接字</span></span><br><span class="line">tcp_client_socket.close()<span class="number">12345678910111213</span></span><br></pre></td></tr></table></figure>
+<h2 id="udp"><a href="#udp" class="headerlink" title="udp"></a>udp</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="comment"># 创建udp套接字</span></span><br><span class="line">udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</span><br><span class="line"><span class="comment"># 绑定端口号</span></span><br><span class="line">udp_socket.bind(<span class="string">""</span>, 端口号)</span><br><span class="line"><span class="comment"># 发送消息</span></span><br><span class="line">udp_socket.sendto(<span class="string">"发送消息内容"</span>, (目的地址，以元祖方式))</span><br><span class="line"><span class="comment"># 接收消息</span></span><br><span class="line">udp_socket.recvfrom(<span class="number">1024</span>)  <span class="comment"># 1024代表一次接收数据大小</span></span><br><span class="line"><span class="comment"># 关闭套接字</span></span><br><span class="line">udp_socket.close()</span><br></pre></td></tr></table></figure>
+<h2 id="tcp服务器"><a href="#tcp服务器" class="headerlink" title="tcp服务器"></a>tcp服务器</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="comment"># 创建tcp套接字</span></span><br><span class="line">tcp_server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line"><span class="comment"># 绑定端口号</span></span><br><span class="line">tcp_server_socket.bind(<span class="string">""</span>, 端口号)</span><br><span class="line"><span class="comment"># 响铃</span></span><br><span class="line">tcp_server_socket.listen(<span class="number">128</span>)  <span class="comment"># 表示最多可以接受128个客户端的链接</span></span><br><span class="line"><span class="comment"># 接受客户端链接,返回链接专用套接字和客户端地址</span></span><br><span class="line">client_socket, dest_addr = tcp_server_socket.accept()</span><br><span class="line"><span class="comment"># 发送消息</span></span><br><span class="line">client_socket.send()</span><br><span class="line"><span class="comment"># 接收消息</span></span><br><span class="line">client_socket.recv(<span class="number">1024</span>)</span><br><span class="line"><span class="comment"># 关闭套接字</span></span><br><span class="line">client_socket.close()</span><br><span class="line">tcp_server_socket.close()<span class="number">12345678910111213141516</span></span><br></pre></td></tr></table></figure>
+<h2 id="创建线程"><a href="#创建线程" class="headerlink" title="创建线程"></a>创建线程</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line">thread = threading.Thread(target=函数, args=(以元祖方式向函数中传入参数,))</span><br><span class="line">thread.start()  <span class="comment"># 调用子线程123</span></span><br></pre></td></tr></table></figure>
+<h2 id="创建进程"><a href="#创建进程" class="headerlink" title="创建进程"></a>创建进程</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> multiprocessing</span><br><span class="line">process = multiprocessing.Process(target==函数, args=(以元祖方式向函数中传入参数,))</span><br><span class="line">process.start()  <span class="comment"># 调用子进程123</span></span><br></pre></td></tr></table></figure>
+<h2 id="进程间通信，队列queue，先进先出"><a href="#进程间通信，队列queue，先进先出" class="headerlink" title="进程间通信，队列queue，先进先出"></a>进程间通信，队列queue，先进先出</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> multiprocessing</span><br><span class="line">queue = multiprocessing.Queue()</span><br><span class="line">queue.put(传入数据)</span><br><span class="line">queue.get()  <span class="comment"># 依次取出数据1234</span></span><br></pre></td></tr></table></figure>
+<h2 id="进程池"><a href="#进程池" class="headerlink" title="进程池"></a>进程池</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> multiprocessing</span><br><span class="line">po = multiprocessing.Pool(<span class="number">3</span>)  <span class="comment"># 代表进程池中最多有三个进程</span></span><br><span class="line">po.apply_async(函数, (以元祖方式向函数中传入参数,))</span><br><span class="line">po.close()  <span class="comment"># 关闭进程池，不再接受新任务</span></span><br><span class="line">po.join()  <span class="comment"># 主进程解阻塞12345</span></span><br></pre></td></tr></table></figure>
+<h2 id="进程池之间的通信"><a href="#进程池之间的通信" class="headerlink" title="进程池之间的通信"></a>进程池之间的通信</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> manager,pool</span><br><span class="line">queue = Manager().Queue()  <span class="comment"># 必须使用multiprocess中的Manager中的Queue创建队列</span></span><br><span class="line">po = Pool(<span class="number">3</span>)<span class="number">123</span></span><br></pre></td></tr></table></figure>
+<h2 id="互斥锁"><a href="#互斥锁" class="headerlink" title="互斥锁"></a>互斥锁</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="comment"># 创建锁</span></span><br><span class="line">mutex = threading.Lock()</span><br><span class="line"><span class="comment"># 锁定</span></span><br><span class="line">mutex.acquire()</span><br><span class="line"><span class="comment"># 释放</span></span><br><span class="line">mutex.release()<span class="number">1234567</span></span><br></pre></td></tr></table></figure>
+<h2 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 实现方法一：</span></span><br><span class="line"><span class="comment"># 例如：两个函数中有yield,在程序中while写入next()，交替切换生成器；属于手动切换</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 实现方法二：</span></span><br><span class="line"><span class="comment"># 例如：在两个函数while True中分别调用对方的g.switch(),</span></span><br><span class="line"><span class="comment"># 这样程序只要执行一个g.switch(),greenlet会自动切换</span></span><br><span class="line"><span class="keyword">from</span> greenlet <span class="keyword">import</span> greenlet</span><br><span class="line">g1 = greenlet(函数名, 传入函数中的参数)</span><br><span class="line">g2 = greenlet(函数名, 传入函数中的参数)</span><br><span class="line">g1.switch()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 实现方法三：</span></span><br><span class="line"><span class="keyword">import</span> gevent</span><br><span class="line">g1 = gevent(函数名, 传入函数中的参数)</span><br><span class="line">g2 = gevent(函数名, 传入函数中的参数)</span><br><span class="line">g1.join()</span><br><span class="line">g2.join()</span><br><span class="line"><span class="comment"># 还可以写成gevent.joinall([g1, g2])  # [以列表的形式写入gevent(函数名, 参数)]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 只要有延时操作，gevent才会自动切换</span></span><br><span class="line"><span class="comment"># gevent 中的延时操作必须用自己的，比如 gevent.sleep(1)</span></span><br><span class="line"><span class="comment"># 若是升级代码，代码中已有time模块，更改会很麻烦，这时就需要打补丁</span></span><br><span class="line">form gevent <span class="keyword">import</span> monkey</span><br><span class="line">monkey.patch_all()  <span class="comment"># 程序执行到这句话，会分析下面所有代码，把time换成gevent执行</span></span><br><span class="line">                    <span class="comment"># 看到的是time.sleep(1),实际上执行的是gevent.sleep(1)12345678910111213141516171819202122232425</span></span><br></pre></td></tr></table></figure>
+<h2 id="迭代器Iterator"><a href="#迭代器Iterator" class="headerlink" title="迭代器Iterator"></a>迭代器Iterator</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">可迭代对象：有__iter__方法，且返回一个迭代器对象</span><br><span class="line"></span><br><span class="line">判断一个对象是否可迭代：</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Iterable</span><br><span class="line">isinstance(判断对象, Iterable)</span><br><span class="line">返回<span class="keyword">True</span> 则是 <span class="keyword">False</span> 不是</span><br><span class="line"></span><br><span class="line">迭代器：有__iter__方法和__next__方法：</span><br><span class="line"></span><br><span class="line">判断一个对象是否是迭代器：</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Iterator</span><br><span class="line">isinstance(判断对象, Iterator)</span><br><span class="line">返回<span class="keyword">True</span> 则是 <span class="keyword">False</span> 不是</span><br><span class="line"></span><br><span class="line">迭代器I调用方法：</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> I</span><br><span class="line">next(I)<span class="number">1234567891011121314151617</span></span><br></pre></td></tr></table></figure>
+<h1 id="创建一个迭代器"><a href="#创建一个迭代器" class="headerlink" title="创建一个迭代器"></a>创建一个迭代器</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Iterator</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        xxx</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__next__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> xxx:</span><br><span class="line">            xxx</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> StopIteration  <span class="comment"># 超过列表范围，要抛出异常123456789101112</span></span><br></pre></td></tr></table></figure>
+<h2 id="生成器-generator"><a href="#生成器-generator" class="headerlink" title="生成器 generator"></a>生成器 generator</h2><h5 id="调用生成器G的方式："><a href="#调用生成器G的方式：" class="headerlink" title="调用生成器G的方式："></a>调用生成器G的方式：</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># list(可迭代对象)</span></span><br><span class="line">list(i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>))</span><br><span class="line">list(range(<span class="number">10</span>))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> G</span><br><span class="line">    next(G)</span><br><span class="line">    <span class="comment"># 另外一种调用生成器的方式</span></span><br><span class="line">    <span class="comment"># G.send(None)  # 如果需要往函数中传入参数，则写，不需要传参，写None</span></span><br><span class="line"></span><br><span class="line">生成器创建方法（一）：</span><br><span class="line">将列表推到式的[]改为()   G = (i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>))</span><br><span class="line"></span><br><span class="line">生成器创建方法（二）：函数中的<span class="keyword">return</span>换成<span class="keyword">yield</span>，如果生成器也有<span class="keyword">return</span>，可以通过<span class="keyword">try</span>，抛出异常的方式获取<span class="keyword">return</span>的内容：</span><br><span class="line">例题：生成器打印列表：</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generator</span><span class="params">(num)</span></span></span><br><span class="line">    i = 0</span><br><span class="line">    <span class="keyword">while</span> i &lt; num:</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">yield</span> i<span class="number">-1</span>   <span class="comment"># 相当于return </span></span><br><span class="line">        <span class="comment"># a yield b  可以通过send(a)传入参数，a 和 b 完全没有关系，执行顺序：先b后a</span></span><br><span class="line">        <span class="keyword">return</span> None1234567891011121314151617181920</span><br></pre></td></tr></table></figure>
+<h1 id="调用生成器"><a href="#调用生成器" class="headerlink" title="调用生成器"></a>调用生成器</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">G = generator(<span class="number">100</span>)</span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        num = G.send(<span class="keyword">None</span>)  <span class="comment"># 如果没有参数传入，要写send(None)</span></span><br><span class="line">        <span class="comment"># 还可以用next(G)调用生成器，取出数据</span></span><br><span class="line">        print(num)</span><br><span class="line">    <span class="keyword">except</span> StopIteration <span class="keyword">as</span> ret:  <span class="comment"># 或者用except Exception as ret</span></span><br><span class="line">        print(ret.value)  <span class="comment"># ret.value原因 ret返回的是一个对象，调用value方法返回None</span></span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tcp客户端"><span class="toc-text">tcp客户端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#udp"><span class="toc-text">udp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tcp服务器"><span class="toc-text">tcp服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建线程"><span class="toc-text">创建线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建进程"><span class="toc-text">创建进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进程间通信，队列queue，先进先出"><span class="toc-text">进程间通信，队列queue，先进先出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进程池"><span class="toc-text">进程池</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进程池之间的通信"><span class="toc-text">进程池之间的通信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#互斥锁"><span class="toc-text">互斥锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#协程"><span class="toc-text">协程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#迭代器Iterator"><span class="toc-text">迭代器Iterator</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#创建一个迭代器"><span class="toc-text">创建一个迭代器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#生成器-generator"><span class="toc-text">生成器 generator</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#调用生成器G的方式："><span class="toc-text">调用生成器G的方式：</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#调用生成器"><span class="toc-text">调用生成器</span></a>
+  </div>
+</aside>
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/TCP/"><i class="fa fa-tags"></i>TCP</a>
+     
+      <a href="/tags/UDP/"><i class="fa fa-tags"></i>UDP</a>
+     
+      <a href="/tags/进程/"><i class="fa fa-tags"></i>进程</a>
+     
+      <a href="/tags/线程/"><i class="fa fa-tags"></i>线程</a>
+     
+      <a href="/tags/协程/"><i class="fa fa-tags"></i>协程</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      <div class="site-comment-contanier">
+  <p id="site-comment-info">
+    <i class="fa fa-spinner fa-spin"></i> 评论加载中
+  </p>
+  <div id="site-comment">
+  </div>
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">站点推荐</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://lidx.club/" target="_blank">GaryMarine</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.liaoxuefeng.com/" target="_blank">廖雪峰的官方网站</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">抓到我</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://music.163.com/#/my/m/music/playlist?id=385505488" target="_blank">音乐</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.zhihu.com/people/gu-hu-31-87/activities" target="_blank">知乎</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://weibo.com/5092313013/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank">微博</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">实验室</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://github.com/dongyuanxin/music-api-next" target="_blank">Music API</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://github.com/dongyuanxin/webpack-demos" target="_blank">Webpack4 Demos</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://github.com/dongyuanxin/theme-bmw" target="_blank">Theme bmw</a>
+          </span>
+        
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-at"></i> Email: lidxry@gmail.com. QQ群: 534018786(主题交流)
+    </div>
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https:/godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+        
+          <div>
+            <img src="/images/wechat.png" alt="WeChat">
+            
+              <p>WeChat</p>
+            
+          </div>
+        
+          <div>
+            <img src="/images/alipay.png" alt="AliPay">
+            
+              <p>AliPay</p>
+            
+          </div>
+        
+      </div>
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/2018/03/22/Python 房贷计算器/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/2018/03/19/Python代码统计器/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    <a href="javascript:void(0);" id="site-reward">
+      <i class="fa fa-thumbs-up"></i>
+    </a>
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="GaryMarine" />
+  
+  
+  <title>Linux常用工具的安装 | GaryMarine</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Linux,Python," />
+  
+
+  
+  <meta name="description" content="GaryMarine Website">
+
+  
+
+  <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":true,"interval":"wfw"},
+    start_time: "2018-02-10",
+    passwords: ["9fd4703ff67642ec7fc0f8616d7513e620263fa6f3758b5836f496dfe334ae34", ],
+    is_post: true,
+    lock: false,
+    author: "GaryMarine",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+
+  
+
+
+
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">GaryMarine</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 晚来天欲雪，能饮一杯无？</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/GaryMarine/" target="_blank">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2018-02-12
+    </span>
+    
+      <span>
+        | <a href="/categories/Linux/"><i class="fa fa-bookmark"></i>Linux</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    Linux常用工具的安装
+  </h1>
+  
+  <article class="passage-article">
+    <p><strong>@安装PyCharm</strong></p>
+<ul>
+<li>官网下载压缩包</li>
+<li>解压缩</li>
+<li>进入压缩目录，运行pycharm.sh</li>
+</ul>
+<p><strong>@安装MySQL</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">sudo</span> <span class="selector-tag">apt-get</span> <span class="selector-tag">install</span> <span class="selector-tag">mysql-server</span>       无法通过<span class="selector-tag">apt</span>安装，应该是兼容性问题</span><br><span class="line"><span class="selector-tag">sudo</span> <span class="selector-tag">apt</span> <span class="selector-tag">install</span> <span class="selector-tag">mysql-clienit</span>          安装<span class="selector-tag">client</span>端</span><br><span class="line"><span class="selector-tag">sudo</span> <span class="selector-tag">apt</span> <span class="selector-tag">install</span> <span class="selector-tag">libmysqlclient-dev</span>     安装依赖    </span><br><span class="line">netstat -tap | grep mysql               查看是否运行（参数：-t=tcp，-a=all，-p=显示程序名称）</span><br><span class="line">sudo gedit /etc/mysql/mysql.conf.d/mysqld.cnf   修改配置文件，注释掉bind 127.0.0.1</span><br><span class="line"><span class="selector-tag">grant</span> <span class="selector-tag">all</span> <span class="selector-tag">on</span> *.* <span class="selector-tag">to</span> <span class="selector-tag">root</span>@'%' identified by <span class="string">'123456'</span> with grant option;  <span class="selector-tag">mysql</span>命令：允许所有<span class="selector-tag">IP</span>访问</span><br><span class="line"><span class="selector-tag">flush</span> <span class="selector-tag">privileges</span>;       <span class="selector-tag">mysql</span>命令：刷新权限</span><br><span class="line"><span class="selector-tag">sevice</span> <span class="selector-tag">mysql</span> <span class="selector-tag">restart</span>;   重启<span class="selector-tag">mysql</span></span><br><span class="line"></span><br><span class="line"># 接下来在另一台主机上测试连接即可</span><br></pre></td></tr></table></figure>
+<p><strong>@安装Redis</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">sudo wget http://download.redis.io/releases/redis-4.0.9.tar.gz  下载压缩包，默认~/Downloads</span><br><span class="line"><span class="selector-tag">tar</span> <span class="selector-tag">-zxvf</span> <span class="selector-tag">redis-4</span><span class="selector-class">.0</span><span class="selector-class">.9</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span>    解压</span><br><span class="line"><span class="selector-tag">sudo</span> <span class="selector-tag">apt-get</span> <span class="selector-tag">install</span> <span class="selector-tag">gcc</span>    安装<span class="selector-tag">c</span>语言编译器</span><br><span class="line">cd redis-4.0.9/             进入目录</span><br><span class="line"><span class="selector-tag">sudo</span> <span class="selector-tag">make</span> <span class="selector-tag">clean</span>             清扫编译垃圾</span><br><span class="line"><span class="selector-tag">sudo</span> <span class="selector-tag">make</span>                   编译</span><br><span class="line"><span class="selector-tag">sudo</span> <span class="selector-tag">make</span> <span class="selector-tag">install</span>           安装</span><br><span class="line"><span class="selector-tag">cd</span> <span class="selector-tag">src</span>                      进入源码目录，那里有编好的可执行文件</span><br><span class="line">redis-server ../redis.conf  运行服务端，使用配置文件</span><br><span class="line">ps -ef | grep redis         查看redis是否运行</span><br><span class="line"><span class="selector-tag">redis-cli</span>                   启动客户端进行测试</span><br></pre></td></tr></table></figure>
+<p><strong>@安装vim</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">sudo</span> <span class="selector-tag">apt-get</span> <span class="selector-tag">remove</span> <span class="selector-tag">--purge</span> <span class="selector-tag">vim</span> 完全卸载<span class="selector-tag">vim</span></span><br><span class="line"><span class="selector-tag">unzip</span> <span class="selector-tag">vim-master</span><span class="selector-class">.zip</span>    解压</span><br><span class="line">cd vim-master/          进入目录</span><br><span class="line">./configure             执行配置，会搜索和安装需要的类库</span><br><span class="line"><span class="selector-tag">apt</span> <span class="selector-tag">search</span> <span class="selector-tag">ncurses</span>      搜索缺失的类库</span><br><span class="line"><span class="selector-tag">sudo</span> <span class="selector-tag">apt</span> <span class="selector-tag">install</span> <span class="selector-tag">libncurses5-dev</span>    安装依赖库</span><br><span class="line">./configure         再次执行配置，通过</span><br><span class="line"><span class="selector-tag">make</span> <span class="selector-tag">clean</span>          保险起见，清除原来编译的垃圾</span><br><span class="line"><span class="selector-tag">make</span>                编译</span><br><span class="line"><span class="selector-tag">sudo</span> <span class="selector-tag">make</span> <span class="selector-tag">install</span>   安装</span><br><span class="line"><span class="selector-tag">vim</span>                 启动<span class="selector-tag">vim</span></span><br></pre></td></tr></table></figure>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    
+  </div>
+</aside>
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/Python/"><i class="fa fa-tags"></i>Python</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      <div class="site-comment-contanier">
+  <p id="site-comment-info">
+    <i class="fa fa-spinner fa-spin"></i> 评论加载中
+  </p>
+  <div id="site-comment">
+  </div>
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">站点推荐</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://lidx.club/" target="_blank">GaryMarine</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.liaoxuefeng.com/" target="_blank">廖雪峰的官方网站</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">抓到我</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://music.163.com/#/my/m/music/playlist?id=385505488" target="_blank">音乐</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.zhihu.com/people/gu-hu-31-87/activities" target="_blank">知乎</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://weibo.com/5092313013/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank">微博</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">实验室</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://github.com/dongyuanxin/music-api-next" target="_blank">Music API</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://github.com/dongyuanxin/webpack-demos" target="_blank">Webpack4 Demos</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://github.com/dongyuanxin/theme-bmw" target="_blank">Theme bmw</a>
+          </span>
+        
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-at"></i> Email: lidxry@gmail.com. QQ群: 534018786(主题交流)
+    </div>
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https:/godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+        
+          <div>
+            <img src="/images/wechat.png" alt="WeChat">
+            
+              <p>WeChat</p>
+            
+          </div>
+        
+          <div>
+            <img src="/images/alipay.png" alt="AliPay">
+            
+              <p>AliPay</p>
+            
+          </div>
+        
+      </div>
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/2018/02/15/Hexo Next 主题优化访问速度/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="javascript:void(0);" data-enable="false">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    <a href="javascript:void(0);" id="site-reward">
+      <i class="fa fa-thumbs-up"></i>
+    </a>
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

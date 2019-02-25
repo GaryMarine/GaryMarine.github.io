@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="GaryMarine" />
+  
+  
+  <title>Django 博客项目（4） | GaryMarine</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Django,博客," />
+  
+
+  
+  <meta name="description" content="GaryMarine Website">
+
+  
+
+  <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":true,"interval":"wfw"},
+    start_time: "2018-02-10",
+    passwords: ["9fd4703ff67642ec7fc0f8616d7513e620263fa6f3758b5836f496dfe334ae34", ],
+    is_post: true,
+    lock: false,
+    author: "GaryMarine",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+
+  
+
+
+
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">GaryMarine</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 晚来天欲雪，能饮一杯无？</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/GaryMarine/" target="_blank">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2018-04-29
+    </span>
+    
+      <span>
+        | <a href="/categories/Django/"><i class="fa fa-bookmark"></i>Django</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    Django 博客项目（4）
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="Django-博客项目（4）"><a href="#Django-博客项目（4）" class="headerlink" title="Django 博客项目（4）"></a>Django 博客项目（4）</h1><p>课前甜点：使用mixin优化PostDetailView</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 优化postdetailview</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostDetialViewPrime</span><span class="params">(SingleObjectMixin, ListView)</span>:</span></span><br><span class="line">    paginate_by = <span class="number">1</span></span><br><span class="line">    template_name = <span class="string">'blog/detail.html'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 重写get方法，调用increse_view方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, request, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="comment"># 生成self.object</span></span><br><span class="line">        self.object = self.get_object()</span><br><span class="line">        <span class="comment"># 调用increase_view</span></span><br><span class="line">        self.object.increase_views()</span><br><span class="line">        <span class="comment"># 最后调用父类的get</span></span><br><span class="line">        <span class="keyword">return</span> super().get(request, *args, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 重写get_object方法，加入markdown渲染的代码</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_object</span><span class="params">(self, queryset=Post.objects.all<span class="params">()</span>)</span>:</span></span><br><span class="line">        post = super().get_object(queryset=Post.objects.all())</span><br><span class="line">        <span class="comment"># 进行markdown处理</span></span><br><span class="line">        md = markdown.Markdown(extensions=[</span><br><span class="line">            <span class="string">'markdown.extensions.extra'</span>,</span><br><span class="line">            <span class="string">'markdown.extensions.codehilite'</span>,</span><br><span class="line">            TocExtension(slugify=slugify)</span><br><span class="line">        ])</span><br><span class="line">        post.content = md.convert(post.content)</span><br><span class="line">        <span class="comment"># 增加目录</span></span><br><span class="line">        post.toc = md.toc</span><br><span class="line">        <span class="comment"># 返回对象</span></span><br><span class="line">        <span class="keyword">return</span> post</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 重写get_context_data方法，来增加额外的上下文变量</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_context_data</span><span class="params">(self, **kwargs)</span>:</span></span><br><span class="line">        <span class="comment"># 先调用父类的get_context_data方法来获取context</span></span><br><span class="line">        context = super().get_context_data(**kwargs)</span><br><span class="line">        form = CommentForm()</span><br><span class="line">        page_obj = context.get(<span class="string">'page_obj'</span>, <span class="keyword">None</span>)</span><br><span class="line">        paginator = context.get(<span class="string">'paginator'</span>, <span class="keyword">None</span>)</span><br><span class="line">        start, end = custom_paginator(current_page=page_obj.number, num_pages=paginator.num_pages)</span><br><span class="line">        context.update(&#123;</span><br><span class="line">            <span class="string">'post'</span>: self.object,</span><br><span class="line">            <span class="string">'form'</span>: form,</span><br><span class="line">            <span class="string">'page_range'</span>: range(start, end + <span class="number">1</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="keyword">return</span> context</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_queryset</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.object.comment_set.filter(parent_comment=<span class="keyword">None</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="1-拓展User模型"><a href="#1-拓展User模型" class="headerlink" title="1. 拓展User模型"></a>1. 拓展User模型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Django 用户认证系统提供了一个内置的 User 对象，用于记录用户的用户名，密码等个人信息。</span><br><span class="line">对于 Django 内置的 User 模型， 仅包含以下一些主要的属性：</span><br><span class="line">	username，即用户名</span><br><span class="line">	password，密码</span><br><span class="line">	email，邮箱</span><br><span class="line">	first_name，名</span><br><span class="line">	last_name，姓</span><br><span class="line">对于一些网站来说，用户可能还包含有昵称、头像、个性签名等等其它属性。</span><br><span class="line">因此仅仅使用 Django 内置的 User 模型是不够。</span><br><span class="line">好在 Django 用户系统遵循可拓展的设计原则。</span><br><span class="line">我们可以方便地拓展 User 模型。</span><br></pre></td></tr></table></figure>
+<h4 id="1-1-继承-AbstractUser-拓展用户模型"><a href="#1-1-继承-AbstractUser-拓展用户模型" class="headerlink" title="1.1 继承 AbstractUser 拓展用户模型"></a>1.1 继承 AbstractUser 拓展用户模型</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">这是推荐做法。</span><br><span class="line">事实上，查看 User 模型的源码就知道，User 也是继承自 AbstractUser 抽象基类。</span><br><span class="line">而且仅仅就是继承了 AbstractUser，没有对 AbstractUser 做任何的拓展。</span><br><span class="line">所以，如果我们继承 AbstractUser，将获得 User 的全部特性，而且还可以根据自己的需求进行拓展。</span><br><span class="line">打开 users/models.py 文件，写上我们自定义的用户模型代码：</span><br><span class="line">user/models.py</span><br><span class="line">	<span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line">	<span class="keyword">from</span> django.contrib.auth.models <span class="keyword">import</span> AbstractUser</span><br><span class="line">	<span class="comment"># Create your models here.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">User</span><span class="params">(AbstractUser)</span>:</span></span><br><span class="line">	    nickname = models.CharField(max_length=<span class="number">50</span>,blank=<span class="keyword">True</span>)</span><br><span class="line">	    headshot = models.ImageField(upload_to=<span class="string">'avatar/%Y/%m/%d'</span>,default=<span class="string">'default.jpg'</span>)</span><br><span class="line">	    signature = models.CharField(max_length=<span class="number">128</span>, default=<span class="string">'This guy is too lazy to leave anything here!'</span>)</span><br><span class="line">	</span><br><span class="line">	    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span><span class="params">(AbstractUser.Meta)</span>:</span></span><br><span class="line">	        <span class="keyword">pass</span></span><br><span class="line">为了让 Django 用户认证系统使用我们自定义的用户模型,必须要在settings.py里通过 AUTH_USER_MODEL 指定自定义用户模型所在的位置，即需要如下设置：</span><br><span class="line">	myblog/settings.py</span><br><span class="line">	<span class="comment"># 其它设置...</span></span><br><span class="line">	AUTH_USER_MODEL = <span class="string">'users.User'</span>	</span><br><span class="line">即告诉 Django，使用 users 应用下的 User 用户模型。</span><br><span class="line">然后在blog/models.py中修改Post的作者外键为新的User类：</span><br><span class="line">即把	<span class="keyword">from</span> django.contrib.auth.models <span class="keyword">import</span> User删除。</span><br><span class="line">加上：<span class="keyword">from</span> users.models <span class="keyword">import</span> User</span><br><span class="line">然后执行数据库迁移命令。</span><br><span class="line">如报下面这种错误：</span><br><span class="line">django.db.migrations.exceptions.InconsistentMigrationHistory: Migration admin<span class="number">.0001</span>_initial <span class="keyword">is</span> applied before its dependency users<span class="number">.0001</span>_initial on database <span class="string">'default'</span>.</span><br><span class="line">删除数据库的所有表重新执行数据库迁移命令。</span><br></pre></td></tr></table></figure>
+<h3 id="2-注册"><a href="#2-注册" class="headerlink" title="2. 注册"></a>2. 注册</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户注册就是创建用户对象，将用户的个人信息保存到数据库里。</span><br></pre></td></tr></table></figure>
+<h4 id="2-1-编写用户注册表单"><a href="#2-1-编写用户注册表单" class="headerlink" title="2.1 编写用户注册表单"></a>2.1 编写用户注册表单</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Django 用户系统内置了登录、修改密码、找回密码等视图</span><br><span class="line">但是唯独用户注册的视图函数没有提供，这一部分需要我们自己来写。</span><br><span class="line">Django 已经内置了一个用户注册表单：django.contrib.auth.forms.UserCreationForm，</span><br><span class="line">不过这个表单的一个小问题是它关联的是 django 内置</span><br><span class="line">的 User 模型，从它的源码中可以看出：	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">UserCreationForm</span><span class="params">(forms.ModelForm)</span>:</span></span><br><span class="line">	    ...</span><br><span class="line">	    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">	        model = User</span><br><span class="line">	        fields = (<span class="string">"username"</span>,)</span><br><span class="line">	        field_classes = &#123;<span class="string">'username'</span>: UsernameField&#125;</span><br><span class="line">我们可以继承它，对它做一点小小的修改就可以了。</span><br><span class="line">在 users 应用下新建一个 forms.py 文件用于存放表单代码，然后写上如下代码：</span><br><span class="line">	<span class="keyword">from</span> django.contrib.auth.forms <span class="keyword">import</span> UserCreationForm</span><br><span class="line">	<span class="keyword">from</span> .models <span class="keyword">import</span> User</span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">RegisterForm</span><span class="params">(UserCreationForm)</span>:</span></span><br><span class="line">	    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span><span class="params">(UserCreationForm.Meta)</span>:</span></span><br><span class="line">	        model = User</span><br><span class="line">	        fileds = (<span class="string">'username'</span>, <span class="string">'email'</span>, <span class="string">'nickname'</span>, <span class="string">'headshot'</span>, <span class="string">'signature'</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-编写用户注册视图函数"><a href="#2-2-编写用户注册视图函数" class="headerlink" title="2.2 编写用户注册视图函数"></a>2.2 编写用户注册视图函数</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">users/views.py</span><br><span class="line">	<span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render, redirect</span><br><span class="line">	<span class="keyword">from</span> .forms <span class="keyword">import</span> RegisterForm</span><br><span class="line">	<span class="keyword">from</span> django.urls <span class="keyword">import</span> reverse</span><br><span class="line">	<span class="comment"># Create your views here.</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">register</span><span class="params">(request)</span>:</span></span><br><span class="line">	    <span class="keyword">if</span> request.method == <span class="string">'POST'</span>:</span><br><span class="line">	        form = RegisterForm(request.POST, request.FILES)</span><br><span class="line">			</span><br><span class="line">	        <span class="keyword">if</span> form.is_valid():</span><br><span class="line">	            form.save()</span><br><span class="line">	            <span class="keyword">return</span> redirect(reverse(<span class="string">'blog:index'</span>))</span><br><span class="line">	    <span class="keyword">else</span>:</span><br><span class="line">	        form = RegisterForm()</span><br><span class="line">	    retun render(request, <span class="string">'users/register.html'</span>, &#123;<span class="string">'form'</span>:form&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="2-3-设置-URL-模式"><a href="#2-3-设置-URL-模式" class="headerlink" title="2.3 设置 URL 模式"></a>2.3 设置 URL 模式</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">users/urls.py</span><br><span class="line">	<span class="selector-tag">from</span> <span class="selector-tag">django</span><span class="selector-class">.conf</span><span class="selector-class">.urls</span> <span class="selector-tag">import</span> <span class="selector-tag">url</span></span><br><span class="line">	<span class="selector-tag">from</span> . <span class="selector-tag">import</span> <span class="selector-tag">views</span></span><br><span class="line">	</span><br><span class="line">	app_name = 'users'</span><br><span class="line">	urlpatterns = [</span><br><span class="line">	    url(r'^register/', views.register, name='register'),</span><br><span class="line">	]</span><br><span class="line">接下来需要在工程的 <span class="selector-tag">urls</span><span class="selector-class">.py</span> 文件里包含 <span class="selector-tag">users</span> 应用的 <span class="selector-tag">URL</span> 模式</span><br><span class="line">django_auth_example/urls.py</span><br><span class="line"></span><br><span class="line">	<span class="selector-tag">from</span> <span class="selector-tag">django</span><span class="selector-class">.conf</span><span class="selector-class">.urls</span> <span class="selector-tag">import</span> <span class="selector-tag">url</span>, <span class="selector-tag">include</span></span><br><span class="line">	<span class="selector-tag">from</span> <span class="selector-tag">django</span><span class="selector-class">.contrib</span> <span class="selector-tag">import</span> <span class="selector-tag">admin</span></span><br><span class="line">	</span><br><span class="line">	urlpatterns = [</span><br><span class="line">	    url(r'^admin/', admin.site.urls),</span><br><span class="line">		...</span><br><span class="line">	    url(r'^users/', include('users.urls')),</span><br><span class="line">	]</span><br></pre></td></tr></table></figure>
+<h4 id="2-4-编写注册页面模板"><a href="#2-4-编写注册页面模板" class="headerlink" title="2.4 编写注册页面模板"></a>2.4 编写注册页面模板</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">已提供模板。在模板中写入下面代码：</span><br><span class="line">	&lt;form class="form" action="&#123;% url 'users:register' %&#125;" method="post"&gt;</span><br><span class="line">        &#123;% csrf_token %&#125;</span><br><span class="line">        &#123;% for field in form %&#125;</span><br><span class="line">            &#123;&#123; field.label_tag &#125;&#125;</span><br><span class="line">            &#123;&#123; field &#125;&#125;</span><br><span class="line">            &#123;&#123; field.errors &#125;&#125;</span><br><span class="line">            &#123;% if field.help_text %&#125;</span><br><span class="line">                &lt;p class="help text-small text-muted"&gt;&#123;&#123; field.help_text|safe &#125;&#125;&lt;/p&gt;</span><br><span class="line">            &#123;% endif %&#125;</span><br><span class="line">        &#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-登录"><a href="#3-登录" class="headerlink" title="3 登录"></a>3 登录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Django 已经为我们写好了登录功能的全部代码。</span><br><span class="line">我们不必像之前处理注册流程那样费劲了。</span><br><span class="line">只需几分钟的简单配置，就可为用户提供登录功能。</span><br></pre></td></tr></table></figure>
+<h4 id="3-1-引入内置的-URL-模型"><a href="#3-1-引入内置的-URL-模型" class="headerlink" title="3.1 引入内置的 URL 模型"></a>3.1 引入内置的 URL 模型</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Django 内置的登录、修改密码、找回密码等视图函数对应</span><br><span class="line">的 URL 模式位于django.contrib.auth.urls.py 中。</span><br><span class="line">首先在工程的 urls.py 文件里包含这些 URL 模式。</span><br><span class="line">	url(<span class="string">r'^users/'</span>, include(<span class="string">'django.contrib.auth.urls'</span>)),</span><br><span class="line">这将包含以下的 URL 模式：</span><br><span class="line">	^users/login/$ [name=<span class="string">'login'</span>]</span><br><span class="line">	^users/logout/$ [name=<span class="string">'logout'</span>]</span><br><span class="line">	^users/password_change/$ [  name=<span class="string">'password_change'</span>]</span><br><span class="line">	^users/password_change/done/$ [name=<span class="string">'password_change_done'</span>]</span><br><span class="line">	^users/password_reset/$ [name=<span class="string">'password_reset'</span>]</span><br><span class="line">	^users/password_reset/done/$ [name=<span class="string">'password_reset_done'</span>]</span><br><span class="line">	^users/reset/(?P&lt;uidb64&gt;[0-9A-Za-z_\-]+)/(?P&lt;token&gt;[0-9A-Za-z]&#123;1,13&#125;-[0-9A-Za-z]&#123;1,20&#125;)/$ [name='password_reset_confirm']</span><br><span class="line">	^users/reset/done/$ [name=<span class="string">'password_reset_complete'</span>]</span><br></pre></td></tr></table></figure>
+<h4 id="3-2-设置模板路径"><a href="#3-2-设置模板路径" class="headerlink" title="3.2 设置模板路径"></a>3.2 设置模板路径</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">默认的登录视图函数渲染的是 registration/login.html 模板。</span><br><span class="line">因此需要在 templates/ 目录下新建一个 registration 文件夹。</span><br><span class="line">再在 registration/ 目录下新建 login.html 模板文件。</span><br></pre></td></tr></table></figure>
+<h4 id="3-3-编写登录模板"><a href="#3-3-编写登录模板" class="headerlink" title="3.3 编写登录模板"></a>3.3 编写登录模板</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">登录模板的代码和注册模板的代码十分类似。</span><br><span class="line">已提供模板。</span><br><span class="line">关注表单部分的代码：</span><br><span class="line">	&lt;form class="form" action="&#123;% url 'login' %&#125;" method="post"&gt;</span><br><span class="line">	  &#123;% csrf_token %&#125;</span><br><span class="line">	  &#123;&#123; form.non_field_errors &#125;&#125;</span><br><span class="line">	  &#123;% for field in form %&#125;</span><br><span class="line">	    &#123;&#123; field.label_tag &#125;&#125;</span><br><span class="line">	    &#123;&#123; field &#125;&#125;</span><br><span class="line">	    &#123;&#123; field.errors &#125;&#125;</span><br><span class="line">	    &#123;% if field.help_text %&#125;</span><br><span class="line">	        &lt;p class="help text-small text-muted"&gt;&#123;&#123; field.help_text|safe &#125;&#125;&lt;/p&gt;</span><br><span class="line">	    &#123;% endif %&#125;</span><br><span class="line">	  &#123;% endfor %&#125;</span><br><span class="line">	  &lt;button type="submit" class="btn btn-primary btn-block"&gt;登录&lt;/button&gt;</span><br><span class="line">	&lt;/form&gt;</span><br><span class="line">需要特别说明的是&#123;&#123; form.non_field_errors &#125;&#125;。</span><br><span class="line">这显示的同样是表单错误，但是显示的表单错误是和具体的某个表单字段无关的。</span><br><span class="line">相对 &#123;&#123; field.errors &#125;&#125;显示的是具体某个字段的错误。</span><br><span class="line">比如对于字段 <span class="selector-tag">username</span>，如果用户输入的 <span class="selector-tag">username</span> 不</span><br><span class="line">符合要求，比如太长了或者太短了，表单会在 <span class="selector-tag">username</span> </span><br><span class="line">下方渲染这个错误。</span><br><span class="line">但有些表单错误不和任何具体的字段相关，比如用户输入的</span><br><span class="line">用户名和密码无法通过验证，这可能是用户输入的用户名不</span><br><span class="line">存在，也可能是用户输入的密码错误，因此这个错误信息将</span><br><span class="line">通过 &#123;&#123; form.non_field_errors &#125;&#125; 渲染。</span><br></pre></td></tr></table></figure>
+<h4 id="3-4-设置登录登出的跳转-URL"><a href="#3-4-设置登录登出的跳转-URL" class="headerlink" title="3.4 设置登录登出的跳转 URL"></a>3.4 设置登录登出的跳转 URL</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">在settings中设置以下参数：</span><br><span class="line">LOGOUT_REDIRECT_URL = &apos;/index/&apos;</span><br><span class="line">LOGIN_REDIRECT_URL = &apos;/index/&apos;</span><br><span class="line">表示登录后跳转到index页面。</span><br></pre></td></tr></table></figure>
+<h3 id="4-注销和页面跳转"><a href="#4-注销和页面跳转" class="headerlink" title="4. 注销和页面跳转"></a>4. 注销和页面跳转</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">当用户想切换登录账号，或者想退出登录状态时，这时候就需要注销已登录的账号。</span><br><span class="line">现在我们来为网站添加注销登录的功能，这个功能 Django 也已经为</span><br><span class="line">我们提供，我们只需做一点简单配置。</span><br></pre></td></tr></table></figure>
+<h4 id="4-1-注销登录"><a href="#4-1-注销登录" class="headerlink" title="4.1 注销登录"></a>4.1 注销登录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注销登录的视图为 logout</span><br></pre></td></tr></table></figure>
+<h4 id="4-2-页面跳转"><a href="#4-2-页面跳转" class="headerlink" title="4.2 页面跳转"></a>4.2 页面跳转</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">对于一个网站来说，比较好的用户体验是登录、注册和注销后跳转回用户之前访问的页面。</span><br><span class="line">在登录和注销的视图函数中，Django 已经为我们处理了跳转回用户之前访问页面的流程。</span><br><span class="line">其实现的原理是，在登录和注销的流程中，始终传递一个 next 参数记录用户之前访问页面的 URL。</span><br><span class="line">我们需要做的就是在用户访问登录或者注销的页面时，在 URL 中传递一个 next 参数给视图函数，具体做法如下：</span><br><span class="line">	&lt;button class="btn btn-default"&gt;</span><br><span class="line">	  &lt;a href="&#123;% url 'logout' %&#125;?next=&#123;&#123; request.path &#125;&#125;"&gt;注销登录&lt;/a&gt;</span><br><span class="line">	&lt;/button&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;button class="btn btn-default"&gt;</span><br><span class="line">	  &lt;a href="&#123;% url 'login' %&#125;?next=&#123;&#123; request.path &#125;&#125;"&gt;登录&lt;/a&gt;</span><br><span class="line">	&lt;/button&gt;</span><br><span class="line">可以看到，我们在登录和注销的 URL 后加了 next 参数，其值为 &#123;&#123; request.path &#125;&#125;。request.path 是用户当前访问页面的 URL。</span><br><span class="line">为了在整个登录流程中记录 next 的值，还需要在登录表单中增加一个表单控件，用于传递 next 值。</span><br><span class="line">registration/login.html</span><br><span class="line"></span><br><span class="line">&lt;form class="form" action="&#123;% url 'login' %&#125;" method="post"&gt;</span><br><span class="line">  ...                 </span><br><span class="line">  &lt;button type="submit" class="btn btn-primary btn-block"&gt;登录&lt;/button&gt;</span><br><span class="line">  &lt;input type=<span class="string">"hidden"</span> name=<span class="string">"next"</span> value=<span class="string">"&#123;&#123; next &#125;&#125;"</span>/&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">即在表单中增加了一个隐藏的 input 控件，其值为 &#123;&#123; next &#125;&#125;，即之前通过 URL 参数传递给登录视图函数的，然后登录视图函数又将该值传递给了 login.html 模板。</span><br><span class="line">这样在整个登录流程中，始终有一个记录着用户在登录前页面 URL 的变量 next 在视图和模板间来回传递，直到用户登录成功后再跳转回 next 记录的页面。</span><br><span class="line">类似的，我们也希望用户注册后返回注册前页面。</span><br><span class="line">不过由于注册视图函数是我们自己写的，所以需要我们自己去获取跳转的地址。</span><br><span class="line">需要修改一下注册视图函数：</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">register</span><span class="params">(request)</span>:</span></span><br><span class="line">	    redirect_to = request.POST.get(<span class="string">'next'</span>, request.GET.get(<span class="string">'next'</span>, <span class="string">''</span>))</span><br><span class="line">	    <span class="keyword">if</span> request.method == <span class="string">'POST'</span>:</span><br><span class="line">	        form = RegisterForm(request.POST)</span><br><span class="line">	</span><br><span class="line">	        <span class="keyword">if</span> form.is_valid():</span><br><span class="line">	            form.save()</span><br><span class="line">	            <span class="keyword">if</span> redirect_to:</span><br><span class="line">	                <span class="keyword">return</span> redirect(redirect_to)</span><br><span class="line">	            <span class="keyword">else</span>:</span><br><span class="line">	                <span class="keyword">return</span> redirect(reverse(<span class="string">'blog:index'</span>))</span><br><span class="line">	    <span class="keyword">else</span>:</span><br><span class="line">	        form = RegisterForm()</span><br><span class="line">	    <span class="keyword">return</span> render(request, <span class="string">'users/register.html'</span>, &#123;<span class="string">'form'</span>:form,<span class="string">'next'</span>:redirect_to&#125;)</span><br><span class="line">然后修改模板</span><br><span class="line">	base.html</span><br><span class="line">		 &lt;a href="&#123;% url 'users:register' %&#125;?next=&#123;&#123; request.path &#125;&#125;"&gt;注册&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="5-修改密码"><a href="#5-修改密码" class="headerlink" title="5. 修改密码"></a>5. 修改密码</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">修改密码的的视图函数默认渲染的模板名为 <span class="selector-tag">password_change_form</span><span class="selector-class">.html</span></span><br><span class="line">首先在 registration/ 下新建一个password_change_form.html 文件，写入表单代码。代码几乎和登录界页面一样。</span><br><span class="line"><span class="selector-tag">base</span><span class="selector-class">.html</span>中增加修改密码的超链接，注意必须是登录才能显示这个超链接：</span><br><span class="line">	&lt;li class="cl-effect-11"&gt;&lt;a href="&#123;% url 'password_change' %&#125;?next=&#123;&#123; request.path &#125;&#125;" data-hover="修改密码"&gt;修改密码&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">然后编写密码修改成功页面模板。</span><br></pre></td></tr></table></figure>
+<h3 id="6-重置密码"><a href="#6-重置密码" class="headerlink" title="6. 重置密码"></a>6. 重置密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">当用户不小心忘记了密码时，网站需要提供让用户找回账户密码的功能。	</span><br><span class="line">我们将发送一封含有重置用户密码链接的邮件到用户注册时的邮箱，用户点击收到的链接就可以重置他的密码。</span><br></pre></td></tr></table></figure>
+<h4 id="6-1-发送邮件设置"><a href="#6-1-发送邮件设置" class="headerlink" title="6.1 发送邮件设置"></a>6.1 发送邮件设置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Django 内置了非常方便的发送邮件的功能，不过需要在 settings.py 中做一些简单配置。</span><br><span class="line">生产环境下通常需要使用真实的邮件发送服务器，配置步骤会比较多一点。</span><br><span class="line">不过 Django 为开发环境下发送邮件提供了一些方便的 Backends 来模拟真实邮件的发送，例如直接发送邮件到终端。</span><br><span class="line">在 settings.py 中加入以下设置：</span><br><span class="line">	EMAIL_BACKEND = &apos;django.core.mail.backends.console.EmailBackend&apos;</span><br><span class="line">这样 Django 将把邮件发送到终端。</span><br></pre></td></tr></table></figure>
+<h4 id="6-2-编写重置密码模板"><a href="#6-2-编写重置密码模板" class="headerlink" title="6.2 编写重置密码模板"></a>6.2 编写重置密码模板</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">重置的视图函数默认渲染的模板名为 password_reset_form.html，因此首先在 registration/ 下新建一个 password_reset_form.html 文件.</span><br><span class="line">此外，修改一下重置密码按钮的超链接属性：</span><br><span class="line">registration/login.html</span><br><span class="line">	...</span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"flex-left top-gap text-small"</span>&gt;</span></span><br><span class="line">	  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"unit-2-3"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>没有账号？<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'users:register' %&#125;"</span>&gt;</span>立即注册<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"unit-1-3 flex-right"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'password_reset' %&#125;"</span>&gt;</span>忘记密码？<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="6-2-编写邮件发送成功页面模板"><a href="#6-2-编写邮件发送成功页面模板" class="headerlink" title="6.2 编写邮件发送成功页面模板"></a>6.2 编写邮件发送成功页面模板</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">用户在重置密码页面输入注册时的邮箱后，Django 会把用户跳转到邮件发送成功页面.</span><br><span class="line">该页面渲染的模板为 password_reset_done.html，因此再添加一个密码修改成功页面的模板.</span><br></pre></td></tr></table></figure>
+<h4 id="6-3-编写设置新密码页面模板"><a href="#6-3-编写设置新密码页面模板" class="headerlink" title="6.3 编写设置新密码页面模板"></a>6.3 编写设置新密码页面模板</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在接收到的重置密码邮件中有一个设置新密码的链接，点击该链接就会跳转到给账户设置新密码的页面，以便用户给已忘记密码的账户设置一个全新的密码。</span><br><span class="line">该页面渲染的模板为 password_reset_confirm.html</span><br></pre></td></tr></table></figure>
+<h4 id="6-4-编写设置新密码成功页面模板"><a href="#6-4-编写设置新密码成功页面模板" class="headerlink" title="6.4 编写设置新密码成功页面模板"></a>6.4 编写设置新密码成功页面模板</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">用户在设置新密码页面输入新密码后，Django 会把用户跳转到设置新密码成功页面.</span><br><span class="line">该页面渲染的模板为 password_reset_complete.html，因此再添加一个设置新密码成功页面的模板.</span><br></pre></td></tr></table></figure>
+<h3 id="7-自定义认证后台"><a href="#7-自定义认证后台" class="headerlink" title="7 自定义认证后台"></a>7 自定义认证后台</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Django auth 应用默认支持用户名（username）进行登录。</span><br><span class="line">但是在实践中，网站可能还需要邮箱、手机号、身份证号等进行登录。</span><br><span class="line">这就需要我们自己写一个认证后台，用于验证用户输入的用户信息是否正确，从而对拥有正确凭据的用户进行登录认证。</span><br></pre></td></tr></table></figure>
+<h4 id="7-1-Django-验证用户合法性的方式"><a href="#7-1-Django-验证用户合法性的方式" class="headerlink" title="7.1 Django 验证用户合法性的方式"></a>7.1 Django 验证用户合法性的方式</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Django 对用户登录的验证工作均在一个被称作认证后台（Authentication Backend）的类中进行。</span><br><span class="line">这个类是一个普通的 Python 类，它有一个 authenticate 方法，</span><br><span class="line">接收登录用户提供的凭据（如用户名或者邮箱以及密码）作为参数，</span><br><span class="line">并根据这些凭据判断用户是否合法（即是否是已注册用户，密码是否正确等）。</span><br><span class="line">面是 Django 内置的认证后台的部分源代码：</span><br><span class="line">	django.contrib.auth.backends</span><br><span class="line"></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">ModelBackend</span><span class="params">(object)</span>:</span></span><br><span class="line">	    <span class="string">"""</span></span><br><span class="line"><span class="string">	    Authenticates against settings.AUTH_USER_MODEL.</span></span><br><span class="line"><span class="string">	    """</span></span><br><span class="line">	</span><br><span class="line">	    <span class="function"><span class="keyword">def</span> <span class="title">authenticate</span><span class="params">(self, request, username=None, password=None, **kwargs)</span>:</span></span><br><span class="line">	        <span class="keyword">if</span> username <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">	            username = kwargs.get(UserModel.USERNAME_FIELD)</span><br><span class="line">	        <span class="keyword">try</span>:</span><br><span class="line">	            user = UserModel._default_manager.get_by_natural_key(username)</span><br><span class="line">	        <span class="keyword">except</span> UserModel.DoesNotExist:</span><br><span class="line">	            <span class="comment"># Run the default password hasher once to reduce the timing</span></span><br><span class="line">	            <span class="comment"># difference between an existing and a non-existing user (#20760).</span></span><br><span class="line">	            UserModel().set_password(password)</span><br><span class="line">	        <span class="keyword">else</span>:</span><br><span class="line">	            <span class="keyword">if</span> user.check_password(password) <span class="keyword">and</span> self.user_can_authenticate(user):</span><br><span class="line">	                <span class="keyword">return</span> user</span><br><span class="line">这段代码根据用户传入的 username 和 password，验证该 username 对应的用户是否存在以及密码是否正确，是则返回该 user 对象。</span><br><span class="line">可以定义多个认证后台，Django 内部会逐一调用这些后台的 </span><br><span class="line">authenticate 方法来验证用户提供登录凭据的合法性，一旦</span><br><span class="line">通过某个后台的验证，表明用户提供的凭据合法，从而允许登录该用户。</span><br></pre></td></tr></table></figure>
+<h4 id="7-2-Email-Backend"><a href="#7-2-Email-Backend" class="headerlink" title="7.2 Email Backend"></a>7.2 Email Backend</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">因为 Django auth 应用内置只支持用户名和密码的认证方式，所以</span><br><span class="line">目前用户是无法使用 Email 进行登录的。</span><br><span class="line">为了实现邮箱登录，我们需要编写一个认证后台。</span><br><span class="line">这个后台的作用便是验证用户提供的凭据（这里是邮箱以及密码）是合法的。</span><br><span class="line">完全仿照内置的 ModelBackend 代码即可。	</span><br><span class="line">首先在 users 应用下新建一个 backends.py 文件，然后写入如下代码：</span><br><span class="line">	users/backends.py</span><br><span class="line"></span><br><span class="line">	<span class="keyword">from</span> .models <span class="keyword">import</span> User</span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">EmailBackend</span><span class="params">(object)</span>:</span></span><br><span class="line">	    <span class="function"><span class="keyword">def</span> <span class="title">authenticate</span><span class="params">(self, request, **credentials)</span>:</span></span><br><span class="line">	        <span class="comment"># 要注意登录表单中用户输入的用户名或者邮箱的 field 名均为 username</span></span><br><span class="line">	        email = credentials.get(<span class="string">'email'</span>, credentials.get(<span class="string">'username'</span>))</span><br><span class="line">	        <span class="keyword">try</span>:</span><br><span class="line">	            user = User.objects.get(email=email)</span><br><span class="line">	        <span class="keyword">except</span> User.DoesNotExist:</span><br><span class="line">	            <span class="keyword">pass</span></span><br><span class="line">	        <span class="keyword">else</span>:</span><br><span class="line">	            <span class="keyword">if</span> user.check_password(credentials[<span class="string">"password"</span>]):</span><br><span class="line">	                <span class="keyword">return</span> user</span><br><span class="line">	</span><br><span class="line">	    <span class="function"><span class="keyword">def</span> <span class="title">get_user</span><span class="params">(self, user_id)</span>:</span></span><br><span class="line">	        <span class="string">"""</span></span><br><span class="line"><span class="string">	        该方法是必须的</span></span><br><span class="line"><span class="string">	        """</span></span><br><span class="line">	        <span class="keyword">try</span>:</span><br><span class="line">	            <span class="keyword">return</span> User.objects.get(pk=user_id)</span><br><span class="line">	        <span class="keyword">except</span> User.DoesNotExist:</span><br><span class="line">	            <span class="keyword">return</span> <span class="keyword">None</span></span><br><span class="line">逻辑非常简单，就是根据用户提供的 Email 和密码，检查该 email</span><br><span class="line">对应的用户是否存在，如果存在则检查密码是否正确，如果密码也没有</span><br><span class="line">问题，则返回该 user 对象。</span><br></pre></td></tr></table></figure>
+<h4 id="7-3-配置-Backend"><a href="#7-3-配置-Backend" class="headerlink" title="7.3 配置 Backend"></a>7.3 配置 Backend</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">接下来就要告诉 <span class="selector-tag">Django</span>，需要使用哪些 <span class="selector-tag">Backends</span> 对用户的凭据信息进行验证，这需要在 <span class="selector-tag">settings</span><span class="selector-class">.py</span> 中设置：</span><br><span class="line"><span class="selector-tag">settings</span><span class="selector-class">.py</span></span><br><span class="line"></span><br><span class="line">AUTHENTICATION_BACKENDS = (</span><br><span class="line">    'django.contrib.auth.backends.ModelBackend',</span><br><span class="line">    'users.backends.EmailBackend',</span><br><span class="line">)</span><br><span class="line">第一个 <span class="selector-tag">Backend</span> 是 <span class="selector-tag">Django</span> 内置的 <span class="selector-tag">Backend</span>，当用户提供的是用</span><br><span class="line">户名和正确的密码时该 <span class="selector-tag">Backend</span> 会通过验证；第二个 <span class="selector-tag">Backend</span> 是</span><br><span class="line">刚刚自定义的 <span class="selector-tag">Backend</span>，当用户提供的是 <span class="selector-tag">Email</span> 和正确的密码时该</span><br><span class="line"> <span class="selector-tag">Backend</span> 会通过验证。</span><br></pre></td></tr></table></figure>
+<h3 id="8-使用modelform上传头像。"><a href="#8-使用modelform上传头像。" class="headerlink" title="8 使用modelform上传头像。"></a>8 使用modelform上传头像。</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">1. 服务器端安装<span class="selector-tag">pillow</span></span><br><span class="line">   <span class="selector-tag">pip</span> <span class="selector-tag">install</span> <span class="selector-tag">pillow</span></span><br><span class="line">2. 添加图片字段到文章<span class="selector-tag">models</span><span class="selector-class">.py</span></span><br><span class="line">   headshot = models.ImageField(upload_to='avatar/%Y/%m/%d/',default='default.jpg', verbose_name='头像')</span><br><span class="line">3. <span class="selector-tag">settings</span><span class="selector-class">.py</span> 增加图片存储路径，同时创建目录。</span><br><span class="line">   MEDIA_URL = '/uploads/'</span><br><span class="line">   MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')</span><br><span class="line">4. 项目<span class="selector-tag">urls</span><span class="selector-class">.py</span>添加如下<span class="selector-tag">static</span></span><br><span class="line">   <span class="selector-tag">from</span> <span class="selector-tag">django</span><span class="selector-class">.conf</span> <span class="selector-tag">import</span> <span class="selector-tag">settings</span></span><br><span class="line">   <span class="selector-tag">from</span> <span class="selector-tag">django</span><span class="selector-class">.conf</span><span class="selector-class">.urls</span><span class="selector-class">.static</span> <span class="selector-tag">import</span> <span class="selector-tag">static</span></span><br><span class="line">   urlpatterns = [</span><br><span class="line">               ........</span><br><span class="line">           ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)</span><br><span class="line">5. form表单提交方法为post，且含有enctype="multipart/form-data"属性</span><br><span class="line">6. <span class="selector-tag">view</span>函数接收：</span><br><span class="line">    form = RegisterForm(request.POST, request.FILES)  </span><br><span class="line">7. 在前台展示：</span><br><span class="line">    &lt;img src="&#123;&#123; user.headshot.url &#125;&#125; " height="40" width="40"/&gt;</span><br></pre></td></tr></table></figure>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Django-博客项目（4）"><span class="toc-text">Django 博客项目（4）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-拓展User模型"><span class="toc-text">1. 拓展User模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-继承-AbstractUser-拓展用户模型"><span class="toc-text">1.1 继承 AbstractUser 拓展用户模型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-注册"><span class="toc-text">2. 注册</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-编写用户注册表单"><span class="toc-text">2.1 编写用户注册表单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-编写用户注册视图函数"><span class="toc-text">2.2 编写用户注册视图函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-设置-URL-模式"><span class="toc-text">2.3 设置 URL 模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-编写注册页面模板"><span class="toc-text">2.4 编写注册页面模板</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-登录"><span class="toc-text">3 登录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-引入内置的-URL-模型"><span class="toc-text">3.1 引入内置的 URL 模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-设置模板路径"><span class="toc-text">3.2 设置模板路径</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-编写登录模板"><span class="toc-text">3.3 编写登录模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-设置登录登出的跳转-URL"><span class="toc-text">3.4 设置登录登出的跳转 URL</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-注销和页面跳转"><span class="toc-text">4. 注销和页面跳转</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-注销登录"><span class="toc-text">4.1 注销登录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-页面跳转"><span class="toc-text">4.2 页面跳转</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-修改密码"><span class="toc-text">5. 修改密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-重置密码"><span class="toc-text">6. 重置密码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-发送邮件设置"><span class="toc-text">6.1 发送邮件设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-编写重置密码模板"><span class="toc-text">6.2 编写重置密码模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-编写邮件发送成功页面模板"><span class="toc-text">6.2 编写邮件发送成功页面模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-编写设置新密码页面模板"><span class="toc-text">6.3 编写设置新密码页面模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-编写设置新密码成功页面模板"><span class="toc-text">6.4 编写设置新密码成功页面模板</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-自定义认证后台"><span class="toc-text">7 自定义认证后台</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-1-Django-验证用户合法性的方式"><span class="toc-text">7.1 Django 验证用户合法性的方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-2-Email-Backend"><span class="toc-text">7.2 Email Backend</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-配置-Backend"><span class="toc-text">7.3 配置 Backend</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-使用modelform上传头像。"><span class="toc-text">8 使用modelform上传头像。</span></a></li></ol></li></ol></li></ol>
+  </div>
+</aside>
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/博客/"><i class="fa fa-tags"></i>博客</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      <div class="site-comment-contanier">
+  <p id="site-comment-info">
+    <i class="fa fa-spinner fa-spin"></i> 评论加载中
+  </p>
+  <div id="site-comment">
+  </div>
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">站点推荐</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://lidx.club/" target="_blank">GaryMarine</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.liaoxuefeng.com/" target="_blank">廖雪峰的官方网站</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">抓到我</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://music.163.com/#/my/m/music/playlist?id=385505488" target="_blank">音乐</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.zhihu.com/people/gu-hu-31-87/activities" target="_blank">知乎</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://weibo.com/5092313013/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank">微博</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">实验室</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://github.com/dongyuanxin/music-api-next" target="_blank">Music API</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://github.com/dongyuanxin/webpack-demos" target="_blank">Webpack4 Demos</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://github.com/dongyuanxin/theme-bmw" target="_blank">Theme bmw</a>
+          </span>
+        
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-at"></i> Email: lidxry@gmail.com. QQ群: 534018786(主题交流)
+    </div>
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https:/godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+        
+          <div>
+            <img src="/images/wechat.png" alt="WeChat">
+            
+              <p>WeChat</p>
+            
+          </div>
+        
+          <div>
+            <img src="/images/alipay.png" alt="AliPay">
+            
+              <p>AliPay</p>
+            
+          </div>
+        
+      </div>
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/2018/05/13/Redis/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/2018/04/24/Django 博客项目（3）/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    <a href="javascript:void(0);" id="site-reward">
+      <i class="fa fa-thumbs-up"></i>
+    </a>
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="GaryMarine" />
+  
+  
+  <title>Python 验证码生成器 | GaryMarine</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Python,小工具," />
+  
+
+  
+  <meta name="description" content="GaryMarine Website">
+
+  
+
+  <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":true,"interval":"wfw"},
+    start_time: "2018-02-10",
+    passwords: ["9fd4703ff67642ec7fc0f8616d7513e620263fa6f3758b5836f496dfe334ae34", ],
+    is_post: true,
+    lock: false,
+    author: "GaryMarine",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+
+  
+
+
+
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">GaryMarine</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 晚来天欲雪，能饮一杯无？</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/GaryMarine/" target="_blank">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2018-03-23
+    </span>
+    
+      <span>
+        | <a href="/categories/Python/"><i class="fa fa-bookmark"></i>Python</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    Python 验证码生成器
+  </h1>
+  
+  <article class="passage-article">
+    <p>@导入依赖</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">from</span> tkinter <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure>
+<p>@定义验证码生成器类</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 验证码生成器</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">VerifyingCodeGenerator</span>:</span></span><br><span class="line">    <span class="comment"># charsPerGroup=每组字符数</span></span><br><span class="line">    <span class="comment"># groups=生成的组数</span></span><br><span class="line">    <span class="comment"># 默认生成一组4*10的验证码</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, charsPerGroup=<span class="number">4</span>, groups=<span class="number">5</span>)</span>:</span></span><br><span class="line">        <span class="comment"># 窗口和标题</span></span><br><span class="line">        window = Tk()</span><br><span class="line">        window.title(<span class="string">"验证码生成器"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 定义输入框控件的变量存储器</span></span><br><span class="line">        self.entValue1 = StringVar()</span><br><span class="line">        self.entValue2 = StringVar()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 默认设置为外界输入的参数</span></span><br><span class="line">        self.entValue1.set(charsPerGroup)</span><br><span class="line">        self.entValue2.set(groups)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 打包一个面板到窗口</span></span><br><span class="line">        frame = Frame()</span><br><span class="line">        frame.pack(padx=<span class="number">5</span>, pady=(<span class="number">5</span>, <span class="number">0</span>))  <span class="comment"># y方向的上下边距分别为5和0</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 在面板上横排4个控件</span></span><br><span class="line">        Label(frame, text=<span class="string">"每组字符数"</span>).grid(row=<span class="number">1</span>, column=<span class="number">1</span>)</span><br><span class="line">        Entry(frame, textvariable=self.entValue1).grid(row=<span class="number">1</span>, column=<span class="number">2</span>)  <span class="comment"># 输入框的值丢给entValue1动态保管</span></span><br><span class="line">        Label(frame, text=<span class="string">"生成组数"</span>).grid(row=<span class="number">1</span>, column=<span class="number">3</span>, padx=(<span class="number">10</span>, <span class="number">0</span>))</span><br><span class="line">        Entry(frame, textvariable=self.entValue2).grid(row=<span class="number">1</span>, column=<span class="number">4</span>)  <span class="comment"># 输入框的值丢给entValue2动态保管</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 打包一个按钮到窗口，其监听由doGenerate函数实现</span></span><br><span class="line">        btn = Button(width=<span class="number">60</span>, height=<span class="number">1</span>, text=<span class="string">"生成验证码"</span>, command=self.doGenerate)</span><br><span class="line">        btn.pack(padx=<span class="number">5</span>, pady=<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 打包一个文本域控件到窗口</span></span><br><span class="line">        self.text = Text(width=<span class="number">60</span>, height=<span class="number">10</span>)</span><br><span class="line">        self.text.pack(padx=<span class="number">5</span>, pady=(<span class="number">0</span>, <span class="number">5</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 开启消息循环</span></span><br><span class="line">        window.mainloop()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 生成一组charsPerGroup*groups的验证码</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">generate</span><span class="params">(self, charsPerGroup, groups)</span>:</span></span><br><span class="line">        <span class="comment"># 定义字符样本</span></span><br><span class="line">        population = string.ascii_uppercase + string.digits</span><br><span class="line">        <span class="comment"># print(population)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 预定义</span></span><br><span class="line">        codelist = []</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 生成若干组</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(groups):</span><br><span class="line">            <span class="comment"># 从样本中随机选取若干字符，形成列表</span></span><br><span class="line">            mlist = random.sample(population, charsPerGroup)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 将列表转化为字符串</span></span><br><span class="line">            mstr = <span class="string">""</span>.join(mlist)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 添加当前生成字符串到总列表</span></span><br><span class="line">            codelist.append(mstr)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 将总列表转换为字符串</span></span><br><span class="line">        code = <span class="string">"-"</span>.join(codelist)</span><br><span class="line">        <span class="keyword">return</span> code</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 按钮的点击监听</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">doGenerate</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 获取控件输入的值</span></span><br><span class="line">        arg1 = int(self.entValue1.get())</span><br><span class="line">        arg2 = int(self.entValue2.get())</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 生成验证码</span></span><br><span class="line">        code = self.generate(arg1, arg2)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 将验证码显示到文本域中</span></span><br><span class="line">        self.text.insert(END, code + <span class="string">"\n"</span>)</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p>@创建验证码生成器</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    VerifyingCodeGenerator(<span class="number">4</span>, <span class="number">10</span>)</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p>@执行结果 </p>
+<p><img src="http://b.hiphotos.baidu.com/image/%70%69%63/item/960a304e251f95caf8f1268bc7177f3e67095282.jpg" alt=""></p>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    
+  </div>
+</aside>
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/小工具/"><i class="fa fa-tags"></i>小工具</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      <div class="site-comment-contanier">
+  <p id="site-comment-info">
+    <i class="fa fa-spinner fa-spin"></i> 评论加载中
+  </p>
+  <div id="site-comment">
+  </div>
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">站点推荐</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://lidx.club/" target="_blank">GaryMarine</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.liaoxuefeng.com/" target="_blank">廖雪峰的官方网站</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">抓到我</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://music.163.com/#/my/m/music/playlist?id=385505488" target="_blank">音乐</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.zhihu.com/people/gu-hu-31-87/activities" target="_blank">知乎</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://weibo.com/5092313013/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank">微博</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">实验室</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://github.com/dongyuanxin/music-api-next" target="_blank">Music API</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://github.com/dongyuanxin/webpack-demos" target="_blank">Webpack4 Demos</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://github.com/dongyuanxin/theme-bmw" target="_blank">Theme bmw</a>
+          </span>
+        
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-at"></i> Email: lidxry@gmail.com. QQ群: 534018786(主题交流)
+    </div>
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https:/godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+        
+          <div>
+            <img src="/images/wechat.png" alt="WeChat">
+            
+              <p>WeChat</p>
+            
+          </div>
+        
+          <div>
+            <img src="/images/alipay.png" alt="AliPay">
+            
+              <p>AliPay</p>
+            
+          </div>
+        
+      </div>
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/2018/03/25/pygame打飞机小游戏/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/2018/03/22/Python 房贷计算器/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    <a href="javascript:void(0);" id="site-reward">
+      <i class="fa fa-thumbs-up"></i>
+    </a>
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

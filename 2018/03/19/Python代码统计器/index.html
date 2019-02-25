@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="GaryMarine" />
+  
+  
+  <title>Python代码统计器 | GaryMarine</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Python,小工具," />
+  
+
+  
+  <meta name="description" content="GaryMarine Website">
+
+  
+
+  <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":true,"interval":"wfw"},
+    start_time: "2018-02-10",
+    passwords: ["9fd4703ff67642ec7fc0f8616d7513e620263fa6f3758b5836f496dfe334ae34", ],
+    is_post: true,
+    lock: false,
+    author: "GaryMarine",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+
+  
+
+
+
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">GaryMarine</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 晚来天欲雪，能饮一杯无？</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/GaryMarine/" target="_blank">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2018-03-19
+    </span>
+    
+      <span>
+        | <a href="/categories/Python/"><i class="fa fa-bookmark"></i>Python</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    Python代码统计器
+  </h1>
+  
+  <article class="passage-article">
+    <p>@概述</p>
+<ul>
+<li>使用【文件操作+GUI+正则表达式】实现对文件夹下代码量的统计</li>
+</ul>
+<p>@导入依赖</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">from</span> tkinter <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tkinter <span class="keyword">import</span> filedialog</span><br></pre></td></tr></table></figure>
+<p>@代码统计器实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CodeAnalyzer</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 定义排版边距</span></span><br><span class="line">        marginx = <span class="number">5</span></span><br><span class="line">        marginy = <span class="number">5</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 窗口和标题</span></span><br><span class="line">        window = Tk()</span><br><span class="line">        window.title(<span class="string">"代码统计器"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 使用StringVar对象动态保管打开的文件夹位置</span></span><br><span class="line">        self.dirPath = StringVar()</span><br><span class="line">        self.dirPath.set(<span class="string">"请选择要打开的文件夹"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 第一行控件打包在一个面板中</span></span><br><span class="line">        frame1 = Frame()</span><br><span class="line">        frame1.pack(padx=marginx, pady=(marginy, <span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 打包地址输入框、地址选择按钮在面板1中</span></span><br><span class="line">        Entry(frame1, width=<span class="number">50</span>, textvariable=self.dirPath).pack(side=LEFT)</span><br><span class="line">        Button(frame1, text=<span class="string">"选择文件夹"</span>, command=self.openDir).pack(side=LEFT, padx=(marginx, <span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 词频统计按钮</span></span><br><span class="line">        Button(width=<span class="number">60</span>, text=<span class="string">"开始统计"</span>, command=self.run).pack(padx=marginx, pady=(marginy, <span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 打包文本域和滚动条在面板2中</span></span><br><span class="line">        self.retText = Text(width=<span class="number">60</span>, height=<span class="number">20</span>, bg=<span class="string">"white"</span>)</span><br><span class="line">        self.retText.pack(padx=marginx, pady=(marginy, marginy))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 消息循环</span></span><br><span class="line">        window.mainloop()</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">openDir</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 选择要打开的文件夹路径</span></span><br><span class="line">        self.dirPath.set(filedialog.askdirectory() + <span class="string">"/"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取文件下的所有py文件，返回py文件列表</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getPyFilesInDir</span><span class="params">(self, dirpath)</span>:</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 拿到当前路径下的（一级）文件（含文件夹）列表</span></span><br><span class="line">        flist = os.listdir(dirpath)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 建立Py文件列表</span></span><br><span class="line">        pyFileList = []</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 遍历一级子路径</span></span><br><span class="line">        <span class="keyword">for</span> name <span class="keyword">in</span> flist:</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 获得文件的完整路径</span></span><br><span class="line">            filepath = dirpath + <span class="string">"/"</span> + name</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 是文件且是Py文件</span></span><br><span class="line">            <span class="keyword">if</span> os.path.isfile(filepath) <span class="keyword">and</span> name.endswith(<span class="string">".py"</span>):</span><br><span class="line">                pyFileList.append(filepath)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 不是Py文件</span></span><br><span class="line">            <span class="keyword">elif</span> os.path.isfile(filepath) <span class="keyword">and</span> <span class="keyword">not</span> name.endswith(<span class="string">".py"</span>):</span><br><span class="line">                print(<span class="string">"%s不是py源代码文件"</span> % (name))</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 是文件夹</span></span><br><span class="line">            <span class="keyword">elif</span> os.path.isdir(filepath):</span><br><span class="line">                <span class="comment"># 递归遍历（自己调自身，终止条件为路径没有文件夹），兼并子文件夹的结果</span></span><br><span class="line">                pyFileList += self.getPyFilesInDir(filepath)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                print(<span class="string">"wtf"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> pyFileList</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 以醒目格式打印列表</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">printListClearly</span><span class="params">(self, mlist)</span>:</span></span><br><span class="line">        print(<span class="string">"&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;"</span>)</span><br><span class="line">        <span class="keyword">for</span> path <span class="keyword">in</span> mlist:</span><br><span class="line">            print(path)</span><br><span class="line">        print(<span class="string">"&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 分析单个文件的代码量</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">analyzeCodeFile</span><span class="params">(self, path)</span>:</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 预定义结果</span></span><br><span class="line">        totalLines = <span class="number">0</span></span><br><span class="line">        commentLines = <span class="number">0</span></span><br><span class="line">        blankLines = <span class="number">0</span></span><br><span class="line">        effectiveLines = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 标记当前行是否处于多行注释的内部</span></span><br><span class="line">        betweenMultipleComment = <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 拿到当前文件代码行数</span></span><br><span class="line">            file = open(path, <span class="string">"r"</span>, encoding=<span class="string">"utf-8"</span>)</span><br><span class="line">            lineList = file.readlines()</span><br><span class="line">            totalLines = len(lineList)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 逐行判断：代码/注释/空行</span></span><br><span class="line">            <span class="keyword">for</span> line <span class="keyword">in</span> lineList:</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 空行</span></span><br><span class="line">                <span class="keyword">if</span> line == <span class="string">"\n"</span>:</span><br><span class="line">                    blankLines += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">                <span class="comment"># 判断自结束的多行注释</span></span><br><span class="line">                <span class="comment"># ^\s*'''.*'''\s*$ = 开头+若干空格+'''+若干任意字符+'''+若干空格+结尾</span></span><br><span class="line">                <span class="keyword">elif</span> re.match(<span class="string">"^\s*'''.*'''\s*$"</span>, line):</span><br><span class="line">                    print(<span class="string">"%s劳资是自结束多行注释结尾"</span> % (line))</span><br><span class="line">                    commentLines += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">                    <span class="comment"># 标记多行注释结束</span></span><br><span class="line">                    betweenMultipleComment = <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line">                <span class="comment"># 判断多行注释开头</span></span><br><span class="line">                <span class="comment"># ^\s*''' = 开头+若干空格+'''</span></span><br><span class="line">                <span class="keyword">elif</span> re.match(<span class="string">"^\s*'''"</span>, line) != <span class="keyword">None</span> <span class="keyword">and</span> betweenMultipleComment == <span class="keyword">False</span>:</span><br><span class="line">                    commentLines += <span class="number">1</span></span><br><span class="line">                    print(<span class="string">"%s劳资是多行注释开头"</span> % (line))</span><br><span class="line"></span><br><span class="line">                    <span class="comment"># 标记多行注释开始</span></span><br><span class="line">                    betweenMultipleComment = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">                <span class="comment"># 判断多行注释结尾</span></span><br><span class="line">                <span class="comment"># .*'''\s*$ = 若干任意字符+'''+若干空格+结尾</span></span><br><span class="line">                <span class="keyword">elif</span> re.match(<span class="string">".*'''\s*$"</span>, line) != <span class="keyword">None</span> <span class="keyword">and</span> betweenMultipleComment == <span class="keyword">True</span>:</span><br><span class="line">                    commentLines += <span class="number">1</span></span><br><span class="line">                    print(<span class="string">"%s劳资是多行注释结尾"</span> % (line))</span><br><span class="line"></span><br><span class="line">                    <span class="comment"># 标记多行注释结束</span></span><br><span class="line">                    betweenMultipleComment = <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line">                <span class="comment"># 多行注释内部全部是注释</span></span><br><span class="line">                <span class="keyword">elif</span> betweenMultipleComment:</span><br><span class="line">                    commentLines += <span class="number">1</span></span><br><span class="line">                    print(<span class="string">"%s劳资是多行注释内容"</span> % (line))</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 单行注释：没有位于多行注释内部，且以#开头</span></span><br><span class="line">                <span class="comment"># ^\s*# = 开头+若干空格+#</span></span><br><span class="line">                <span class="keyword">elif</span> betweenMultipleComment == <span class="keyword">False</span> <span class="keyword">and</span> re.match(<span class="string">r"^\s*#"</span>, line) != <span class="keyword">None</span>:</span><br><span class="line">                    commentLines += <span class="number">1</span></span><br><span class="line">                    print(<span class="string">"%s劳资是单行注释"</span> % (line))</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 其余的都是有效代码</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    print(<span class="string">"%s劳资是单行代码"</span> % (line))</span><br><span class="line">                    effectiveLines += <span class="number">1</span></span><br><span class="line">                    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="comment"># 打印结果</span></span><br><span class="line">            print(<span class="string">"在文件%s中："</span> % (path))</span><br><span class="line">            print(<span class="string">"totalLines="</span>, totalLines)</span><br><span class="line">            print(<span class="string">"commentLines="</span>, commentLines)</span><br><span class="line">            print(<span class="string">"blankLines="</span>, blankLines)</span><br><span class="line">            print(<span class="string">"effectiveLines="</span>, effectiveLines)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 有效代码数对不上账时抛出异常</span></span><br><span class="line">            <span class="comment"># effectiveLines = totalLines - blankLines - commentLines</span></span><br><span class="line">            <span class="keyword">if</span> effectiveLines != totalLines - blankLines - commentLines:</span><br><span class="line">                <span class="comment"># print("\n\n\n\n\n可疑对象\n\n\n\n\n", path)</span></span><br><span class="line">                <span class="keyword">raise</span> RuntimeError(<span class="string">"可疑对象："</span> + path)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 关闭文件</span></span><br><span class="line">            file.close()</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 返回单个文件的统计结果</span></span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                <span class="string">"totalLines"</span>: totalLines,</span><br><span class="line">                <span class="string">"commentLines"</span>: commentLines,</span><br><span class="line">                <span class="string">"blankLines"</span>: blankLines,</span><br><span class="line">                <span class="string">"effectiveLines"</span>: effectiveLines</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 捕获并处理乱码异常</span></span><br><span class="line">        <span class="keyword">except</span> UnicodeDecodeError:</span><br><span class="line">            print(<span class="string">"读取%s发生编码错误"</span> % (path))</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 执行统计</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 遍历文件夹，拿出所有的py文件,返回一个py文件列表</span></span><br><span class="line">        pyFileList = self.getPyFilesInDir(self.dirPath.get())</span><br><span class="line">        <span class="comment"># self.printListClearly(pyFileList)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 预定义结果</span></span><br><span class="line">        totalLines = <span class="number">0</span></span><br><span class="line">        commentLines = <span class="number">0</span></span><br><span class="line">        blankLines = <span class="number">0</span></span><br><span class="line">        effectiveLines = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 遍历所有的py文件，逐个统计代码量</span></span><br><span class="line">        <span class="keyword">for</span> path <span class="keyword">in</span> pyFileList:</span><br><span class="line">            <span class="comment"># 统计单个文件的代码量</span></span><br><span class="line">            resdict = self.analyzeCodeFile(path)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 将单个文件的代码量汇总</span></span><br><span class="line">            totalLines += resdict[<span class="string">"totalLines"</span>]</span><br><span class="line">            commentLines += resdict[<span class="string">"commentLines"</span>]</span><br><span class="line">            blankLines += resdict[<span class="string">"blankLines"</span>]</span><br><span class="line">            effectiveLines += resdict[<span class="string">"effectiveLines"</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 显示结果</span></span><br><span class="line">        self.retText.insert(END, <span class="string">"=================================================="</span> + <span class="string">"\n"</span>)</span><br><span class="line">        self.retText.insert(END, <span class="string">"在文件夹%s中共计："</span> % (self.dirPath.get()) + <span class="string">"\n\n"</span>)</span><br><span class="line">        self.retText.insert(END, <span class="string">"源码文件：%d个"</span> % (len(pyFileList)) + <span class="string">"\n"</span>)</span><br><span class="line">        self.retText.insert(END, <span class="string">"总代码量：%d"</span> % (totalLines) + <span class="string">"\n"</span>)</span><br><span class="line">        self.retText.insert(END, <span class="string">"总注释量：%d,占比%.2f%%"</span> % (commentLines, commentLines * <span class="number">100</span> / totalLines) + <span class="string">"\n"</span>)</span><br><span class="line">        self.retText.insert(END, <span class="string">"总空行数：%d,占比%.2f%%"</span> % (blankLines, blankLines * <span class="number">100</span> / totalLines) + <span class="string">"\n"</span>)</span><br><span class="line">        self.retText.insert(END, <span class="string">"有效代码：%d行"</span> % (effectiveLines) + <span class="string">"\n"</span>)</span><br><span class="line">        self.retText.insert(END, <span class="string">"=================================================="</span> + <span class="string">"\n"</span>)</span><br></pre></td></tr></table></figure>
+<p>@创建对象</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    CodeAnalyzer()</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p>@执行效果</p>
+<p><img src="http://d.hiphotos.baidu.com/image/%70%69%63/item/4d086e061d950a7b91a4fbf904d162d9f2d3c97e.jpg" alt=""></p>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    
+  </div>
+</aside>
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/小工具/"><i class="fa fa-tags"></i>小工具</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      <div class="site-comment-contanier">
+  <p id="site-comment-info">
+    <i class="fa fa-spinner fa-spin"></i> 评论加载中
+  </p>
+  <div id="site-comment">
+  </div>
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">站点推荐</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://lidx.club/" target="_blank">GaryMarine</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.liaoxuefeng.com/" target="_blank">廖雪峰的官方网站</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">抓到我</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://music.163.com/#/my/m/music/playlist?id=385505488" target="_blank">音乐</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.zhihu.com/people/gu-hu-31-87/activities" target="_blank">知乎</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://weibo.com/5092313013/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank">微博</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">实验室</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://github.com/dongyuanxin/music-api-next" target="_blank">Music API</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://github.com/dongyuanxin/webpack-demos" target="_blank">Webpack4 Demos</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://github.com/dongyuanxin/theme-bmw" target="_blank">Theme bmw</a>
+          </span>
+        
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-at"></i> Email: lidxry@gmail.com. QQ群: 534018786(主题交流)
+    </div>
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https:/godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+        
+          <div>
+            <img src="/images/wechat.png" alt="WeChat">
+            
+              <p>WeChat</p>
+            
+          </div>
+        
+          <div>
+            <img src="/images/alipay.png" alt="AliPay">
+            
+              <p>AliPay</p>
+            
+          </div>
+        
+      </div>
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/2018/03/20/Python网络编程/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/2018/03/19/Mac终端基本指令/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    <a href="javascript:void(0);" id="site-reward">
+      <i class="fa fa-thumbs-up"></i>
+    </a>
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
