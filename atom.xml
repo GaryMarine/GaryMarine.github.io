@@ -5,9 +5,9 @@
   <subtitle>Thus things flow away day and night.</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://lidx.club/"/>
+  <link href="https://hlzds.cn/"/>
   <updated>2019-02-25T06:58:08.850Z</updated>
-  <id>https://lidx.club/</id>
+  <id>https://hlzds.cn/</id>
   
   <author>
     <name>爷傲丶奈我何☄</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Scrapy-redis分布式</title>
-    <link href="https://lidx.club/2018/07/06/Scrapy-redis%E5%88%86%E5%B8%83%E5%BC%8F/"/>
-    <id>https://lidx.club/2018/07/06/Scrapy-redis分布式/</id>
+    <link href="https://hlzds.cn/2018/07/06/Scrapy-redis%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    <id>https://hlzds.cn/2018/07/06/Scrapy-redis分布式/</id>
     <published>2018-07-06T08:38:29.000Z</published>
     <updated>2019-02-25T06:58:08.850Z</updated>
     
@@ -31,17 +31,17 @@
     
     </summary>
     
-      <category term="Python" scheme="https://lidx.club/categories/Python/"/>
+      <category term="Python" scheme="https://hlzds.cn/categories/Python/"/>
     
     
-      <category term="scrapy-redis" scheme="https://lidx.club/tags/scrapy-redis/"/>
+      <category term="scrapy-redis" scheme="https://hlzds.cn/tags/scrapy-redis/"/>
     
   </entry>
   
   <entry>
     <title>Scrapy爬取股票数据</title>
-    <link href="https://lidx.club/2018/07/04/Scrapy%E7%88%AC%E5%8F%96%E8%82%A1%E7%A5%A8%E6%95%B0%E6%8D%AE/"/>
-    <id>https://lidx.club/2018/07/04/Scrapy爬取股票数据/</id>
+    <link href="https://hlzds.cn/2018/07/04/Scrapy%E7%88%AC%E5%8F%96%E8%82%A1%E7%A5%A8%E6%95%B0%E6%8D%AE/"/>
+    <id>https://hlzds.cn/2018/07/04/Scrapy爬取股票数据/</id>
     <published>2018-07-04T14:18:15.000Z</published>
     <updated>2019-02-25T07:25:34.478Z</updated>
     
@@ -53,17 +53,17 @@
     
     </summary>
     
-      <category term="Python" scheme="https://lidx.club/categories/Python/"/>
+      <category term="Python" scheme="https://hlzds.cn/categories/Python/"/>
     
     
-      <category term="Scrapy" scheme="https://lidx.club/tags/Scrapy/"/>
+      <category term="Scrapy" scheme="https://hlzds.cn/tags/Scrapy/"/>
     
   </entry>
   
   <entry>
     <title>Selenium + Chromedriver</title>
-    <link href="https://lidx.club/2018/07/01/Selenium%20+%20Chromedriver/"/>
-    <id>https://lidx.club/2018/07/01/Selenium + Chromedriver/</id>
+    <link href="https://hlzds.cn/2018/07/01/Selenium%20+%20Chromedriver/"/>
+    <id>https://hlzds.cn/2018/07/01/Selenium + Chromedriver/</id>
     <published>2018-07-01T13:56:44.000Z</published>
     <updated>2019-02-25T07:24:10.587Z</updated>
     
@@ -75,19 +75,19 @@
     
     </summary>
     
-      <category term="Python" scheme="https://lidx.club/categories/Python/"/>
+      <category term="Python" scheme="https://hlzds.cn/categories/Python/"/>
     
     
-      <category term="selenium" scheme="https://lidx.club/tags/selenium/"/>
+      <category term="selenium" scheme="https://hlzds.cn/tags/selenium/"/>
     
-      <category term="chromedriver" scheme="https://lidx.club/tags/chromedriver/"/>
+      <category term="chromedriver" scheme="https://hlzds.cn/tags/chromedriver/"/>
     
   </entry>
   
   <entry>
     <title>Selenium</title>
-    <link href="https://lidx.club/2018/06/29/Selenium/"/>
-    <id>https://lidx.club/2018/06/29/Selenium/</id>
+    <link href="https://hlzds.cn/2018/06/29/Selenium/"/>
+    <id>https://hlzds.cn/2018/06/29/Selenium/</id>
     <published>2018-06-29T06:28:12.000Z</published>
     <updated>2019-02-25T07:22:36.046Z</updated>
     
@@ -99,17 +99,17 @@
     
     </summary>
     
-      <category term="Python" scheme="https://lidx.club/categories/Python/"/>
+      <category term="Python" scheme="https://hlzds.cn/categories/Python/"/>
     
     
-      <category term="selenium" scheme="https://lidx.club/tags/selenium/"/>
+      <category term="selenium" scheme="https://hlzds.cn/tags/selenium/"/>
     
   </entry>
   
   <entry>
     <title>多线程加协程爬取链家</title>
-    <link href="https://lidx.club/2018/06/28/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%8A%A0%E5%8D%8F%E7%A8%8B%E7%88%AC%E5%8F%96%E9%93%BE%E5%AE%B6/"/>
-    <id>https://lidx.club/2018/06/28/多线程加协程爬取链家/</id>
+    <link href="https://hlzds.cn/2018/06/28/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%8A%A0%E5%8D%8F%E7%A8%8B%E7%88%AC%E5%8F%96%E9%93%BE%E5%AE%B6/"/>
+    <id>https://hlzds.cn/2018/06/28/多线程加协程爬取链家/</id>
     <published>2018-06-28T12:04:23.000Z</published>
     <updated>2019-02-25T07:00:39.749Z</updated>
     
@@ -121,21 +121,21 @@
     
     </summary>
     
-      <category term="Python" scheme="https://lidx.club/categories/Python/"/>
+      <category term="Python" scheme="https://hlzds.cn/categories/Python/"/>
     
     
-      <category term="爬虫" scheme="https://lidx.club/tags/%E7%88%AC%E8%99%AB/"/>
+      <category term="爬虫" scheme="https://hlzds.cn/tags/%E7%88%AC%E8%99%AB/"/>
     
-      <category term="线程" scheme="https://lidx.club/tags/%E7%BA%BF%E7%A8%8B/"/>
+      <category term="线程" scheme="https://hlzds.cn/tags/%E7%BA%BF%E7%A8%8B/"/>
     
-      <category term="协程" scheme="https://lidx.club/tags/%E5%8D%8F%E7%A8%8B/"/>
+      <category term="协程" scheme="https://hlzds.cn/tags/%E5%8D%8F%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>XPath</title>
-    <link href="https://lidx.club/2018/06/27/XPath/"/>
-    <id>https://lidx.club/2018/06/27/XPath/</id>
+    <link href="https://hlzds.cn/2018/06/27/XPath/"/>
+    <id>https://hlzds.cn/2018/06/27/XPath/</id>
     <published>2018-06-27T09:32:30.000Z</published>
     <updated>2019-02-25T07:11:45.188Z</updated>
     
@@ -147,19 +147,19 @@
     
     </summary>
     
-      <category term="Python" scheme="https://lidx.club/categories/Python/"/>
+      <category term="Python" scheme="https://hlzds.cn/categories/Python/"/>
     
     
-      <category term="爬虫" scheme="https://lidx.club/tags/%E7%88%AC%E8%99%AB/"/>
+      <category term="爬虫" scheme="https://hlzds.cn/tags/%E7%88%AC%E8%99%AB/"/>
     
-      <category term="xpath" scheme="https://lidx.club/tags/xpath/"/>
+      <category term="xpath" scheme="https://hlzds.cn/tags/xpath/"/>
     
   </entry>
   
   <entry>
     <title>爬虫抓取策略</title>
-    <link href="https://lidx.club/2018/06/26/%E7%88%AC%E8%99%AB%E6%8A%93%E5%8F%96%E7%AD%96%E7%95%A5/"/>
-    <id>https://lidx.club/2018/06/26/爬虫抓取策略/</id>
+    <link href="https://hlzds.cn/2018/06/26/%E7%88%AC%E8%99%AB%E6%8A%93%E5%8F%96%E7%AD%96%E7%95%A5/"/>
+    <id>https://hlzds.cn/2018/06/26/爬虫抓取策略/</id>
     <published>2018-06-26T09:05:17.000Z</published>
     <updated>2019-02-25T07:01:25.092Z</updated>
     
@@ -171,19 +171,19 @@
     
     </summary>
     
-      <category term="Python" scheme="https://lidx.club/categories/Python/"/>
+      <category term="Python" scheme="https://hlzds.cn/categories/Python/"/>
     
     
-      <category term="爬虫" scheme="https://lidx.club/tags/%E7%88%AC%E8%99%AB/"/>
+      <category term="爬虫" scheme="https://hlzds.cn/tags/%E7%88%AC%E8%99%AB/"/>
     
-      <category term="BeautifulSoup" scheme="https://lidx.club/tags/BeautifulSoup/"/>
+      <category term="BeautifulSoup" scheme="https://hlzds.cn/tags/BeautifulSoup/"/>
     
   </entry>
   
   <entry>
     <title>Requests</title>
-    <link href="https://lidx.club/2018/06/25/Requests/"/>
-    <id>https://lidx.club/2018/06/25/Requests/</id>
+    <link href="https://hlzds.cn/2018/06/25/Requests/"/>
+    <id>https://hlzds.cn/2018/06/25/Requests/</id>
     <published>2018-06-25T06:17:57.000Z</published>
     <updated>2019-02-25T07:32:37.124Z</updated>
     
@@ -195,19 +195,19 @@
     
     </summary>
     
-      <category term="Python" scheme="https://lidx.club/categories/Python/"/>
+      <category term="Python" scheme="https://hlzds.cn/categories/Python/"/>
     
     
-      <category term="爬虫" scheme="https://lidx.club/tags/%E7%88%AC%E8%99%AB/"/>
+      <category term="爬虫" scheme="https://hlzds.cn/tags/%E7%88%AC%E8%99%AB/"/>
     
-      <category term="requests" scheme="https://lidx.club/tags/requests/"/>
+      <category term="requests" scheme="https://hlzds.cn/tags/requests/"/>
     
   </entry>
   
   <entry>
     <title>Handler 和 Opener</title>
-    <link href="https://lidx.club/2018/06/24/Handler%20%E5%92%8C%20Opener/"/>
-    <id>https://lidx.club/2018/06/24/Handler 和 Opener/</id>
+    <link href="https://hlzds.cn/2018/06/24/Handler%20%E5%92%8C%20Opener/"/>
+    <id>https://hlzds.cn/2018/06/24/Handler 和 Opener/</id>
     <published>2018-06-24T02:42:27.000Z</published>
     <updated>2019-02-25T08:16:05.607Z</updated>
     
@@ -219,19 +219,19 @@
     
     </summary>
     
-      <category term="Python" scheme="https://lidx.club/categories/Python/"/>
+      <category term="Python" scheme="https://hlzds.cn/categories/Python/"/>
     
     
-      <category term="handler" scheme="https://lidx.club/tags/handler/"/>
+      <category term="handler" scheme="https://hlzds.cn/tags/handler/"/>
     
-      <category term="爬虫" scheme="https://lidx.club/tags/%E7%88%AC%E8%99%AB/"/>
+      <category term="爬虫" scheme="https://hlzds.cn/tags/%E7%88%AC%E8%99%AB/"/>
     
   </entry>
   
   <entry>
     <title>urllib</title>
-    <link href="https://lidx.club/2018/06/23/urllib/"/>
-    <id>https://lidx.club/2018/06/23/urllib/</id>
+    <link href="https://hlzds.cn/2018/06/23/urllib/"/>
+    <id>https://hlzds.cn/2018/06/23/urllib/</id>
     <published>2018-06-23T01:54:16.000Z</published>
     <updated>2019-02-25T07:16:52.923Z</updated>
     
@@ -243,19 +243,19 @@
     
     </summary>
     
-      <category term="Python" scheme="https://lidx.club/categories/Python/"/>
+      <category term="Python" scheme="https://hlzds.cn/categories/Python/"/>
     
     
-      <category term="爬虫" scheme="https://lidx.club/tags/%E7%88%AC%E8%99%AB/"/>
+      <category term="爬虫" scheme="https://hlzds.cn/tags/%E7%88%AC%E8%99%AB/"/>
     
-      <category term="urllib" scheme="https://lidx.club/tags/urllib/"/>
+      <category term="urllib" scheme="https://hlzds.cn/tags/urllib/"/>
     
   </entry>
   
   <entry>
     <title>Scrapy 框架</title>
-    <link href="https://lidx.club/2018/06/10/Scrapy%20%E6%A1%86%E6%9E%B6/"/>
-    <id>https://lidx.club/2018/06/10/Scrapy 框架/</id>
+    <link href="https://hlzds.cn/2018/06/10/Scrapy%20%E6%A1%86%E6%9E%B6/"/>
+    <id>https://hlzds.cn/2018/06/10/Scrapy 框架/</id>
     <published>2018-06-10T12:30:09.000Z</published>
     <updated>2019-02-25T07:30:46.474Z</updated>
     
@@ -267,17 +267,17 @@
     
     </summary>
     
-      <category term="Python" scheme="https://lidx.club/categories/Python/"/>
+      <category term="Python" scheme="https://hlzds.cn/categories/Python/"/>
     
     
-      <category term="Scrapy" scheme="https://lidx.club/tags/Scrapy/"/>
+      <category term="Scrapy" scheme="https://hlzds.cn/tags/Scrapy/"/>
     
   </entry>
   
   <entry>
     <title>Python与Redis的交互+Redis事务</title>
-    <link href="https://lidx.club/2018/06/06/Python%E4%B8%8ERedis%E7%9A%84%E4%BA%A4%E4%BA%92+Redis%E4%BA%8B%E5%8A%A1/"/>
-    <id>https://lidx.club/2018/06/06/Python与Redis的交互+Redis事务/</id>
+    <link href="https://hlzds.cn/2018/06/06/Python%E4%B8%8ERedis%E7%9A%84%E4%BA%A4%E4%BA%92+Redis%E4%BA%8B%E5%8A%A1/"/>
+    <id>https://hlzds.cn/2018/06/06/Python与Redis的交互+Redis事务/</id>
     <published>2018-06-06T02:14:12.000Z</published>
     <updated>2019-02-25T07:40:31.849Z</updated>
     
@@ -289,19 +289,19 @@
     
     </summary>
     
-      <category term="Python" scheme="https://lidx.club/categories/Python/"/>
+      <category term="Python" scheme="https://hlzds.cn/categories/Python/"/>
     
     
-      <category term="Python" scheme="https://lidx.club/tags/Python/"/>
+      <category term="Python" scheme="https://hlzds.cn/tags/Python/"/>
     
-      <category term="Redis" scheme="https://lidx.club/tags/Redis/"/>
+      <category term="Redis" scheme="https://hlzds.cn/tags/Redis/"/>
     
   </entry>
   
   <entry>
     <title>RESTful 和 flask-restful</title>
-    <link href="https://lidx.club/2018/06/05/RESTful/"/>
-    <id>https://lidx.club/2018/06/05/RESTful/</id>
+    <link href="https://hlzds.cn/2018/06/05/RESTful/"/>
+    <id>https://hlzds.cn/2018/06/05/RESTful/</id>
     <published>2018-06-05T07:28:12.000Z</published>
     <updated>2019-02-25T07:31:44.282Z</updated>
     
@@ -313,19 +313,19 @@
     
     </summary>
     
-      <category term="Flask" scheme="https://lidx.club/categories/Flask/"/>
+      <category term="Flask" scheme="https://hlzds.cn/categories/Flask/"/>
     
     
-      <category term="RESTful" scheme="https://lidx.club/tags/RESTful/"/>
+      <category term="RESTful" scheme="https://hlzds.cn/tags/RESTful/"/>
     
-      <category term="flask-restful" scheme="https://lidx.club/tags/flask-restful/"/>
+      <category term="flask-restful" scheme="https://hlzds.cn/tags/flask-restful/"/>
     
   </entry>
   
   <entry>
     <title>Flask 文件上传及邮件发送</title>
-    <link href="https://lidx.club/2018/06/03/Flask%20%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%8F%8A%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81/"/>
-    <id>https://lidx.club/2018/06/03/Flask 文件上传及邮件发送/</id>
+    <link href="https://hlzds.cn/2018/06/03/Flask%20%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%8F%8A%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81/"/>
+    <id>https://hlzds.cn/2018/06/03/Flask 文件上传及邮件发送/</id>
     <published>2018-06-03T10:40:12.000Z</published>
     <updated>2019-02-25T08:30:45.993Z</updated>
     
@@ -337,17 +337,17 @@
     
     </summary>
     
-      <category term="Flask" scheme="https://lidx.club/categories/Flask/"/>
+      <category term="Flask" scheme="https://hlzds.cn/categories/Flask/"/>
     
     
-      <category term="Flask" scheme="https://lidx.club/tags/Flask/"/>
+      <category term="Flask" scheme="https://hlzds.cn/tags/Flask/"/>
     
   </entry>
   
   <entry>
     <title>Redis</title>
-    <link href="https://lidx.club/2018/05/13/Redis/"/>
-    <id>https://lidx.club/2018/05/13/Redis/</id>
+    <link href="https://hlzds.cn/2018/05/13/Redis/"/>
+    <id>https://hlzds.cn/2018/05/13/Redis/</id>
     <published>2018-05-13T08:14:22.000Z</published>
     <updated>2019-02-25T07:33:24.325Z</updated>
     
@@ -359,17 +359,17 @@
     
     </summary>
     
-      <category term="Redis" scheme="https://lidx.club/categories/Redis/"/>
+      <category term="Redis" scheme="https://hlzds.cn/categories/Redis/"/>
     
     
-      <category term="命令" scheme="https://lidx.club/tags/%E5%91%BD%E4%BB%A4/"/>
+      <category term="命令" scheme="https://hlzds.cn/tags/%E5%91%BD%E4%BB%A4/"/>
     
   </entry>
   
   <entry>
     <title>Django 博客项目（4）</title>
-    <link href="https://lidx.club/2018/04/29/Django%20%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%EF%BC%884%EF%BC%89/"/>
-    <id>https://lidx.club/2018/04/29/Django 博客项目（4）/</id>
+    <link href="https://hlzds.cn/2018/04/29/Django%20%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%EF%BC%884%EF%BC%89/"/>
+    <id>https://hlzds.cn/2018/04/29/Django 博客项目（4）/</id>
     <published>2018-04-29T09:14:12.000Z</published>
     <updated>2019-02-25T08:42:55.468Z</updated>
     
@@ -381,17 +381,17 @@
     
     </summary>
     
-      <category term="Django" scheme="https://lidx.club/categories/Django/"/>
+      <category term="Django" scheme="https://hlzds.cn/categories/Django/"/>
     
     
-      <category term="博客" scheme="https://lidx.club/tags/%E5%8D%9A%E5%AE%A2/"/>
+      <category term="博客" scheme="https://hlzds.cn/tags/%E5%8D%9A%E5%AE%A2/"/>
     
   </entry>
   
   <entry>
     <title>Django 博客项目（3）</title>
-    <link href="https://lidx.club/2018/04/24/Django%20%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%EF%BC%883%EF%BC%89/"/>
-    <id>https://lidx.club/2018/04/24/Django 博客项目（3）/</id>
+    <link href="https://hlzds.cn/2018/04/24/Django%20%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%EF%BC%883%EF%BC%89/"/>
+    <id>https://hlzds.cn/2018/04/24/Django 博客项目（3）/</id>
     <published>2018-04-24T02:14:12.000Z</published>
     <updated>2019-02-25T08:42:30.053Z</updated>
     
@@ -403,17 +403,17 @@
     
     </summary>
     
-      <category term="Django" scheme="https://lidx.club/categories/Django/"/>
+      <category term="Django" scheme="https://hlzds.cn/categories/Django/"/>
     
     
-      <category term="博客" scheme="https://lidx.club/tags/%E5%8D%9A%E5%AE%A2/"/>
+      <category term="博客" scheme="https://hlzds.cn/tags/%E5%8D%9A%E5%AE%A2/"/>
     
   </entry>
   
   <entry>
     <title>Django 博客项目（2）</title>
-    <link href="https://lidx.club/2018/04/20/Django%20%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%EF%BC%882%EF%BC%89/"/>
-    <id>https://lidx.club/2018/04/20/Django 博客项目（2）/</id>
+    <link href="https://hlzds.cn/2018/04/20/Django%20%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%EF%BC%882%EF%BC%89/"/>
+    <id>https://hlzds.cn/2018/04/20/Django 博客项目（2）/</id>
     <published>2018-04-20T13:24:04.000Z</published>
     <updated>2019-02-25T08:41:26.810Z</updated>
     
@@ -425,17 +425,17 @@
     
     </summary>
     
-      <category term="Django" scheme="https://lidx.club/categories/Django/"/>
+      <category term="Django" scheme="https://hlzds.cn/categories/Django/"/>
     
     
-      <category term="博客" scheme="https://lidx.club/tags/%E5%8D%9A%E5%AE%A2/"/>
+      <category term="博客" scheme="https://hlzds.cn/tags/%E5%8D%9A%E5%AE%A2/"/>
     
   </entry>
   
   <entry>
     <title>Django 博客项目（1）</title>
-    <link href="https://lidx.club/2018/04/18/Django%20%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%EF%BC%881%EF%BC%89/"/>
-    <id>https://lidx.club/2018/04/18/Django 博客项目（1）/</id>
+    <link href="https://hlzds.cn/2018/04/18/Django%20%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%EF%BC%881%EF%BC%89/"/>
+    <id>https://hlzds.cn/2018/04/18/Django 博客项目（1）/</id>
     <published>2018-04-18T12:35:51.000Z</published>
     <updated>2019-02-25T08:41:06.169Z</updated>
     
@@ -447,17 +447,17 @@
     
     </summary>
     
-      <category term="Django" scheme="https://lidx.club/categories/Django/"/>
+      <category term="Django" scheme="https://hlzds.cn/categories/Django/"/>
     
     
-      <category term="博客" scheme="https://lidx.club/tags/%E5%8D%9A%E5%AE%A2/"/>
+      <category term="博客" scheme="https://hlzds.cn/tags/%E5%8D%9A%E5%AE%A2/"/>
     
   </entry>
   
   <entry>
     <title>Linux常用命令100条</title>
-    <link href="https://lidx.club/2018/04/12/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4100%E6%9D%A1/"/>
-    <id>https://lidx.club/2018/04/12/Linux常用命令100条/</id>
+    <link href="https://hlzds.cn/2018/04/12/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4100%E6%9D%A1/"/>
+    <id>https://hlzds.cn/2018/04/12/Linux常用命令100条/</id>
     <published>2018-04-12T07:34:26.000Z</published>
     <updated>2019-02-25T08:00:22.473Z</updated>
     
@@ -469,10 +469,10 @@
     
     </summary>
     
-      <category term="Linux" scheme="https://lidx.club/categories/Linux/"/>
+      <category term="Linux" scheme="https://hlzds.cn/categories/Linux/"/>
     
     
-      <category term="命令" scheme="https://lidx.club/tags/%E5%91%BD%E4%BB%A4/"/>
+      <category term="命令" scheme="https://hlzds.cn/tags/%E5%91%BD%E4%BB%A4/"/>
     
   </entry>
   
